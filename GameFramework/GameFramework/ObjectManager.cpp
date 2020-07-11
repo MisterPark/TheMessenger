@@ -2,17 +2,19 @@
 #include "ObjectManager.h"
 #include "Character.h"
 #include "UI.h"
+#include "BackGround.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
 
 ObjectManager::ObjectManager()
 {
+	BackGround::GetInstance();
 }
 
 ObjectManager::~ObjectManager()
 {
-
+	BackGround::Release();
 }
 
 ObjectManager * ObjectManager::GetInstance()
@@ -90,11 +92,14 @@ void ObjectManager::Release()
 
 void ObjectManager::Update()
 {
+	BackGround::GetInstance()->Update();
+
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)
 	{
 		for (auto& iter : objList)
 		{
+			if (!iter->isEnable) continue;
 			iter->Update();
 		}
 	}
@@ -138,11 +143,14 @@ void ObjectManager::LateUpdate()
 
 void ObjectManager::Render()
 {
+	BackGround::GetInstance()->Render();
+
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)
 	{
 		for (auto& iter : objList)
 		{
+			if (!iter->isVisible)continue;
 			iter->Render();
 		}
 	}

@@ -54,9 +54,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="MainGame.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -99,6 +96,12 @@
     <ClInclude Include="IScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameFramework.cpp">
@@ -108,9 +111,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="MainGame.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
@@ -148,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>GameObject\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

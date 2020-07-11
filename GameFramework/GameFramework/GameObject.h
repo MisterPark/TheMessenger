@@ -1,14 +1,17 @@
 #pragma once
 #include "Define.h"
 #include "Transform.h"
+#include "RenderManager.h"
+
 enum class ObjectType
 {
+	// 렌더링 순서 중요
 	NONE,
+
 	UI,
 
 	END
 };
-
 
 
 class GameObject
@@ -35,4 +38,7 @@ public:
 	bool isEnable = true;
 	bool isVisible = true;
 	bool jumpFlag = false;
+
+	//스프라이트 관련
+	SpriteIndex currentSprite;
 };

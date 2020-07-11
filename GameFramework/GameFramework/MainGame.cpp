@@ -31,6 +31,11 @@ void MainGame::Initialize()
 	RenderManager::GetInstance();
 	SceneManager::GetInstance();
 	CollisionManager::GetInstance();
+
+	RenderManager::LoadSprite(0, (char*)"Sprites\\title.bmp", 0, 0);
+
+
+
 	SceneManager::LoadScene<TitleScene>();
 }
 
@@ -58,7 +63,8 @@ void MainGame::Run()
 	{
 		RenderManager::Clear();
 		ObjectManager::Render();
-		RenderManager::Present();
+		//RenderManager::Present();
+		RenderManager::Flip();
 	}
 	SceneManager::Update();
 }

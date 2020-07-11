@@ -10,7 +10,7 @@ void Character::Render()
 {
 }
 
-bool Character::Collision(const GameObject* _target)
+bool Character::IsCollided(const GameObject* _target)
 {
 	const Character* target = dynamic_cast<const Character*>(_target);
 	if (target == nullptr) return false;
