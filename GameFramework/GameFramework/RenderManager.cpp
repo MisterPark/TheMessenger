@@ -16,13 +16,14 @@ RenderManager::RenderManager()
 	// 스프라이트용 백버퍼
 	width = dfWINDOW_WIDTH;
 	height = dfWINDOW_HEIGHT;
-	pitch = (width * 4 + 3) & ~3;
+	bitCount = 32;
+	pitch = ((width * (bitCount >>3)) + 3) & ~3;
 	int bufferSize = pitch * height;
 	backBufferInfo.bmiHeader.biSize = sizeof(BITMAPINFO);
 	backBufferInfo.bmiHeader.biWidth = width;
 	backBufferInfo.bmiHeader.biHeight = height;
 	backBufferInfo.bmiHeader.biPlanes = 1;
-	backBufferInfo.bmiHeader.biBitCount = 32;
+	backBufferInfo.bmiHeader.biBitCount = bitCount;
 	backBufferInfo.bmiHeader.biCompression = 0;
 	backBufferInfo.bmiHeader.biSizeImage = bufferSize;
 	backBufferInfo.bmiHeader.biXPelsPerMeter = 0;
@@ -181,7 +182,6 @@ bool RenderManager::LoadSprite(int _index, char* _fileName, int _centerX, int _c
 	BITMAPFILEHEADER stFileHeader;
 	BITMAPINFOHEADER stInfoHeader;
 	Sprite* pSprite = pRenderManager->pSprite;
-
 	hFile = CreateFileA(_fileName, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
 		NULL);
 
@@ -192,59 +192,73 @@ bool RenderManager::LoadSprite(int _index, char* _fileName, int _centerX, int _c
 
 	ReleaseSprite(_index);
 
+	// 파일 헤더 읽기
 	if (ReadFile(hFile, &stFileHeader, sizeof(BITMAPFILEHEADER), &dwRead, NULL) == false)
 	{
+		CloseHandle(hFile);
 		return false;
 	}
+	
 	// 비트맵 매직넘버 체크 0x4D42
-	if (stFileHeader.bfType == 0x4D42)
+	if (stFileHeader.bfType != 0x4D42)
 	{
-		//인포헤더를 읽어서 저장 & 32비트 확인.
-		if (ReadFile(hFile, &stInfoHeader, sizeof(BITMAPINFOHEADER), &dwRead, NULL) == false)
-		{
-			return false;
-		}
-		if (stInfoHeader.biBitCount == 32)
-		{
-			//한줄 한줄의 피치값 계산
-			iPitch = (stInfoHeader.biWidth * 4) + 3 & ~3;
-			// 스프라이트 구조체에 크기 저장
-			pSprite[_index].width = stInfoHeader.biWidth;
-			pSprite[_index].height = stInfoHeader.biHeight;
-			pSprite[_index].pitch = iPitch;
-
-			// 이미지 전체 크기 구하기, 메모리 할당.
-			iImageSize = iPitch * stInfoHeader.biHeight;
-			pSprite[_index].buffer = new BYTE[iImageSize];
-
-			//임시버퍼 (뒤집기위함)
-			BYTE* bypTempBuffer = new BYTE[iImageSize];
-			BYTE* bypSpriteTemp = pSprite[_index].buffer;
-			BYTE* bypTurnTemp;
-
-			if (ReadFile(hFile, bypTempBuffer, iImageSize, &dwRead, NULL) == false)
-			{
-				delete[] bypTempBuffer;
-				return false;
-			}
-			//뒤집기
-			bypTurnTemp = bypTempBuffer + iPitch * (stInfoHeader.biHeight - 1);
-
-			for (iCount = 0; iCount < stInfoHeader.biHeight; iCount++)
-			{
-				memcpy(bypSpriteTemp, bypTurnTemp, iPitch);
-				bypSpriteTemp += iPitch;
-				bypTurnTemp -= iPitch;
-			}
-			delete[] bypTempBuffer;
-
-			pSprite[_index].centerX = _centerX;
-			pSprite[_index].centerY = _centerY;
-			CloseHandle(hFile);
-			return true;
-		}
-
+		CloseHandle(hFile);
+		return false;
 	}
+	
+	//인포헤더를 읽기
+	if (ReadFile(hFile, &stInfoHeader, sizeof(BITMAPINFOHEADER), &dwRead, NULL) == false)
+	{
+		CloseHandle(hFile);
+		return false;
+	}
+
+	// 32비트 비트맵인지 확인
+	if (stInfoHeader.biBitCount != 32)
+	{
+		CloseHandle(hFile);
+		return false;
+	}
+	//한줄 한줄의 피치값 계산
+	iPitch = (((stInfoHeader.biWidth *(stInfoHeader.biBitCount>>3)) + 3)& ~3);
+	// 스프라이트 구조체에 크기 저장
+	pSprite[_index].width = stInfoHeader.biWidth;
+	pSprite[_index].height = stInfoHeader.biHeight;
+	pSprite[_index].pitch = iPitch;
+
+	// 이미지 전체 크기 구하기, 메모리 할당.
+	iImageSize = iPitch * stInfoHeader.biHeight;
+	pSprite[_index].buffer = new BYTE[iImageSize];
+
+	//임시버퍼 (뒤집기위함)
+	BYTE* bypTempBuffer = new BYTE[iImageSize];
+	BYTE* bypSpriteTemp = pSprite[_index].buffer;
+	BYTE* bypTurnTemp;
+
+	if (ReadFile(hFile, bypTempBuffer, iImageSize, &dwRead, NULL) == false)
+	{
+		delete[] bypTempBuffer;
+		return false;
+	}
+	//뒤집기
+	//bypTurnTemp = bypTempBuffer + iPitch * (stInfoHeader.biHeight - 1);
+	bypTurnTemp = bypTempBuffer;
+
+	for (iCount = 0; iCount < stInfoHeader.biHeight; iCount++)
+	{
+		memcpy(bypSpriteTemp, bypTurnTemp, iPitch);
+		bypSpriteTemp += iPitch;
+		bypTurnTemp += iPitch;
+	}
+	delete[] bypTempBuffer;
+
+	pSprite[_index].centerX = _centerX;
+	pSprite[_index].centerY = _centerY;
+	CloseHandle(hFile);
+	return true;
+	
+
+	
 	CloseHandle(hFile);
 	return false;
 }

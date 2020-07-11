@@ -82,5 +82,6 @@ private:
 	int width = 0;
 	int height = 0;
 	int pitch = 0;
+	int bitCount = 0;
 };
 

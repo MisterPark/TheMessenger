@@ -34,5 +34,5 @@ void BackGround::Update()
 
 void BackGround::Render()
 {
-	RenderManager::DrawSprite(SpriteType::NORMAL, SpriteIndex::TITLE, position.x, position.y);
+	RenderManager::DrawImage( SpriteIndex::TITLE, position.x, position.y);
 }
