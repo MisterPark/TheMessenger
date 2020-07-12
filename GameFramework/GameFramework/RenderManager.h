@@ -3,7 +3,20 @@
 
 enum class SpriteIndex
 {
-	TITLE,
+	INTRO,
+	CUT_SCENE1,
+	CUT_SCENE2,
+	CUT_SCENE3,
+	CUT_SCENE4,
+	CUT_SCENE5,
+	CUT_SCENE6,
+	CUT_SCENE7,
+	TITLE_BG,
+	TITLE_LOGO,
+	GAMEOVER1,
+	GAMEOVER2,
+
+
 	END
 };
 
@@ -60,7 +73,7 @@ public:
 	static void DrawLine(float _startX, float _startY, float _endX, float _endY);
 	
 	// 이미지 스프라이트
-	static bool LoadSprite(int _index, char* _fileName, int _centerX, int _centerY);
+	static bool LoadSprite(int _index, const char* _fileName, int _centerX, int _centerY);
 	static void ReleaseSprite(int _index);
 	static void DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY, int len = 100);
 	//특정 메모리 위치에 이미지를 출력한다(클리핑 처리)

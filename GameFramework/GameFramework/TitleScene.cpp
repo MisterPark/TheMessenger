@@ -14,7 +14,8 @@ TitleScene::~TitleScene()
 
 void TitleScene::OnLoaded()
 {
-	MainGame::Resume();
+	//백그라운드 변경
+	
 }
 
 void TitleScene::OnUnloaded()

@@ -1,7 +1,7 @@
 #pragma once
 
-#define dfWINDOW_WIDTH 1280
-#define dfWINDOW_HEIGHT 720
+#define dfWINDOW_WIDTH 1360
+#define dfWINDOW_HEIGHT 800
 #define dfFPS 60
 #define dfPI 3.141592f
 #define dfGRAVITY 9.8f

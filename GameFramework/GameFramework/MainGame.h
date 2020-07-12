@@ -16,9 +16,17 @@ public:
 	static void Pause();
 	static void Resume();
 	static void Shutdown();
+	static void PullScreen();
+
+	static int GetClientWidth();
+	static int GetClientHeight();
+
 	bool isPause = false;
 private:
 	bool isShutdown = false;
+	bool isPullScreen = false;
 	
+	int width = 0;
+	int height = 0;
 };
 

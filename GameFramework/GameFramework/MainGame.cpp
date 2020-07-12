@@ -1,11 +1,14 @@
 #include "pch.h"
 #include "MainGame.h"
+#include "IntroScene.h"
 #include "TitleScene.h"
 
 MainGame* pMainGame = nullptr;
 
 MainGame::MainGame()
 {
+	width = dfWINDOW_WIDTH;
+	height = dfWINDOW_HEIGHT;
 }
 
 MainGame::~MainGame()
@@ -32,11 +35,11 @@ void MainGame::Initialize()
 	SceneManager::GetInstance();
 	CollisionManager::GetInstance();
 
-	RenderManager::LoadSprite(0, (char*)"Sprites\\title.bmp", 0, 0);
+	RenderManager::LoadSprite(0, "Sprites\\CutScene\\Intro.bmp", 0, 0);
 
 
 
-	SceneManager::LoadScene<TitleScene>();
+	SceneManager::LoadScene<IntroScene>();
 }
 
 void MainGame::Release()
@@ -82,4 +85,35 @@ void MainGame::Resume()
 void MainGame::Shutdown()
 {
 	PostQuitMessage(0);
+}
+
+void MainGame::PullScreen()
+{
+	if (pMainGame->isPullScreen) return;
+
+	RECT rt;
+
+	pMainGame->width = GetSystemMetrics(SM_CXSCREEN);
+	pMainGame->height = GetSystemMetrics(SM_CYSCREEN);
+
+	
+
+	SetRect(&rt, 0, 0, pMainGame->width, pMainGame->height);
+
+	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, FALSE);
+
+	SetWindowPos(g_hwnd, NULL, -10, -35, rt.right - rt.left, rt.bottom - rt.top, 0);
+
+
+
+}
+
+int MainGame::GetClientWidth()
+{
+	return pMainGame->width;
+}
+
+int MainGame::GetClientHeight()
+{
+	return pMainGame->height;
 }

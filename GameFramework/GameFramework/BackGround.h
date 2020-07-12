@@ -9,6 +9,7 @@ private:
 public:
 	static BackGround* GetInstance();
 	static void Release();
+	
 
 	virtual void Update() override;
 	virtual void Render() override;

@@ -10,9 +10,5 @@ public:
 	virtual void OnUnloaded() override;
 	virtual void Update() override;
 
-	GameObject* GameFloor;
-	GameObject* GameItem;
-	list<GameObject*> objectList;
-	int SceneX;
 };
 

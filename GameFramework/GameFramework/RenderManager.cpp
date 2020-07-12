@@ -172,7 +172,7 @@ void RenderManager::DrawLine(float _startX, float _startY, float _endX, float _e
 	LineTo(pRenderManager->hBackBufferDC, _endX, _endY);
 }
 
-bool RenderManager::LoadSprite(int _index, char* _fileName, int _centerX, int _centerY)
+bool RenderManager::LoadSprite(int _index, const char* _fileName, int _centerX, int _centerY)
 {
 	HANDLE hFile;
 	DWORD dwRead;
@@ -496,7 +496,8 @@ void RenderManager::DrawImage(SpriteIndex spriteIndex, int destX, int destY, int
 
 void RenderManager::Flip()
 {
-	StretchDIBits(pRenderManager->hdc, 0, 0, dfWINDOW_WIDTH, dfWINDOW_HEIGHT,
+	StretchDIBits(pRenderManager->hBackBufferDC, 0, 0, dfWINDOW_WIDTH, dfWINDOW_HEIGHT,
 		0, 0, dfWINDOW_WIDTH, dfWINDOW_HEIGHT, pRenderManager->buffer,
 		&pRenderManager->backBufferInfo, DIB_RGB_COLORS, SRCCOPY);
+	RenderManager::Present();
 }
