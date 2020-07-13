@@ -43,7 +43,8 @@ void BackGround::Render()
 {
 	int w = 0;
 	int h = 0;
-	RenderManager::GetSpriteSize(anim->GetCurrentSpriteIndex(), &w, &h);
+	SpriteIndex index = anim->GetCurrentSpriteIndex();
+	RenderManager::GetSpriteSize(index, &w, &h);
 	RenderManager::SetBufferSize(w, h);
-	RenderManager::DrawImage(this->anim->GetCurrentSpriteIndex(), position.x, position.y);
+	RenderManager::DrawImage(index, position.x, position.y);
 }
