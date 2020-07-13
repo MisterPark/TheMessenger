@@ -22,6 +22,6 @@ void IntroScene::Update()
 	}
 	if (InputManager::GetKeyDown(VK_RETURN))
 	{
-		MainGame::GetInstance()->PullScreen();
+		MainGame::GetInstance()->FullScreen();
 	}
 }

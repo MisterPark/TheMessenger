@@ -111,7 +111,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   RECT rc{ 0, 0, dfWINDOW_WIDTH, dfWINDOW_HEIGHT };
+   RECT rc{ 0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT };
    constexpr int WIDOW_STYLE = WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX;
    AdjustWindowRect(&rc, WIDOW_STYLE, false);
    HWND hWnd = CreateWindowExW(0, szWindowClass, szTitle, WIDOW_STYLE,
@@ -120,7 +120,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
-
    g_hwnd = hWnd;
 
    ShowWindow(hWnd, nCmdShow);

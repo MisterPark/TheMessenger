@@ -60,6 +60,8 @@ public:
 	static void Present();
 	static void Clear();
 
+	static void SetClientSize(int _w, int _h);
+
 	// 기본 도형
 	static void DrawRect(const RECT& _rc);
 	static void DrawRect(const RECT& _rc, COLORREF _innerColor);
@@ -86,7 +88,7 @@ private:
 	HDC hdc;
 	HBITMAP hBitmap;
 	HDC hBackBufferDC;
-	RECT area = { 0,0,dfWINDOW_WIDTH,dfWINDOW_HEIGHT };
+	RECT area = { 0,0,dfCLIENT_WIDTH,dfCLIENT_HEIGHT };
 
 	Sprite* pSprite = nullptr;
 	DWORD colorKey = 0x00FFFFFF; // 투명색
@@ -96,5 +98,8 @@ private:
 	int height = 0;
 	int pitch = 0;
 	int bitCount = 0;
+
+	int clientWidth = dfCLIENT_WIDTH;
+	int clientHeight = dfCLIENT_HEIGHT;
 };
 

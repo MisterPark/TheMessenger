@@ -7,8 +7,16 @@ MainGame* pMainGame = nullptr;
 
 MainGame::MainGame()
 {
-	width = dfWINDOW_WIDTH;
-	height = dfWINDOW_HEIGHT;
+	width = dfCLIENT_WIDTH;
+	height = dfCLIENT_HEIGHT;
+
+	fullMode.dmSize = sizeof(DEVMODE);
+	fullMode.dmPelsWidth = GetSystemMetrics(SM_CXSCREEN);
+	fullMode.dmPelsHeight = GetSystemMetrics(SM_CYSCREEN);
+	fullMode.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
+
+	EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &windowMode);
+
 }
 
 MainGame::~MainGame()
@@ -36,7 +44,7 @@ void MainGame::Initialize()
 	CollisionManager::GetInstance();
 
 	RenderManager::LoadSprite(0, "Sprites\\CutScene\\Intro.bmp", 0, 0);
-
+	//RenderManager::LoadSprite(0, "Sprites\\_Map.bmp", 0, 0);
 
 
 	SceneManager::LoadScene<IntroScene>();
@@ -87,25 +95,77 @@ void MainGame::Shutdown()
 	PostQuitMessage(0);
 }
 
-void MainGame::PullScreen()
+void MainGame::FullScreen()
 {
-	if (pMainGame->isPullScreen) return;
+	if (!pMainGame->isFullScreen)
+	{
+		ChangeScreenMode(true);
+		//pMainGame->width = GetSystemMetrics(SM_CXSCREEN);
+		//pMainGame->height = GetSystemMetrics(SM_CYSCREEN);
+		//RECT rt = { 0,0,pMainGame->width,pMainGame->height };
+		//RenderManager::SetClientSize(pMainGame->width, pMainGame->height);
+		//SetWindowPos(g_hwnd, HWND_TOPMOST, 0, 0, pMainGame->width, pMainGame->height, SWP_SHOWWINDOW);
+		//
 
-	RECT rt;
+		//HWND taskbar = FindWindowW(L"Shell_TrayWnd", NULL);
+		//if (taskbar != NULL) {
+		//	ShowWindow(taskbar, SW_HIDE);
+		//	UpdateWindow(taskbar);
+		//}
 
-	pMainGame->width = GetSystemMetrics(SM_CXSCREEN);
-	pMainGame->height = GetSystemMetrics(SM_CYSCREEN);
+		//DEVMODE dm;
+		//dm.dmSize = sizeof(DEVMODE);
+		//dm.dmBitsPerPel = 32;
+		//dm.dmPelsWidth = pMainGame->width;
+		//dm.dmPelsHeight = pMainGame->height;
+		//dm.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
+		//ChangeDisplaySettings(&dm, CDS_FULLSCREEN);
+	}
+	else
+	{
+		ChangeScreenMode(false);
+		//pMainGame->width = dfCLIENT_WIDTH;
+		//pMainGame->height = dfCLIENT_HEIGHT;
+		//RenderManager::SetClientSize(pMainGame->width, pMainGame->height);
+		//SetWindowPos(g_hwnd, HWND_TOP, 0, 0, pMainGame->width, pMainGame->height, SWP_FRAMECHANGED);
 
+		//HWND taskbar = FindWindowW(L"Shell_TrayWnd", NULL);
+		//if (taskbar != NULL) {
+		//	ShowWindow(taskbar, SW_SHOW);
+		//	UpdateWindow(taskbar);
+		//}
+	}
+
+	pMainGame->isFullScreen = !pMainGame->isFullScreen;
 	
+}
 
-	SetRect(&rt, 0, 0, pMainGame->width, pMainGame->height);
+void MainGame::ChangeScreenMode(bool _isFullScreen)
+{
+	RECT rect;
+	pMainGame->isFullScreen = _isFullScreen;
+	if (_isFullScreen)
+	{
+		SetWindowLong(g_hwnd, GWL_STYLE, WS_POPUP);
+		pMainGame->width = GetSystemMetrics(SM_CXSCREEN);
+		pMainGame->height = GetSystemMetrics(SM_CYSCREEN);
+		RenderManager::SetClientSize(pMainGame->width, pMainGame->height);
+		SetWindowPos(g_hwnd, 0, 0, 0, pMainGame->width, pMainGame->height, SWP_SHOWWINDOW);
+		ChangeDisplaySettings(&pMainGame->fullMode, CDS_FULLSCREEN);
+	}
+	else {
+		// ChangeDisplaySettings(NULL, 0);
+		SetWindowLong(g_hwnd, GWL_STYLE, WS_OVERLAPPEDWINDOW);
+		pMainGame->width = dfCLIENT_WIDTH;
+		pMainGame->height = dfCLIENT_HEIGHT;
+		RenderManager::SetClientSize(pMainGame->width, pMainGame->height);
 
-	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, FALSE);
-
-	SetWindowPos(g_hwnd, NULL, -10, -35, rt.right - rt.left, rt.bottom - rt.top, 0);
-
-
-
+		// 윈도우 크기 설정
+		//SetRect(&rect, 0, 0, pMainGame->width, pMainGame->height);
+		//AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
+		SetWindowPos(g_hwnd, HWND_TOP, 0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT, SWP_SHOWWINDOW);
+		ChangeDisplaySettings(&pMainGame->fullMode, CDS_RESET);
+	}
 }
 
 int MainGame::GetClientWidth()

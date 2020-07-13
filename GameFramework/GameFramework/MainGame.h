@@ -16,7 +16,8 @@ public:
 	static void Pause();
 	static void Resume();
 	static void Shutdown();
-	static void PullScreen();
+	static void FullScreen();
+	static void ChangeScreenMode(bool _isFullScreen);
 
 	static int GetClientWidth();
 	static int GetClientHeight();
@@ -24,9 +25,11 @@ public:
 	bool isPause = false;
 private:
 	bool isShutdown = false;
-	bool isPullScreen = false;
+	bool isFullScreen = false;
 	
 	int width = 0;
 	int height = 0;
+	DEVMODE windowMode;
+	DEVMODE fullMode;
 };
 

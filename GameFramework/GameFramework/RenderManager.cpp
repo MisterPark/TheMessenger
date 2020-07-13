@@ -7,15 +7,16 @@ RenderManager::RenderManager()
 {
 	// 백버퍼 세팅
 	hdc = GetDC(g_hwnd);
-	hBitmap = CreateCompatibleBitmap(hdc, dfWINDOW_WIDTH, dfWINDOW_HEIGHT);
+	hBitmap = CreateCompatibleBitmap(hdc, dfCLIENT_WIDTH, dfCLIENT_HEIGHT);
 	hBackBufferDC = CreateCompatibleDC(hdc);
 	SelectObject(hBackBufferDC, hBitmap);
 	SetBkMode(hBackBufferDC, TRANSPARENT);
+	SetStretchBltMode(hdc, COLORONCOLOR);
 	// 스프라이트 배열 세팅
 	pSprite = new Sprite[MaxOfEnum<SpriteIndex>()];
 	// 스프라이트용 백버퍼
-	width = dfWINDOW_WIDTH;
-	height = dfWINDOW_HEIGHT;
+	width = dfCLIENT_WIDTH;
+	height = dfCLIENT_HEIGHT;
 	bitCount = 32;
 	pitch = ((width * (bitCount >>3)) + 3) & ~3;
 	int bufferSize = pitch * height;
@@ -77,7 +78,7 @@ void RenderManager::Release()
 
 void RenderManager::Present()
 {
-	BitBlt(pRenderManager->hdc, 0, 0, dfWINDOW_WIDTH, dfWINDOW_HEIGHT,
+	BitBlt(pRenderManager->hdc, 0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT,
 		pRenderManager->hBackBufferDC, 0, 0, SRCCOPY);
 }
 
@@ -85,6 +86,12 @@ void RenderManager::Clear()
 {
 	FillRect(pRenderManager->hBackBufferDC, &pRenderManager->area,
 		(HBRUSH)GetStockObject(WHITE_BRUSH));
+}
+
+void RenderManager::SetClientSize(int _w, int _h)
+{
+	pRenderManager->clientWidth = _w;
+	pRenderManager->clientHeight = _h;
 }
 
 
@@ -496,8 +503,14 @@ void RenderManager::DrawImage(SpriteIndex spriteIndex, int destX, int destY, int
 
 void RenderManager::Flip()
 {
-	StretchDIBits(pRenderManager->hBackBufferDC, 0, 0, dfWINDOW_WIDTH, dfWINDOW_HEIGHT,
-		0, 0, dfWINDOW_WIDTH, dfWINDOW_HEIGHT, pRenderManager->buffer,
+	StretchDIBits(pRenderManager->hdc,
+		0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,
+		0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT, pRenderManager->buffer,
 		&pRenderManager->backBufferInfo, DIB_RGB_COLORS, SRCCOPY);
-	RenderManager::Present();
+	//StretchBlt(pRenderManager->hdc,
+	//	0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,
+	//	pRenderManager->hBackBufferDC,
+	//	0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT,
+	//	SRCCOPY);
+	
 }
