@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "IntroScene.h"
 #include "TitleScene.h"
+#include "BackGround.h"
 
 void IntroScene::OnLoaded()
 {
+	BackGround::SetAnimation(SpriteIndex::INTRO, SpriteIndex::INTRO);
 	MainGame::Resume();
 
 	// 백그라운드 변경
@@ -20,8 +22,16 @@ void IntroScene::Update()
 	{
 		SceneManager::LoadScene<TitleScene>();
 	}
-	if (InputManager::GetKeyDown(VK_RETURN))
+	if (InputManager::GetKeyDown('P'))
 	{
-		MainGame::GetInstance()->FullScreen();
+		if (MainGame::IsFullScreen())
+		{
+			MainGame::WindowMode();
+		}
+		else
+		{
+			MainGame::FullScreen();
+		}
+		
 	}
 }

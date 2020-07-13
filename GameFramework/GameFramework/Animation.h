@@ -5,14 +5,23 @@ class Animation
 {
 public:
 	Animation();
-	virtual ~Animation();
+	~Animation();
 
-	virtual void Update() = 0;
-	virtual void Render() = 0;
+	void Update();
 
-	SpriteIndex startIndex;
-	SpriteIndex endIndex;
+	SpriteIndex GetCurrentSpriteIndex();
+
+	void SetAnimation(SpriteIndex _start, SpriteIndex _end);
+	void SetFrameDelay(int _framePerSprite);
+	void SetLoop(bool _isLoop);
+
+
+private:
+	SpriteIndex startIndex = SpriteIndex::NONE;
+	SpriteIndex endIndex = SpriteIndex::NONE;
+	SpriteIndex curIndex = SpriteIndex::NONE;
 	int frameDelay = 0;
+	int frameCount = 0;
 	bool isLoop = false;
 };
 

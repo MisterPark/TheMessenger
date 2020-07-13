@@ -88,6 +88,41 @@ void RenderManager::Clear()
 		(HBRUSH)GetStockObject(WHITE_BRUSH));
 }
 
+
+bool RenderManager::GetSpriteSize(SpriteIndex _index, int* _outW, int* _outH)
+{
+	int index = (int)_index;
+	if (index >= (int)SpriteIndex::END || index < 0) return false;
+	if (_outW == nullptr)return false;
+	if (_outH == nullptr)return false;
+
+	*_outW = pRenderManager->pSprite[index].width;
+	*_outH = pRenderManager->pSprite[index].height;
+
+	return true;
+}
+
+int RenderManager::GetWidth()
+{
+	return pRenderManager->width;
+}
+
+int RenderManager::GetHeight()
+{
+	return pRenderManager->height;
+}
+
+void RenderManager::SetBufferSize(int _w, int _h)
+{
+	if (_w > dfCLIENT_WIDTH) return;
+	if (_h > dfCLIENT_HEIGHT)return;
+
+	pRenderManager->width = _w;
+	pRenderManager->height = _h;
+	//pRenderManager->pitch = ((_w * (32 >> 3)) + 3) & ~3;
+
+}
+
 void RenderManager::SetClientSize(int _w, int _h)
 {
 	pRenderManager->clientWidth = _w;
@@ -505,7 +540,7 @@ void RenderManager::Flip()
 {
 	StretchDIBits(pRenderManager->hdc,
 		0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,
-		0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT, pRenderManager->buffer,
+		0, 0, pRenderManager->width, pRenderManager->height, pRenderManager->buffer,
 		&pRenderManager->backBufferInfo, DIB_RGB_COLORS, SRCCOPY);
 	//StretchBlt(pRenderManager->hdc,
 	//	0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,

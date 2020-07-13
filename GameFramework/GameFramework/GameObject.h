@@ -2,6 +2,7 @@
 #include "Define.h"
 #include "Transform.h"
 #include "RenderManager.h"
+#include "Animation.h"
 
 enum class ObjectType
 {
@@ -29,6 +30,7 @@ public:
 	void SetPosition(float _x, float _y);
 
 	Transform position{ 0.f, 0.f };
+	Transform offset{ 0.f,0.f };
 	int width = 0;
 	int height = 0;
 	
@@ -40,5 +42,5 @@ public:
 	bool jumpFlag = false;
 
 	//스프라이트 관련
-	SpriteIndex currentSprite;
+	Animation* anim = nullptr;
 };

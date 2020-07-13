@@ -3,6 +3,7 @@
 
 enum class SpriteIndex
 {
+	NONE,
 	INTRO,
 	CUT_SCENE1,
 	CUT_SCENE2,
@@ -60,7 +61,12 @@ public:
 	static void Present();
 	static void Clear();
 
+	static bool GetSpriteSize(SpriteIndex _index, int* _outW, int* _outH);
+	static int GetWidth();
+	static int GetHeight();
+	static void SetBufferSize(int _w, int _h);
 	static void SetClientSize(int _w, int _h);
+
 
 	// 기본 도형
 	static void DrawRect(const RECT& _rc);
@@ -99,6 +105,7 @@ private:
 	int pitch = 0;
 	int bitCount = 0;
 
+	// 늘어날 or 줄어들 사이즈
 	int clientWidth = dfCLIENT_WIDTH;
 	int clientHeight = dfCLIENT_HEIGHT;
 };

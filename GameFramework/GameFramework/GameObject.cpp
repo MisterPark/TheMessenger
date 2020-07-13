@@ -1,13 +1,15 @@
 #include "pch.h"
 #include "GameObject.h"
+#include "Animation.h"
 
 GameObject::GameObject()
 {
+	anim = new Animation;
 }
 
 GameObject::~GameObject()
 {
-	
+	delete anim;
 }
 
 void GameObject::Die()

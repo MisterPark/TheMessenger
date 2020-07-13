@@ -16,6 +16,8 @@ public:
 	static void Pause();
 	static void Resume();
 	static void Shutdown();
+	static bool IsFullScreen();
+	static void WindowMode();
 	static void FullScreen();
 	static void ChangeScreenMode(bool _isFullScreen);
 
@@ -31,5 +33,10 @@ private:
 	int height = 0;
 	DEVMODE windowMode;
 	DEVMODE fullMode;
+	// 윈도우 모드 떄의 크기 저장
+	int windowWidth = 0;
+	int windowHeight = 0;
+	int windowClientWidth = 0;
+	int windowClientHeight = 0;
 };
 
