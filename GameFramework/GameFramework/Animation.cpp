@@ -47,6 +47,7 @@ void Animation::SetAnimation(SpriteIndex _start, SpriteIndex _end)
 
 void Animation::SetFrameDelay(int _framePerSprite)
 {
+	frameCount = 0;
 	frameDelay = _framePerSprite;
 }
 

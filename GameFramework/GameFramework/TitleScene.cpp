@@ -19,7 +19,7 @@ void TitleScene::OnLoaded()
 	//백그라운드 변경
 	BackGround::SetAnimation(SpriteIndex::GAMEOVER1, SpriteIndex::GAMEOVER2);
 	BackGround::GetInstance()->anim->SetLoop(true);
-	BackGround::GetInstance()->anim->SetFrameDelay(100);
+	BackGround::GetInstance()->anim->SetFrameDelay(30);
 
 }
 
