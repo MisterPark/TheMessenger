@@ -8,7 +8,6 @@ BackGround::BackGround()
 {
 	position.x = 0;
 	position.y = 0;
-	anim->SetAnimation(SpriteIndex::INTRO, SpriteIndex::INTRO);
 }
 
 BackGround::~BackGround()

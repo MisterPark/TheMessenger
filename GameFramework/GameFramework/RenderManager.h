@@ -39,13 +39,14 @@ enum class SpriteType
 
 typedef struct Sprite
 {
-	BYTE* buffer = nullptr; // 스프라이트 이미지 포인터.
+	HDC memDC;
+	HBITMAP hBitmap = (HBITMAP)INVALID_HANDLE_VALUE;
+	HBITMAP hOldBitmap = (HBITMAP)INVALID_HANDLE_VALUE;
 	int width = 0;
 	int height = 0;
-	int pitch = 0;
-
 	int centerX = 0;
 	int centerY = 0;
+	bool isLoaded = false;
 
 }SPRITE;
 
@@ -92,14 +93,12 @@ public:
 	
 private:
 	HDC hdc;
-	HBITMAP hBitmap;
+	HBITMAP hBackBitmap;
 	HDC hBackBufferDC;
 	RECT area = { 0,0,dfCLIENT_WIDTH,dfCLIENT_HEIGHT };
 
 	Sprite* pSprite = nullptr;
 	DWORD colorKey = 0x00FFFFFF; // 투명색
-	BYTE* buffer = nullptr;
-	BITMAPINFO backBufferInfo;
 	int width = 0;
 	int height = 0;
 	int pitch = 0;

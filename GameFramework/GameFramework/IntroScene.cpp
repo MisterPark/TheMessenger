@@ -7,9 +7,6 @@ void IntroScene::OnLoaded()
 {
 	BackGround::SetAnimation(SpriteIndex::INTRO, SpriteIndex::CUT_SCENE7);
 	BackGround::GetInstance()->anim->SetFrameDelay(100);
-	MainGame::Resume();
-
-	// 백그라운드 변경
 
 }
 

@@ -103,6 +103,7 @@ void MainGame::Run()
 		//RenderManager::Present();
 		RenderManager::Flip();
 	}
+	
 	SceneManager::Update();
 }
 

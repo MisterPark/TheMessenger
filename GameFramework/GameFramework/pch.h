@@ -9,6 +9,7 @@
 
 // 여기에 미리 컴파일하려는 헤더 추가
 
+#pragma comment(lib,"Msimg32.lib")
 
 #include <windows.h>
 #include <stdlib.h>

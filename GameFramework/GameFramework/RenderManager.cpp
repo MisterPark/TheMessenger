@@ -7,9 +7,9 @@ RenderManager::RenderManager()
 {
 	// 백버퍼 세팅
 	hdc = GetDC(g_hwnd);
-	hBitmap = CreateCompatibleBitmap(hdc, dfCLIENT_WIDTH, dfCLIENT_HEIGHT);
+	hBackBitmap = CreateCompatibleBitmap(hdc, dfCLIENT_WIDTH, dfCLIENT_HEIGHT);
 	hBackBufferDC = CreateCompatibleDC(hdc);
-	SelectObject(hBackBufferDC, hBitmap);
+	SelectObject(hBackBufferDC, hBackBitmap);
 	SetBkMode(hBackBufferDC, TRANSPARENT);
 	SetStretchBltMode(hdc, COLORONCOLOR);
 	// 스프라이트 배열 세팅
@@ -19,21 +19,6 @@ RenderManager::RenderManager()
 	height = dfCLIENT_HEIGHT;
 	bitCount = 32;
 	pitch = ((width * (bitCount >>3)) + 3) & ~3;
-	int bufferSize = pitch * height;
-	backBufferInfo.bmiHeader.biSize = sizeof(BITMAPINFO);
-	backBufferInfo.bmiHeader.biWidth = width;
-	backBufferInfo.bmiHeader.biHeight = height;
-	backBufferInfo.bmiHeader.biPlanes = 1;
-	backBufferInfo.bmiHeader.biBitCount = bitCount;
-	backBufferInfo.bmiHeader.biCompression = 0;
-	backBufferInfo.bmiHeader.biSizeImage = bufferSize;
-	backBufferInfo.bmiHeader.biXPelsPerMeter = 0;
-	backBufferInfo.bmiHeader.biYPelsPerMeter = 0;
-	backBufferInfo.bmiHeader.biClrUsed = 0;
-	backBufferInfo.bmiHeader.biClrImportant = 0;
-
-	buffer = new BYTE[bufferSize];
-	memset(buffer, 0xff, bufferSize);
 }
 
 RenderManager::~RenderManager()
@@ -47,9 +32,9 @@ RenderManager::~RenderManager()
 		DeleteDC(hBackBufferDC);
 	}
 	//백버퍼도 지운다.
-	if (hBitmap != nullptr)
+	if (hBackBitmap != nullptr)
 	{
-		DeleteObject(hBitmap);
+		DeleteObject(hBackBitmap);
 	}
 
 	// 스프라이트 메모리 해제
@@ -95,9 +80,10 @@ bool RenderManager::GetSpriteSize(SpriteIndex _index, int* _outW, int* _outH)
 	if (index >= (int)SpriteIndex::END || index < 0) return false;
 	if (_outW == nullptr)return false;
 	if (_outH == nullptr)return false;
-
-	*_outW = pRenderManager->pSprite[index].width;
-	*_outH = pRenderManager->pSprite[index].height;
+	BITMAP bmp;
+	GetObject(pRenderManager->pSprite[index].hBitmap, sizeof(BITMAP), &bmp);
+	*_outW = bmp.bmWidth;
+	*_outH = bmp.bmHeight;
 
 	return true;
 }
@@ -216,93 +202,39 @@ void RenderManager::DrawLine(float _startX, float _startY, float _endX, float _e
 
 bool RenderManager::LoadSprite(int _index, const char* _fileName, int _centerX, int _centerY)
 {
-	HANDLE hFile;
-	DWORD dwRead;
-	int iPitch;
-	int iImageSize;
-	int iCount;
-	BITMAPFILEHEADER stFileHeader;
-	BITMAPINFOHEADER stInfoHeader;
-	Sprite* pSprite = pRenderManager->pSprite;
-	hFile = CreateFileA(_fileName, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
-		NULL);
-
-	if (INVALID_HANDLE_VALUE == hFile)
+	if (MaxOfEnum<SpriteIndex>() <= _index)
+	{
+		return false;
+	}
+	if (pRenderManager->pSprite[_index].hBitmap != INVALID_HANDLE_VALUE)
 	{
 		return false;
 	}
 
-	ReleaseSprite(_index);
+	HBITMAP hBitmap;
+	BITMAP bmp;
+	HDC hMemDC = CreateCompatibleDC(pRenderManager->hBackBufferDC);
 
-	// 파일 헤더 읽기
-	if (ReadFile(hFile, &stFileHeader, sizeof(BITMAPFILEHEADER), &dwRead, NULL) == false)
-	{
-		CloseHandle(hFile);
-		return false;
-	}
+	hBitmap = (HBITMAP)LoadImageA(NULL, _fileName,
+		IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 	
-	// 비트맵 매직넘버 체크 0x4D42
-	if (stFileHeader.bfType != 0x4D42)
+	if (hBitmap == INVALID_HANDLE_VALUE)
 	{
-		CloseHandle(hFile);
+		ReleaseDC(g_hwnd, hMemDC);
 		return false;
 	}
-	
-	//인포헤더를 읽기
-	if (ReadFile(hFile, &stInfoHeader, sizeof(BITMAPINFOHEADER), &dwRead, NULL) == false)
-	{
-		CloseHandle(hFile);
-		return false;
-	}
+	GetObject(hBitmap, sizeof(BITMAP), &bmp);
 
-	// 32비트 비트맵인지 확인
-	if (stInfoHeader.biBitCount != 32)
-	{
-		CloseHandle(hFile);
-		return false;
-	}
-	//한줄 한줄의 피치값 계산
-	iPitch = (((stInfoHeader.biWidth *(stInfoHeader.biBitCount>>3)) + 3)& ~3);
-	// 스프라이트 구조체에 크기 저장
-	pSprite[_index].width = stInfoHeader.biWidth;
-	pSprite[_index].height = stInfoHeader.biHeight;
-	pSprite[_index].pitch = iPitch;
+	pRenderManager->pSprite[_index].hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
 
-	// 이미지 전체 크기 구하기, 메모리 할당.
-	iImageSize = iPitch * stInfoHeader.biHeight;
-	pSprite[_index].buffer = new BYTE[iImageSize];
+	pRenderManager->pSprite[_index].memDC = hMemDC;
+	pRenderManager->pSprite[_index].hBitmap = hBitmap;
+	pRenderManager->pSprite[_index].width = bmp.bmWidth;
+	pRenderManager->pSprite[_index].height = bmp.bmHeight;
+	pRenderManager->pSprite[_index].isLoaded = true;
 
-	//임시버퍼 (뒤집기위함)
-	BYTE* bypTempBuffer = new BYTE[iImageSize];
-	BYTE* bypSpriteTemp = pSprite[_index].buffer;
-	BYTE* bypTurnTemp;
-
-	if (ReadFile(hFile, bypTempBuffer, iImageSize, &dwRead, NULL) == false)
-	{
-		delete[] bypTempBuffer;
-		return false;
-	}
-	//뒤집기
-	//bypTurnTemp = bypTempBuffer + iPitch * (stInfoHeader.biHeight - 1);
-	bypTurnTemp = bypTempBuffer;
-
-	for (iCount = 0; iCount < stInfoHeader.biHeight; iCount++)
-	{
-		memcpy(bypSpriteTemp, bypTurnTemp, iPitch);
-		bypSpriteTemp += iPitch;
-		bypTurnTemp += iPitch;
-	}
-	delete[] bypTempBuffer;
-
-	pSprite[_index].centerX = _centerX;
-	pSprite[_index].centerY = _centerY;
-	CloseHandle(hFile);
 	return true;
-	
 
-	
-	CloseHandle(hFile);
-	return false;
 }
 
 void RenderManager::ReleaseSprite(int _index)
@@ -312,12 +244,12 @@ void RenderManager::ReleaseSprite(int _index)
 	{
 		return;
 	}
-	//삭제 후 초기화
-	if (pRenderManager->pSprite[_index].buffer != nullptr)
-	{
-		delete[] pRenderManager->pSprite[_index].buffer;
-		pRenderManager->pSprite[_index].buffer = nullptr;
-	}
+	if (!pRenderManager->pSprite[_index].isLoaded) return;
+
+	Sprite* sprite = &pRenderManager->pSprite[_index];
+	SelectObject(sprite->memDC, sprite->hOldBitmap);
+	DeleteObject(sprite->hBitmap);
+	DeleteDC(sprite->memDC);
 }
 
 void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY, int len)
@@ -327,225 +259,56 @@ void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, 
 	{
 		return;
 	}
+	
 	//로드되지 않는 스프라이트
-	if (pRenderManager->pSprite[(int)_index].buffer == NULL)
+	if (pRenderManager->pSprite[(int)_index].isLoaded == false)
 	{
 		return;
 	}
 
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
-	// 스프라이트 출력을 위해 사이즈 저장.
-	int iSpriteWidth = sprite->width;
-	int iSpriteHeight = sprite->height;
-	int iX, iY;
+	TransparentBlt(pRenderManager->hBackBufferDC,
+		destX, destY, sprite->width, sprite->height,
+		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 
-	// 출력 길이 설정
-	iSpriteWidth = iSpriteWidth * len / 100;
-	DWORD* dwpDest = (DWORD*)pRenderManager->buffer;
-	DWORD* dwpSprite = (DWORD*)(sprite->buffer);
-
-	//백버퍼 크기
-	int destW = pRenderManager->width;
-	int destH = pRenderManager->height;
-	int destP = pRenderManager->pitch;
-	//출력 중점 처리
-	destX = destX - sprite->centerX;
-	destY = destY - sprite->centerY;
-
-	// 상단 클리핑
-	if (destY < 0)
-	{
-		iSpriteHeight = iSpriteHeight - (-destY);
-		dwpSprite = (DWORD*)(sprite->buffer + sprite->pitch * (-destY));
-		//위쪽이 짤리는 경우-> 스프라이트 시작위치를 아래로 내린다
-		destY = 0;
-	}
-	// 하단 클리핑
-	if (destH <= destY + sprite->height)
-	{
-		iSpriteHeight -= ((destY + sprite->height) - destH);
-	}
-	// 좌측 클리핑
-	if (destX < 0)
-	{
-		iSpriteWidth = iSpriteWidth - (-destX);
-		dwpSprite = dwpSprite + (-destX);
-		// 출력 시작 위치를 오른쪽으로 밈
-		destX = 0;
-	}
-	// 우측 클리핑
-	if (destW <= destX + sprite->width)
-	{
-		iSpriteWidth -= ((destX + sprite->width) - destW);
-	}
-
-	// 찍을 그림 없으면 종료.
-	if (iSpriteWidth <= 0 || iSpriteHeight <= 0)
-	{
-		return;
-	}
-	// 화면에 찍을 위치로 이동
-	dwpDest = (DWORD*)(((BYTE*)(dwpDest + destX) + (destY * destP)));
-
-	BYTE* bypDestOrigin = (BYTE*)dwpDest;
-	BYTE* bypSpriteOrigin = (BYTE*)dwpSprite;
-	DWORD temp, temp2;
-
-	// 전체 크기를 돌면서 투명색 처리
-	for (iY = 0; iY < iSpriteHeight; iY++)
-	{
-		for (iX = 0; iX < iSpriteWidth; iX++, dwpDest++, dwpSprite++)
-		{
-			if (pRenderManager->colorKey == (*dwpSprite & 0x00ffffff)) { continue; }
-
-			switch (_type)
-			{
-			case SpriteType::NORMAL:
-				temp = *dwpSprite;
-				break;
-			case SpriteType::TONEDOWN_RED:
-				temp = *dwpSprite & 0xffff0000;
-				temp2 = ((*dwpSprite & 0x0000ffff) >> 1) & 0x7f7f7f7f;
-				temp = temp | temp2;
-				break;
-			case SpriteType::TONEDOWN_GREEN:
-				temp = *dwpSprite & 0xff00ff00;
-				temp2 = ((*dwpSprite & 0x00ff00ff) >> 1) & 0x7f7f7f7f;
-				temp = temp | temp2;
-				break;
-			case SpriteType::TONEDOWN_BLUE:
-				temp = *dwpSprite & 0xff0000ff;
-				temp2 = ((*dwpSprite & 0x00ffff00) >> 1) & 0x7f7f7f7f;
-				temp = temp | temp2;
-				break;
-			case SpriteType::TONEUP_RED:
-				temp = *dwpSprite & 0xff00ffff;
-				temp = 0x00ff0000 | temp;
-				break;
-			case SpriteType::TONEUP_GREEN:
-				temp = *dwpSprite & 0xffff00ff;
-				temp = 0x0000ff00 | temp;
-				break;
-			case SpriteType::TONEUP_BLUE:
-				temp = *dwpSprite & 0xffffff00;
-				temp = 0x000000ff | temp;
-				break;
-			case SpriteType::ALPHA50:
-				temp = (*dwpDest >> 1) & 0x7f7f7f7f;
-				temp2 = (*dwpSprite >> 1) & 0x7f7f7f7f;
-				temp = temp + temp2;
-				break;
-			case SpriteType::CLOAKING:
-				temp = (*(dwpDest + 5) | 0x03030303);
-				break;
-			case SpriteType::TRANSPARENTS:
-				temp = *dwpDest;
-				break;
-			default:
-				temp = *dwpSprite;
-				break;
-			}
-
-			*dwpDest = temp;
-
-		}
-
-		// 다음줄로 이동
-		bypDestOrigin += destP;
-		bypSpriteOrigin += sprite->pitch;
-
-		dwpDest = (DWORD*)bypDestOrigin;
-		dwpSprite = (DWORD*)bypSpriteOrigin;
-	}
 }
 
-void RenderManager::DrawImage(SpriteIndex spriteIndex, int destX, int destY, int len)
+void RenderManager::DrawImage(SpriteIndex _index, int destX, int destY, int len)
 {
 	//최대 스프라이트 갯수 초과
-	if (MaxOfEnum<SpriteIndex>() <= (int)spriteIndex)
+	if (MaxOfEnum<SpriteIndex>() <= (int)_index)
 	{
 		return;
 	}
+
 	//로드되지 않는 스프라이트
-	if (pRenderManager->pSprite[(int)spriteIndex].buffer == NULL)
+	if (pRenderManager->pSprite[(int)_index].isLoaded == false)
 	{
 		return;
 	}
 
-	SPRITE* pSprite = &pRenderManager->pSprite[(int)spriteIndex];
+	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
-	// 스프라이트 출력을 위해 사이즈 저장.
-	int iSpriteWidth = pSprite->width;
-	int iSpriteHeight = pSprite->height;
-	int iY;
+	TransparentBlt(pRenderManager->hBackBufferDC,
+		destX, destY, sprite->width, sprite->height,
+		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 
-	//백버퍼 크기
-	int destW = pRenderManager->width;
-	int destH = pRenderManager->height;
-	int destP = pRenderManager->pitch;
-	// 출력 길이 설정
-	iSpriteWidth = iSpriteWidth * len / 100;
-	DWORD* dwpDest = (DWORD*)pRenderManager->buffer;
-	DWORD* dwpSprite = (DWORD*)(pSprite->buffer);
-
-	// 상단 클리핑
-	if (destY < 0)
-	{
-		iSpriteHeight = iSpriteHeight - (-destY);
-		dwpSprite = (DWORD*)(pSprite->buffer + pSprite->pitch * (-destY));
-		//위쪽이 짤리는 경우-> 스프라이트 시작위치를 아래로 내린다
-		destY = 0;
-	}
-	// 하단 클리핑
-	if (destH <= destY + pSprite->height)
-	{
-		iSpriteHeight -= ((destY + pSprite->height) - destH);
-	}
-	// 좌측 클리핑
-	if (destX < 0)
-	{
-		iSpriteWidth = iSpriteWidth - (-destX);
-		dwpSprite = dwpSprite + (-destX);
-		// 출력 시작 위치를 오른쪽으로 밈
-		destX = 0;
-	}
-	// 우측 클리핑
-	if (destW <= destX + pSprite->width)
-	{
-		iSpriteWidth -= ((destX + pSprite->width) - destW);
-	}
-
-	// 찍을 그림 없으면 종료.
-	if (iSpriteWidth <= 0 || iSpriteHeight <= 0)
-	{
-		return;
-	}
-
-	// 화면 찍을 위치로 이동.
-	dwpDest = (DWORD*)(((BYTE*)(dwpDest + destX) + (destY * destP)));
-
-	// 전체 크기를 돌면서 복사
-	for (iY = 0; iY < iSpriteHeight; iY++)
-	{
-		memcpy(dwpDest, dwpSprite, iSpriteWidth * 4);
-		//다음줄로 이동. 화면과 스프라이트 모두.
-		dwpDest = (DWORD*)((BYTE*)dwpDest + destP);
-		dwpSprite = (DWORD*)((BYTE*)dwpSprite + pSprite->pitch);
-
-	}
 }
 
 void RenderManager::Flip()
 {
-	StretchDIBits(pRenderManager->hdc,
-		0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,
-		0, 0, pRenderManager->width, pRenderManager->height, pRenderManager->buffer,
-		&pRenderManager->backBufferInfo, DIB_RGB_COLORS, SRCCOPY);
-	//StretchBlt(pRenderManager->hdc,
+
+
+	//StretchDIBits(pRenderManager->hdc,
 	//	0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,
-	//	pRenderManager->hBackBufferDC,
-	//	0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT,
-	//	SRCCOPY);
-	
+	//	0, 0, pRenderManager->width, pRenderManager->height, pRenderManager->buffer,
+	//	&pRenderManager->backBufferInfo, DIB_RGB_COLORS, SRCCOPY);
+
+	StretchBlt(pRenderManager->hdc,
+		0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,
+		pRenderManager->hBackBufferDC,
+		0, 0, pRenderManager->width, pRenderManager->height,
+		SRCCOPY);
+
 }
