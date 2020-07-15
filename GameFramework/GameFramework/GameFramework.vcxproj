@@ -23,7 +23,7 @@
     <ProjectGuid>{8A46B463-E27F-4F53-9B51-D4BDA591D125}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GameFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -156,6 +156,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HUD_Bar.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IScene.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HUD_Bar.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IScene.cpp" />

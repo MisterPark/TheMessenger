@@ -24,6 +24,7 @@ void IntroScene::Update()
 	{
 		SceneManager::LoadScene<TitleScene>();
 	}
+
 	if (InputManager::GetKeyDown('P'))
 	{
 		if (MainGame::IsFullScreen())

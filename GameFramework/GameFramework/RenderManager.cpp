@@ -263,7 +263,7 @@ void RenderManager::ReleaseSprite(int _index)
 	DeleteDC(sprite->memDC);
 }
 
-void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY, int len)
+void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY)
 {
 	//최대 스프라이트 갯수 초과
 	if (MaxOfEnum<SpriteIndex>() <= (int)_index)
@@ -283,6 +283,27 @@ void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, 
 		destX, destY, sprite->width, sprite->height,
 		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 
+}
+
+void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY, int destW, int destH)
+{
+	//최대 스프라이트 갯수 초과
+	if (MaxOfEnum<SpriteIndex>() <= (int)_index)
+	{
+		return;
+	}
+
+	//로드되지 않는 스프라이트
+	if (pRenderManager->pSprite[(int)_index].isLoaded == false)
+	{
+		return;
+	}
+
+	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
+
+	TransparentBlt(pRenderManager->hBackBufferDC,
+		destX, destY, destW, destH,
+		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 }
 
 void RenderManager::DrawImage(SpriteIndex _index, int destX, int destY, int len)

@@ -21,9 +21,9 @@ void TitleScene::OnLoaded()
 	BackGround::SetAnimation(SpriteIndex::TITLE_BG, SpriteIndex::TITLE_BG);
 	ObjectManager::CreateObject(ObjectType::LOGO);
 	pSelectBox = (SelectBox*)ObjectManager::CreateObject(ObjectType::SELECT_BOX);
-	pSelectBox->AddSelector(L"시작");
-	pSelectBox->AddSelector(L"옵션");
-	pSelectBox->AddSelector(L"게임종료");
+	pSelectBox->AddSelector(L"시작", Start);
+	pSelectBox->AddSelector(L"옵션", Option);
+	pSelectBox->AddSelector(L"게임종료", End);
 }
 
 void TitleScene::OnUnloaded()
@@ -33,11 +33,7 @@ void TitleScene::OnUnloaded()
 
 void TitleScene::Update()
 {
-	//TODO: 스페이스를 누르면 시작합니다
-	if (InputManager::GetKeyDown(VK_SPACE))
-	{
-		SceneManager::LoadScene<PlayScene>();
-	}
+
 	if (InputManager::GetKeyDown('P'))
 	{
 		if (MainGame::IsFullScreen())
@@ -50,4 +46,18 @@ void TitleScene::Update()
 		}
 
 	}
+}
+
+void TitleScene::Start()
+{
+	SceneManager::LoadScene<PlayScene>();
+}
+
+void TitleScene::Option()
+{
+}
+
+void TitleScene::End()
+{
+	MainGame::Shutdown();
 }

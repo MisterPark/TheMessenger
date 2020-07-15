@@ -13,6 +13,12 @@ public:
 	virtual void OnUnloaded() override;
 	virtual void Update() override;
 
+	static void Start();
+	static void Option();
+	static void End();
+
+
 	SelectBox* pSelectBox = nullptr;
+
 };
 

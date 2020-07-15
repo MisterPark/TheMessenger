@@ -12,6 +12,7 @@ enum class ObjectType
 	UI,
 	LOGO,
 	SELECT_BOX,
+	HUD_BAR,
 	END
 };
 

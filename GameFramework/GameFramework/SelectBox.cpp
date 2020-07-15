@@ -3,34 +3,81 @@
 
 SelectBox::SelectBox()
 {
-	position.x = 0;
-	position.y = 0;
+	position.x = 270;
+	position.y = 250;
+	isEnable = true;
+	isVisible = true;
 }
 
 SelectBox::~SelectBox()
 {
+	ClearSelector();
 }
 
 void SelectBox::Update()
 {
+	if (InputManager::GetKeyDown(VK_UP))
+	{
+		if (selectList.size() != 0)
+		{
+			if (selectedIndex == 0)
+			{
+				selectedIndex = selectList.size()-1;
+			}
+			else
+			{
+				selectedIndex = ((selectedIndex - 1) % selectList.size());
+			}
+
+		}
+			
+	}
+	if (InputManager::GetKeyDown(VK_DOWN))
+	{
+		if (selectList.size() != 0)
+			selectedIndex = ((selectedIndex + 1) % selectList.size());
+	}
+	if (InputManager::GetKeyDown(VK_SPACE))
+	{
+		selectList[selectedIndex]->func();
+	}
 }
 
 void SelectBox::Render()
 {
-	size_t size = selectList.size();
-	// 임시 요소당 사이즈
-	int elementW = 50;
-	int elementH = 15;
 	int i = 0;
 
 	for (auto s : selectList)
 	{
-		RenderManager::DrawString(s, position.x + elementW * i, position.y + elementH * i);
+		if (i == selectedIndex)
+		{
+			RenderManager::DrawSprite(SpriteType::NORMAL, SpriteIndex::UI_FRAME1, position.x, position.y + s->y, s->width, s->height);
+		}
+		RenderManager::DrawString(s->title, position.x + s->stringX, position.y + s->stirngY + s->y, 11, RGB(254, 254, 254));
 		i++;
 	}
 }
 
-void SelectBox::AddSelector(const WCHAR * _selector)
+void SelectBox::AddSelector(const WCHAR * _selector, void(*_func)())
 {
-	selectList.push_back(_selector);
+	int count = selectList.size();
+
+	SelectElement* element = new SelectElement;
+	wcscpy_s(element->title, _selector);
+	element->y = element->height * count;
+	element->stringX = (element->width - wcslen(_selector) * 11) / 2;
+	element->stirngY = (element->height - 11) / 2;
+	element->func = _func;
+	selectList.push_back(element);
+}
+
+void SelectBox::ClearSelector()
+{
+	auto iter = selectList.begin();
+	auto end = selectList.end();
+	for (; iter != end; ++iter)
+	{
+		delete (*iter);
+	}
+	selectList.clear();
 }

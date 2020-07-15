@@ -123,6 +123,9 @@
     <ClInclude Include="SelectBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="HUD_Bar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameFramework.cpp">
@@ -192,6 +195,9 @@
       <Filter>GameObject\Character</Filter>
     </ClCompile>
     <ClCompile Include="SelectBox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD_Bar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

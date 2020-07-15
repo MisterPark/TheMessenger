@@ -6,6 +6,7 @@
 #include "SkyBox.h"
 #include "Logo.h"
 #include "SelectBox.h"
+#include "HUD_Bar.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -44,6 +45,9 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 		break;
 	case ObjectType::SELECT_BOX:
 		pObj = new SelectBox();
+		break;
+	case ObjectType::HUD_BAR:
+		pObj = new HUD_Bar();
 		break;
 	default:
 		return nullptr;

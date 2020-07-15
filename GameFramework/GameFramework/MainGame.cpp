@@ -67,9 +67,10 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(10, "Sprites\\Title\\TitleLogo.bmp", 0, 0);
 	RenderManager::LoadSprite(11, "Sprites\\Title\\GameOver1.bmp", 0, 0);
 	RenderManager::LoadSprite(12, "Sprites\\Title\\GameOver2.bmp", 0, 0);
+	RenderManager::LoadSprite(13, "Sprites\\Title\\ui_Frame1.bmp", 0, 0);
 
-	RenderManager::LoadSprite(13, "Sprites\\BlackScreen.bmp", 0, 0);
-	RenderManager::LoadSprite(14, "Sprites\\Stage1\\NinjaVillage_Skybox_8.bmp", 0, 0);
+	RenderManager::LoadSprite(14, "Sprites\\BlackScreen.bmp", 0, 0);
+	RenderManager::LoadSprite(15, "Sprites\\Stage1\\NinjaVillage_Skybox_8.bmp", 0, 0);
 
 
 	

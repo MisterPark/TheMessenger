@@ -16,6 +16,8 @@ void PlayScene::OnLoaded()
 {
 	BackGround::SetAnimation(SpriteIndex::BLACKSCREEN, SpriteIndex::BLACKSCREEN);
 	SkyBox::SetAnimation(SpriteIndex::NINJA_BG_1, SpriteIndex::NINJA_BG_1);
+	
+	ObjectManager::CreateObject(ObjectType::HUD_BAR);
 }
 
 void PlayScene::OnUnloaded()
@@ -25,10 +27,10 @@ void PlayScene::OnUnloaded()
 
 void PlayScene::Update()
 {
-	if (InputManager::GetKeyDown(VK_SPACE))
-	{
-		SceneManager::LoadScene<IntroScene>();
-	}
+	//if (InputManager::GetKeyDown(VK_SPACE))
+	//{
+	//	SceneManager::LoadScene<IntroScene>();
+	//}
 	if (InputManager::GetKeyDown('P'))
 	{
 		if (MainGame::IsFullScreen())
