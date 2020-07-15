@@ -59,7 +59,7 @@ void CollisionManager::UpdateGravity()
 		if (target == nullptr) continue;
 		if (target->useGravity == false) continue;
 
-		target->gravityCount+=2;
+		target->gravityCount += 2;
 		float gravityPower = target->gravityCount * dfGRAVITY * TimeManager::DeltaTime();
 		target->position.y += gravityPower;
 	}

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ObjectManager.h"
 #include "Character.h"
+#include "Player.h"
 #include "UI.h"
 #include "BackGround.h"
 #include "SkyBox.h"
@@ -37,6 +38,9 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	GameObject* pObj = nullptr;
 	switch (_type)
 	{
+	case ObjectType::PLAYER:
+		pObj = new Player();
+		break;
 	case ObjectType::UI:
 		pObj = new UI();
 		break;

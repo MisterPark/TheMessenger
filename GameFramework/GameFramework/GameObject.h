@@ -8,6 +8,7 @@ enum class ObjectType
 {
 	// 렌더링 순서 중요
 	NONE,
+	PLAYER,
 
 	UI,
 	LOGO,

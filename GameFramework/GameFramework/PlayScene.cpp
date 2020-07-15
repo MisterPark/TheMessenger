@@ -18,6 +18,7 @@ void PlayScene::OnLoaded()
 	SkyBox::SetAnimation(SpriteIndex::NINJA_BG_1, SpriteIndex::NINJA_BG_1);
 	
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);
+	ObjectManager::CreateObject(ObjectType::PLAYER);
 }
 
 void PlayScene::OnUnloaded()

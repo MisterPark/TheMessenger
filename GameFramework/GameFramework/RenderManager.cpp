@@ -211,13 +211,13 @@ void RenderManager::DrawLine(float _startX, float _startY, float _endX, float _e
 	LineTo(pRenderManager->hBackBufferDC, _endX, _endY);
 }
 
-bool RenderManager::LoadSprite(int _index, const char* _fileName, int _centerX, int _centerY)
+bool RenderManager::LoadSprite(SpriteIndex _index, const char* _fileName, int _centerX, int _centerY)
 {
-	if (MaxOfEnum<SpriteIndex>() <= _index)
+	if (MaxOfEnum<SpriteIndex>() <= (int)_index)
 	{
 		return false;
 	}
-	if (pRenderManager->pSprite[_index].hBitmap != INVALID_HANDLE_VALUE)
+	if (pRenderManager->pSprite[(int)_index].hBitmap != INVALID_HANDLE_VALUE)
 	{
 		return false;
 	}
@@ -236,13 +236,13 @@ bool RenderManager::LoadSprite(int _index, const char* _fileName, int _centerX, 
 	}
 	GetObject(hBitmap, sizeof(BITMAP), &bmp);
 
-	pRenderManager->pSprite[_index].hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
+	pRenderManager->pSprite[(int)_index].hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
 
-	pRenderManager->pSprite[_index].memDC = hMemDC;
-	pRenderManager->pSprite[_index].hBitmap = hBitmap;
-	pRenderManager->pSprite[_index].width = bmp.bmWidth;
-	pRenderManager->pSprite[_index].height = bmp.bmHeight;
-	pRenderManager->pSprite[_index].isLoaded = true;
+	pRenderManager->pSprite[(int)_index].memDC = hMemDC;
+	pRenderManager->pSprite[(int)_index].hBitmap = hBitmap;
+	pRenderManager->pSprite[(int)_index].width = bmp.bmWidth;
+	pRenderManager->pSprite[(int)_index].height = bmp.bmHeight;
+	pRenderManager->pSprite[(int)_index].isLoaded = true;
 
 	return true;
 
