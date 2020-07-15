@@ -11,6 +11,7 @@ public:
 
 	SpriteIndex GetCurrentSpriteIndex();
 
+	void SetAnimation(SpriteIndex _index);
 	void SetAnimation(SpriteIndex _start, SpriteIndex _end);
 	void SetFrameDelay(int _framePerSprite);
 	void SetLoop(bool _isLoop);

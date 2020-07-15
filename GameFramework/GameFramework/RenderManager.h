@@ -17,6 +17,8 @@ enum class SpriteIndex
 	GAMEOVER1,
 	GAMEOVER2,
 
+	BLACKSCREEN,
+	NINJA_BG_1,
 
 	END
 };
@@ -78,6 +80,7 @@ public:
 	static void DrawCircle(const RECT& _rc, COLORREF _innerColor, COLORREF _outlineColor);
 	static void DrawString(const WCHAR* _str, int _x, int _y);
 	static void DrawString(const WCHAR* _str, int _x, int _y, COLORREF _color);
+	static void DrawString(const WCHAR* _str, int _x, int _y, int _fontSize, COLORREF _color);
 	static void DrawString(const WCHAR* _str, int _x, int _y, const WCHAR* _font, int _fontSize, COLORREF _color);
 	static void DrawLine(float _startX, float _startY, float _endX, float _endY);
 	

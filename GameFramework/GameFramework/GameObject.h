@@ -10,7 +10,8 @@ enum class ObjectType
 	NONE,
 
 	UI,
-
+	LOGO,
+	SELECT_BOX,
 	END
 };
 

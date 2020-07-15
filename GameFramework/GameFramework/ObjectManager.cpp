@@ -3,6 +3,9 @@
 #include "Character.h"
 #include "UI.h"
 #include "BackGround.h"
+#include "SkyBox.h"
+#include "Logo.h"
+#include "SelectBox.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -10,11 +13,13 @@ int lastUid = 0;
 ObjectManager::ObjectManager()
 {
 	BackGround::GetInstance();
+	SkyBox::GetInstance();
 }
 
 ObjectManager::~ObjectManager()
 {
 	BackGround::Release();
+	SkyBox::Release();
 }
 
 ObjectManager * ObjectManager::GetInstance()
@@ -33,6 +38,12 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	{
 	case ObjectType::UI:
 		pObj = new UI();
+		break;
+	case ObjectType::LOGO:
+		pObj = new Logo();
+		break;
+	case ObjectType::SELECT_BOX:
+		pObj = new SelectBox();
 		break;
 	default:
 		return nullptr;
@@ -93,6 +104,7 @@ void ObjectManager::Release()
 void ObjectManager::Update()
 {
 	BackGround::GetInstance()->Update();
+	SkyBox::GetInstance()->Update();
 
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)
@@ -144,6 +156,7 @@ void ObjectManager::LateUpdate()
 void ObjectManager::Render()
 {
 	BackGround::GetInstance()->Render();
+	SkyBox::GetInstance()->Render();
 
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)

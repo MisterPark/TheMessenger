@@ -38,6 +38,13 @@ SpriteIndex Animation::GetCurrentSpriteIndex()
 	return curIndex;
 }
 
+void Animation::SetAnimation(SpriteIndex _index)
+{
+	startIndex = _index;
+	curIndex = _index;
+	endIndex = _index;
+}
+
 void Animation::SetAnimation(SpriteIndex _start, SpriteIndex _end)
 {
 	startIndex = _start;

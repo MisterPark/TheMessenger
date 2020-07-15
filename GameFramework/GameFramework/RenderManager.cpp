@@ -182,6 +182,17 @@ void RenderManager::DrawString(const WCHAR* _str, int _x, int _y, COLORREF _colo
 	SetTextColor(pRenderManager->hBackBufferDC, oldColor);
 }
 
+void RenderManager::DrawString(const WCHAR * _str, int _x, int _y, int _fontSize, COLORREF _color)
+{
+	HFONT hFont = CreateFont(_fontSize, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, NULL);
+	HFONT oldFont = (HFONT)SelectObject(pRenderManager->hBackBufferDC, hFont);
+	COLORREF oldColor = SetTextColor(pRenderManager->hBackBufferDC, _color);
+	TextOutW(pRenderManager->hBackBufferDC, _x, _y, _str, wcslen(_str));
+	SelectObject(pRenderManager->hBackBufferDC, oldFont);
+	DeleteObject(hFont);
+	SetTextColor(pRenderManager->hBackBufferDC, oldColor);
+}
+
 void RenderManager::DrawString(const WCHAR* _str, int _x, int _y, const WCHAR* _font, int _fontSize, COLORREF _color)
 {
 	HFONT hFont = CreateFont(_fontSize, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, _font);

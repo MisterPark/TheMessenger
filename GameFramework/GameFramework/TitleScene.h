@@ -1,5 +1,8 @@
 #pragma once
 #include "SceneManager.h"
+
+class SelectBox;
+
 class TitleScene : public IScene
 {
 public:
@@ -10,5 +13,6 @@ public:
 	virtual void OnUnloaded() override;
 	virtual void Update() override;
 
+	SelectBox* pSelectBox = nullptr;
 };
 
