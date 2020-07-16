@@ -6,7 +6,7 @@
 
 void IntroScene::OnLoaded()
 {
-	RenderManager::SetBufferSize(1280, 720);
+	BackGround::SetStretch(true);
 	BackGround::SetAnimation(SpriteIndex::INTRO, SpriteIndex::CUT_SCENE7);
 	BackGround::GetInstance()->anim->SetFrameDelay(100);
 	BackGround::GetInstance()->anim->SetLoop(false);

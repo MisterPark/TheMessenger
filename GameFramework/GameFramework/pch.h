@@ -36,6 +36,7 @@ using namespace std;
 #include "RenderManager.h"
 #include "SceneManager.h"
 #include "CollisionManager.h"
+#include "Camera.h"
 
 extern HWND g_hwnd;
 

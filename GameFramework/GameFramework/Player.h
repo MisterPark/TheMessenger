@@ -1,13 +1,14 @@
 #pragma once
 #include "Character.h"
 
-enum class PlayerState
+class PlayerIdleState;
+class PlayerMoveState;
+
+enum class Command
 {
-	IDLE,
+	NONE,
 	MOVE_LEFT,
 	MOVE_RIGHT,
-	JUMP_LEFT,
-	JUMP_RIGHT,
 
 };
 
@@ -20,7 +21,10 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	PlayerState state = PlayerState::IDLE;
+	void ProcessCommand();
+
 	Animation* anim2 = nullptr;
+
+	Command command = Command::NONE;
 };
 

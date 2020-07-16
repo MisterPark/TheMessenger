@@ -15,6 +15,7 @@ public:
 
 	static void Start();
 	static void Option();
+	static void EditMode();
 	static void End();
 
 

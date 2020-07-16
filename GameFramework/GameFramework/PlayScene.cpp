@@ -14,7 +14,8 @@ PlayScene::~PlayScene()
 
 void PlayScene::OnLoaded()
 {
-	BackGround::SetAnimation(SpriteIndex::BLACKSCREEN, SpriteIndex::BLACKSCREEN);
+	BackGround::SetStretch(true);
+	BackGround::SetAnimation(SpriteIndex::BLACKSCREEN);
 	SkyBox::SetAnimation(SpriteIndex::NINJA_BG_1, SpriteIndex::NINJA_BG_1);
 	
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);

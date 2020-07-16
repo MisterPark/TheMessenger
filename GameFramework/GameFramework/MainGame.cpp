@@ -53,6 +53,7 @@ void MainGame::Initialize()
 	RenderManager::GetInstance();
 	SceneManager::GetInstance();
 	CollisionManager::GetInstance();
+	Camera::GetInstance();
 
 	RenderManager::LoadSprite(SpriteIndex::INTRO, "Sprites\\CutScene\\Intro.bmp", 0, 0);
 	RenderManager::LoadSprite(SpriteIndex::CUT_SCENE1, "Sprites\\CutScene\\CutScene1.bmp", 0, 0);
@@ -153,6 +154,7 @@ void MainGame::Release()
 	RenderManager::Release();
 	InputManager::Release();
 	CollisionManager::Release();
+	Camera::Release();
 }
 
 void MainGame::Run()
@@ -163,6 +165,7 @@ void MainGame::Run()
 	{
 		ObjectManager::Update();
 	}
+	Camera::Update();
 	ObjectManager::LateUpdate();
 	CollisionManager::Update();
 	if (!TimeManager::SkipFrame())

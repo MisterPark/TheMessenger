@@ -1,4 +1,8 @@
 #pragma once
+
+#define dfTILE_W 20
+#define dfTILE_H 20
+
 class TileManager
 {
 private:
@@ -8,5 +12,7 @@ private:
 public:
 	static TileManager* GetInstance();
 	static void Release();
+
+	static void Render();
 };
 

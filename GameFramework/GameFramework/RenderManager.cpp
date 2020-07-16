@@ -280,7 +280,7 @@ void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, 
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
 	TransparentBlt(pRenderManager->hBackBufferDC,
-		destX, destY, sprite->width, sprite->height,
+		destX - Camera::GetX(), destY - Camera::GetY(), sprite->width, sprite->height,
 		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 
 }
@@ -302,7 +302,7 @@ void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, 
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
 	TransparentBlt(pRenderManager->hBackBufferDC,
-		destX, destY, destW, destH,
+		destX - Camera::GetX(), destY - Camera::GetY(), destW, destH,
 		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 }
 
@@ -330,8 +330,7 @@ void RenderManager::DrawImage(SpriteIndex _index, int destX, int destY, int len)
 
 void RenderManager::Flip()
 {
-
-
+	
 	//StretchDIBits(pRenderManager->hdc,
 	//	0, 0, pRenderManager->clientWidth, pRenderManager->clientHeight,
 	//	0, 0, pRenderManager->width, pRenderManager->height, pRenderManager->buffer,

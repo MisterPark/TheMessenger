@@ -3,17 +3,21 @@
 #include "Transform.h"
 #include "RenderManager.h"
 #include "Animation.h"
+#include "IState.h"
 
 enum class ObjectType
 {
 	// 렌더링 순서 중요
 	NONE,
+	TILE,
 	PLAYER,
 
 	UI,
 	LOGO,
 	SELECT_BOX,
 	HUD_BAR,
+	
+	LABEL,
 	END
 };
 
@@ -34,6 +38,7 @@ public:
 	void SetAnimation(SpriteIndex _index);
 	void SetAnimation(SpriteIndex _startIndex, SpriteIndex _endIndex);
 
+public:
 	Transform position{ 0.f, 0.f };
 	Transform offset{ 0.f,0.f };
 	int width = 0;

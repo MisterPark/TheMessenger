@@ -34,6 +34,15 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{91b4fd24-c712-4473-b1d3-87f54063f765}</UniqueIdentifier>
     </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{6b12601b-09fe-4161-b584-5f1da6fe2961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Tile">
+      <UniqueIdentifier>{75725159-5262-4127-b836-31666bb03a73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{53bfafa3-0a39-449a-977b-6236d5ea9328}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -120,14 +129,35 @@
     <ClInclude Include="Player.h">
       <Filter>GameObject\Character</Filter>
     </ClInclude>
-    <ClInclude Include="SelectBox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD_Bar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="TileManager.h">
       <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectBox.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD_Bar.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="EditScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,14 +227,35 @@
     <ClCompile Include="Player.cpp">
       <Filter>GameObject\Character</Filter>
     </ClCompile>
-    <ClCompile Include="SelectBox.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD_Bar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="TileManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="IState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectBox.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD_Bar.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="EditScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

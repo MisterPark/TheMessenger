@@ -41,15 +41,18 @@ SpriteIndex Animation::GetCurrentSpriteIndex()
 void Animation::SetAnimation(SpriteIndex _index)
 {
 	startIndex = _index;
-	curIndex = _index;
 	endIndex = _index;
+	curIndex = _index;
 }
 
 void Animation::SetAnimation(SpriteIndex _start, SpriteIndex _end)
 {
 	startIndex = _start;
-	curIndex = _start;
 	endIndex = _end;
+	if ((int)curIndex < (int)_start || (int)curIndex > (int)_end)
+	{
+ 		curIndex = _start;
+	}
 }
 
 void Animation::SetFrameDelay(int _framePerSprite)

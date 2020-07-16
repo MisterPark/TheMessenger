@@ -184,5 +184,9 @@ private:
 	// 늘어날 or 줄어들 사이즈
 	int clientWidth = dfCLIENT_WIDTH;
 	int clientHeight = dfCLIENT_HEIGHT;
+
+	// 카메라 테스트용
+	int x = 0;
+	int y = 0;
 };
 

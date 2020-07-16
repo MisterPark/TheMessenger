@@ -8,6 +8,8 @@
 #include "Logo.h"
 #include "SelectBox.h"
 #include "HUD_Bar.h"
+#include "Label.h"
+#include "Tile.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -52,6 +54,12 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 		break;
 	case ObjectType::HUD_BAR:
 		pObj = new HUD_Bar();
+		break;
+	case ObjectType::TILE:
+		pObj = new Tile;
+		break;
+	case ObjectType::LABEL:
+		pObj = new Label;
 		break;
 	default:
 		return nullptr;

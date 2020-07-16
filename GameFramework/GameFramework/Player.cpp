@@ -1,14 +1,22 @@
 #include "pch.h"
 #include "Player.h"
+#include "PlayerIdleState.h"
+#include "PlayerMoveState.h"
 
 Player::Player()
 {
-	anim2 = new Animation;
-	anim->SetLoop(true);
-	anim->SetFrameDelay(1000);
-	position = { 0,0 };
+	// 정보
+	position = { 100,100 };
 	speed = 100.f;
 	//useGravity = true;
+
+	// 애니메이션
+	anim2 = new Animation;
+	anim->SetFrameDelay(6);
+	anim->SetLoop(true);
+
+	// 상태
+	
 }
 
 Player::~Player()
@@ -18,7 +26,7 @@ Player::~Player()
 
 void Player::Update()
 {
-	PlayerState curState = PlayerState::IDLE;
+	command = Command::NONE;
 
 	if (InputManager::GetKey(VK_UP))
 	{
@@ -28,54 +36,22 @@ void Player::Update()
 	{
 		position.y += speed * TimeManager::DeltaTime();
 	}
-	if (InputManager::GetKey(VK_LEFT))
-	{
-		position.x -= speed * TimeManager::DeltaTime();
-		direction = Direction::LEFT;
-		curState = PlayerState::MOVE_LEFT;
-	}
 	if (InputManager::GetKey(VK_RIGHT))
 	{
 		position.x += speed * TimeManager::DeltaTime();
 		direction = Direction::RIGHT;
-		curState = PlayerState::MOVE_RIGHT;
+		command = Command::MOVE_RIGHT;
 	}
-
-	anim2->SetAnimation(SpriteIndex::NONE);
-
-	if (state != curState)
+	else if (InputManager::GetKey(VK_LEFT))
 	{
-		state = curState;
-
-		switch (curState)
-		{
-		case PlayerState::IDLE:
-			if (direction == Direction::LEFT)
-			{
-				anim->SetAnimation(SpriteIndex::PLAYER_IDLE_L);
-			}
-			else
-			{
-				anim->SetAnimation(SpriteIndex::PLAYER_IDLE_R);
-			}
-
-			break;
-		case PlayerState::MOVE_LEFT:
-			anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_L);
-			anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_L1, SpriteIndex::PLAYER_RUN_LEG_L4);
-			break;
-		case PlayerState::MOVE_RIGHT:
-			anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_R);
-			anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_R1, SpriteIndex::PLAYER_RUN_LEG_R4);
-			break;
-		case PlayerState::JUMP_LEFT:
-			break;
-		case PlayerState::JUMP_RIGHT:
-			break;
-		default:
-			break;
-		}
+		position.x -= speed * TimeManager::DeltaTime();
+		direction = Direction::LEFT;
+		command = Command::MOVE_LEFT;
 	}
+	
+
+
+	ProcessCommand();
 	
 	anim->Update();
 	anim2->Update();
@@ -83,6 +59,34 @@ void Player::Update()
 
 void Player::Render()
 {
-	RenderManager::DrawSprite(SpriteType::NORMAL, anim2->GetCurrentSpriteIndex(), position.x, position.y);
 	RenderManager::DrawSprite(SpriteType::NORMAL,anim->GetCurrentSpriteIndex(), position.x, position.y);
+	RenderManager::DrawSprite(SpriteType::NORMAL, anim2->GetCurrentSpriteIndex(), position.x, position.y);
+}
+
+void Player::ProcessCommand()
+{
+	switch (command)
+	{
+	case Command::NONE:
+		if (direction == Direction::LEFT)
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_IDLE_L);
+		}
+		else
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_IDLE_R);
+		}
+		anim2->SetAnimation(SpriteIndex::NONE);
+		break;
+	case Command::MOVE_LEFT:
+		anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_L1, SpriteIndex::PLAYER_RUN_LEG_L4);
+		anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_L);
+		break;
+	case Command::MOVE_RIGHT:
+		anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_R1, SpriteIndex::PLAYER_RUN_LEG_R4);
+		anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_R);
+		break;
+	default:
+		break;
+	}
 }
