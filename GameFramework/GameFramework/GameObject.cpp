@@ -23,4 +23,14 @@ void GameObject::SetPosition(float _x, float _y)
 	position.y = _y;
 }
 
+void GameObject::SetAnimation(SpriteIndex _index)
+{
+	anim->SetAnimation(_index);
+}
+
+void GameObject::SetAnimation(SpriteIndex _startIndex, SpriteIndex _endIndex)
+{
+	anim->SetAnimation(_startIndex, _endIndex);
+}
+
 

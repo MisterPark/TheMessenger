@@ -23,7 +23,7 @@
     <ProjectGuid>{8A46B463-E27F-4F53-9B51-D4BDA591D125}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GameFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -173,6 +173,7 @@
     <ClInclude Include="SelectBox.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TileManager.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SelectBox.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UI.cpp" />

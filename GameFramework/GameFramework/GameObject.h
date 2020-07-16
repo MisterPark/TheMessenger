@@ -31,6 +31,8 @@ public:
 	virtual void Die();
 
 	void SetPosition(float _x, float _y);
+	void SetAnimation(SpriteIndex _index);
+	void SetAnimation(SpriteIndex _startIndex, SpriteIndex _endIndex);
 
 	Transform position{ 0.f, 0.f };
 	Transform offset{ 0.f,0.f };
@@ -38,11 +40,12 @@ public:
 	int height = 0;
 	
 	ObjectType type = ObjectType::NONE;
-	bool isDead = false;
+	Direction direction = Direction::RIGHT;
 	int uid = 0;
 	bool isEnable = true;
 	bool isVisible = true;
 	bool jumpFlag = false;
+	bool isDead = false;
 
 	//스프라이트 관련
 	Animation* anim = nullptr;
