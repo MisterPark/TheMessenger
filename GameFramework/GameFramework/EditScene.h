@@ -1,5 +1,8 @@
 #pragma once
 #include "IScene.h"
+#define dfEDIT_WIDTH 1280
+#define dfEDIT_HEIGHT 720
+
 
 class Label;
 

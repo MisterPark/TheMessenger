@@ -8,7 +8,7 @@
 void EditScene::OnLoaded()
 {
 	BackGround::SetStretch(false);
-	RenderManager::SetBufferSize(1280, 720);
+	RenderManager::SetBufferSize(dfEDIT_WIDTH, dfEDIT_HEIGHT);
 	BackGround::SetAnimation(SpriteIndex::BLACKSCREEN);
 	SkyBox::SetAnimation(SpriteIndex::NINJA_BG_1, SpriteIndex::NINJA_BG_1);
 
@@ -42,6 +42,12 @@ void EditScene::Update()
 		}
 
 	}
+
+	if (InputManager::GetKeyDown(VK_LBUTTON))
+	{
+
+	}
+	
 
 	
 
