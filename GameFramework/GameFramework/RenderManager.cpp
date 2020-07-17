@@ -147,7 +147,14 @@ void RenderManager::DrawSimpleCollider(const RECT& _rc, COLORREF _outlineColor)
 {
 	HPEN hPen = CreatePen(PS_SOLID, 1, _outlineColor);
 	HGDIOBJ oldPen = SelectObject(pRenderManager->hBackBufferDC, hPen);
-	Rectangle(pRenderManager->hBackBufferDC, _rc.left, _rc.top, _rc.right, _rc.bottom);
+	//Rectangle(pRenderManager->hBackBufferDC, _rc.left, _rc.top, _rc.right, _rc.bottom);
+	POINT pt;
+	MoveToEx(pRenderManager->hBackBufferDC, _rc.left, _rc.top, &pt);
+	LineTo(pRenderManager->hBackBufferDC, _rc.right, _rc.top);
+	LineTo(pRenderManager->hBackBufferDC, _rc.right, _rc.bottom);
+	LineTo(pRenderManager->hBackBufferDC, _rc.left, _rc.bottom);
+	LineTo(pRenderManager->hBackBufferDC, _rc.left, _rc.top);
+
 	SelectObject(pRenderManager->hBackBufferDC, oldPen);
 	DeleteObject(hPen);
 }
