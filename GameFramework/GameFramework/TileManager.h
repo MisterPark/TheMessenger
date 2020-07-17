@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Tile.h"
 #define dfTILE_W 20
 #define dfTILE_H 20
 
@@ -14,5 +14,6 @@ public:
 	static void Release();
 
 	static void Render();
+
 };
 

@@ -54,6 +54,7 @@ void MainGame::Initialize()
 	SceneManager::GetInstance();
 	CollisionManager::GetInstance();
 	Camera::GetInstance();
+	TileManager::GetInstance();
 
 	RenderManager::LoadSprite(SpriteIndex::INTRO, "Sprites\\CutScene\\Intro.bmp", 0, 0);
 	RenderManager::LoadSprite(SpriteIndex::CUT_SCENE1, "Sprites\\CutScene\\CutScene1.bmp", 0, 0);
@@ -142,6 +143,7 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::PLAYER_SIT_ATTACK_L3, "Sprites\\Player\\player_sitdown_attack_L3.bmp", 29, 59);
 	RenderManager::LoadSprite(SpriteIndex::PLAYER_SIT_ATTACK_L4, "Sprites\\Player\\player_sitdown_attack_L4.bmp", 29, 59);
 
+	RenderManager::LoadSprite(SpriteIndex::STAGE1_TILE_SET, "Sprites\\Stage1\\NinjaVillageTileset_8.bmp", 0, 0);
 
 	SceneManager::LoadScene<IntroScene>();
 }
@@ -155,6 +157,7 @@ void MainGame::Release()
 	InputManager::Release();
 	CollisionManager::Release();
 	Camera::Release();
+	TileManager::Release();
 }
 
 void MainGame::Run()
@@ -172,6 +175,7 @@ void MainGame::Run()
 	{
 		RenderManager::Clear();
 		ObjectManager::Render();
+		TileManager::Render();
 		//RenderManager::Present();
 		RenderManager::Flip();
 	}

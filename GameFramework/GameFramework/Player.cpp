@@ -6,7 +6,7 @@
 Player::Player()
 {
 	// Á¤º¸
-	position = { 100,100 };
+	position = { 0,360 };
 	speed = 100.f;
 	//useGravity = true;
 
@@ -59,7 +59,7 @@ void Player::Update()
 
 void Player::Render()
 {
-	RenderManager::DrawSprite(SpriteType::NORMAL,anim->GetCurrentSpriteIndex(), position.x, position.y);
+	RenderManager::DrawSprite(SpriteType::NORMAL, anim->GetCurrentSpriteIndex(), position.x, position.y);
 	RenderManager::DrawSprite(SpriteType::NORMAL, anim2->GetCurrentSpriteIndex(), position.x, position.y);
 }
 

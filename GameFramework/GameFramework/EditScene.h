@@ -4,8 +4,6 @@
 #define dfEDIT_HEIGHT 720
 
 
-class Label;
-
 class EditScene :
 	public IScene
 {
@@ -14,6 +12,5 @@ class EditScene :
 	virtual void OnUnloaded() override;
 	virtual void Update() override;
 
-	Label* label = nullptr;
 };
 

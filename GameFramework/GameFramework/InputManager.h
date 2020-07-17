@@ -19,6 +19,8 @@ public:
 	static bool GetKeyDown(int _vkey);
 	// 키 업
 	static bool GetKeyUp(int _vkey);
+	// 마우스 타일 위치
+	static bool GetTileIndex(POINT* _outPoint);
 
 
 private:

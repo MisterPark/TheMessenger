@@ -242,6 +242,8 @@ bool RenderManager::LoadSprite(SpriteIndex _index, const char* _fileName, int _c
 	pRenderManager->pSprite[(int)_index].hBitmap = hBitmap;
 	pRenderManager->pSprite[(int)_index].width = bmp.bmWidth;
 	pRenderManager->pSprite[(int)_index].height = bmp.bmHeight;
+	pRenderManager->pSprite[(int)_index].centerX = _centerX;
+	pRenderManager->pSprite[(int)_index].centerY = _centerY;
 	pRenderManager->pSprite[(int)_index].isLoaded = true;
 
 	return true;
@@ -251,10 +253,7 @@ bool RenderManager::LoadSprite(SpriteIndex _index, const char* _fileName, int _c
 void RenderManager::ReleaseSprite(int _index)
 {
 	//최대 할당된 스프라이트를 넘어서면 리턴
-	if (MaxOfEnum<SpriteIndex>() <= _index)
-	{
-		return;
-	}
+	if (MaxOfEnum<SpriteIndex>() <= _index) return;
 	if (!pRenderManager->pSprite[_index].isLoaded) return;
 
 	Sprite* sprite = &pRenderManager->pSprite[_index];
@@ -266,21 +265,14 @@ void RenderManager::ReleaseSprite(int _index)
 void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY)
 {
 	//최대 스프라이트 갯수 초과
-	if (MaxOfEnum<SpriteIndex>() <= (int)_index)
-	{
-		return;
-	}
-	
+	if (MaxOfEnum<SpriteIndex>() <= (int)_index) return;
 	//로드되지 않는 스프라이트
-	if (pRenderManager->pSprite[(int)_index].isLoaded == false)
-	{
-		return;
-	}
+	if (pRenderManager->pSprite[(int)_index].isLoaded == false) return;
 
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
 	TransparentBlt(pRenderManager->hBackBufferDC,
-		destX - Camera::GetX(), destY - Camera::GetY(), sprite->width, sprite->height,
+		destX - sprite->centerX - Camera::GetX(), destY -sprite->centerY- Camera::GetY(), sprite->width, sprite->height,
 		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 
 }
@@ -288,22 +280,35 @@ void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, 
 void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY, int destW, int destH)
 {
 	//최대 스프라이트 갯수 초과
-	if (MaxOfEnum<SpriteIndex>() <= (int)_index)
-	{
-		return;
-	}
-
+	if (MaxOfEnum<SpriteIndex>() <= (int)_index) return;
 	//로드되지 않는 스프라이트
-	if (pRenderManager->pSprite[(int)_index].isLoaded == false)
-	{
-		return;
-	}
+	if (pRenderManager->pSprite[(int)_index].isLoaded == false) return;
 
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
 	TransparentBlt(pRenderManager->hBackBufferDC,
 		destX - Camera::GetX(), destY - Camera::GetY(), destW, destH,
 		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
+}
+
+void RenderManager::DrawTile(SpriteType _type, SpriteIndex _index, int _tileOffset, int destX, int destY)
+{
+	//최대 스프라이트 갯수 초과
+	if (MaxOfEnum<SpriteIndex>() <= (int)_index) return;
+	//로드되지 않는 스프라이트
+	if (pRenderManager->pSprite[(int)_index].isLoaded == false) return;
+
+	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
+
+	int tileX = sprite->width / dfTILE_W; // 타일 열개수
+	int tileY = sprite->height / dfTILE_H; // 타일 행개수
+	int row = _tileOffset / tileX; // 타일 행번호
+	int col = _tileOffset / tileY; // 타일 열번호
+
+	TransparentBlt(pRenderManager->hBackBufferDC,
+		destX - sprite->centerX - Camera::GetX(), destY - sprite->centerY - Camera::GetY(),
+		dfTILE_W, dfTILE_H,
+		sprite->memDC, col, row, dfTILE_W, dfTILE_H, pRenderManager->colorKey);
 }
 
 void RenderManager::DrawImage(SpriteIndex _index, int destX, int destY, int len)

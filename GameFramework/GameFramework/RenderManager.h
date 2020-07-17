@@ -93,6 +93,8 @@ enum class SpriteIndex
 	PLAYER_SIT_ATTACK_L3,
 	PLAYER_SIT_ATTACK_L4,
 
+	STAGE1_TILE_SET,
+
 	END
 };
 
@@ -162,6 +164,7 @@ public:
 	static void ReleaseSprite(int _index);
 	static void DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY);
 	static void DrawSprite(SpriteType _type, SpriteIndex _index, int destX, int destY, int destW, int destH);
+	static void DrawTile(SpriteType _type, SpriteIndex _index, int _tileOffset, int destX, int destY);
 	//특정 메모리 위치에 이미지를 출력한다(클리핑 처리)
 	static void DrawImage(SpriteIndex spriteIndex, int destX, int destY, int len = 100);
 	// 버퍼 스왑

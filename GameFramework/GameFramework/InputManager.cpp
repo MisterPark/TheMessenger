@@ -62,3 +62,20 @@ bool InputManager::GetKeyUp(int _vkey)
 {
 	return pInputManager->keyUps[_vkey];
 }
+
+bool InputManager::GetTileIndex(POINT * _outPoint)
+{
+	if (_outPoint == nullptr) return false;
+
+	POINT pt;
+	GetCursorPos(&pt);
+	ScreenToClient(g_hwnd, &pt);
+
+	POINT idx;
+	idx.x = (pt.x + Camera::GetX()) / dfTILE_W;
+	idx.y = (pt.y + Camera::GetY()) / dfTILE_H;
+
+	*_outPoint = idx;
+
+	return true;
+}

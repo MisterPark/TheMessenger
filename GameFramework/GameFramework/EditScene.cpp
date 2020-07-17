@@ -14,8 +14,7 @@ void EditScene::OnLoaded()
 
 	ObjectManager::CreateObject(ObjectType::PLAYER);
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);
-	label = (Label*)ObjectManager::CreateObject(ObjectType::LABEL);
-	label->SetPosition(500, 0);
+
 }
 
 void EditScene::OnUnloaded()
@@ -43,20 +42,15 @@ void EditScene::Update()
 
 	}
 
-	if (InputManager::GetKeyDown(VK_LBUTTON))
+	if (InputManager::GetKey(VK_LBUTTON))
 	{
-
+		// 여기서부터 해야함
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		GameObject* tile = ObjectManager::CreateObject(ObjectType::TILE);
+		tile->position.x = pt.x * dfTILE_W;
+		tile->position.y = pt.y * dfTILE_H;
 	}
 	
-
-	
-
-	POINT pt;
-	GetCursorPos(&pt);
-	ScreenToClient(g_hwnd, &pt);
-	WCHAR wstr[64];
-	wsprintf(wstr, L"X:%d Y:%d", pt.x, pt.y);
-	label->SetText(wstr);
-
 	
 }
