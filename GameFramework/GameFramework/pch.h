@@ -26,6 +26,7 @@
 using namespace std;
 
 // 사용자 추가
+#include "Point.h"
 
 #include "MemoryPool.h"
 #include "Define.h"

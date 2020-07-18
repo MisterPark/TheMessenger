@@ -59,8 +59,9 @@ void Player::Update()
 
 void Player::Render()
 {
-	RenderManager::DrawSprite(SpriteType::NORMAL, anim->GetCurrentSpriteIndex(), position.x, position.y);
-	RenderManager::DrawSprite(SpriteType::NORMAL, anim2->GetCurrentSpriteIndex(), position.x, position.y);
+	Transform pos = GetPositionFromCamera();
+	RenderManager::DrawSprite(SpriteType::NORMAL, anim->GetCurrentSpriteIndex(), pos.x, pos.y);
+	RenderManager::DrawSprite(SpriteType::NORMAL, anim2->GetCurrentSpriteIndex(), pos.x, pos.y);
 }
 
 void Player::ProcessCommand()

@@ -56,24 +56,44 @@ void EditScene::Update()
 		{
 			// 타일 선택
 
-			// 타일 선택창 범위 밖이면 리턴
-			// 타일 선택창 범위로부터 타일셋의 타일 인덱스를 계산
-			// 그 인덱스로 타일을 생성
+			// 타일 선택창 범위 안에서
+			if (TileManager::IsMouseOnTileSet())
+			{
+				// 타일 선택창 범위로부터 타일셋의 타일 인덱스를 계산
+				POINT idx = TileManager::GetTileSetIndex();
+				// 그 인덱스로 타일을 표시
+				TileManager::SelectTileFromTileSet(idx);
+			}
+			else
+			{
+				// 타일 삽입
+				POINT pt;
+				InputManager::GetTileIndex(&pt);
+				int offset = TileManager::GetInstance()->selectedTileIndex;
+
+				TileManager::CreateTile(pt.x, pt.y, SpriteIndex::STAGE1_TILE_SET, offset);
+			}
+			
 		}
 		else
 		{
 			// 타일 삽입
-
-			// 선택된 인덱스의 타일을 생성
-			
 			POINT pt;
 			InputManager::GetTileIndex(&pt);
-			GameObject* tile = ObjectManager::CreateObject(ObjectType::TILE);
-			tile->position.x = pt.x * dfTILE_W;
-			tile->position.y = pt.y * dfTILE_H;
+			int offset = TileManager::GetInstance()->selectedTileIndex;
+
+			TileManager::CreateTile(pt.x, pt.y, SpriteIndex::STAGE1_TILE_SET, offset);
 		}
 		
 	}
-	
+
+	if (InputManager::GetKey(VK_RBUTTON))
+	{
+		// 타일 삭제
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+
+		TileManager::DeleteTile(pt.x, pt.y);
+	}
 	
 }

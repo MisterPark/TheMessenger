@@ -16,7 +16,7 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	int spriteIndex = 0;
+	SpriteIndex tileset = SpriteIndex::STAGE1_TILE_SET;
 	int offsetIndex = 0;
 };
 

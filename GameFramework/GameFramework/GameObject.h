@@ -37,6 +37,7 @@ public:
 	void SetPosition(float _x, float _y);
 	void SetAnimation(SpriteIndex _index);
 	void SetAnimation(SpriteIndex _startIndex, SpriteIndex _endIndex);
+	Transform GetPositionFromCamera();
 
 public:
 	Transform position{ 0.f, 0.f };

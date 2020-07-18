@@ -158,6 +158,7 @@ public:
 	static void DrawString(const WCHAR* _str, int _x, int _y, int _fontSize, COLORREF _color);
 	static void DrawString(const WCHAR* _str, int _x, int _y, const WCHAR* _font, int _fontSize, COLORREF _color);
 	static void DrawLine(float _startX, float _startY, float _endX, float _endY);
+	static void DrawLine(float _startX, float _startY, float _endX, float _endY, COLORREF _color);
 	
 	// 이미지 스프라이트
 	static bool LoadSprite(SpriteIndex _index, const char* _fileName, int _centerX, int _centerY);

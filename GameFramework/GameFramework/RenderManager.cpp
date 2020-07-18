@@ -218,6 +218,17 @@ void RenderManager::DrawLine(float _startX, float _startY, float _endX, float _e
 	LineTo(pRenderManager->hBackBufferDC, _endX, _endY);
 }
 
+void RenderManager::DrawLine(float _startX, float _startY, float _endX, float _endY, COLORREF _color)
+{
+	POINT pt = {};
+	HPEN hPen = CreatePen(PS_SOLID, 1, _color);
+	HGDIOBJ oldPen = SelectObject(pRenderManager->hBackBufferDC, hPen);
+	MoveToEx(pRenderManager->hBackBufferDC, _startX, _startY, &pt);
+	LineTo(pRenderManager->hBackBufferDC, _endX, _endY);
+	SelectObject(pRenderManager->hBackBufferDC, oldPen);
+	DeleteObject(hPen);
+}
+
 bool RenderManager::LoadSprite(SpriteIndex _index, const char* _fileName, int _centerX, int _centerY)
 {
 	if (MaxOfEnum<SpriteIndex>() <= (int)_index)
@@ -279,7 +290,7 @@ void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, 
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
 	TransparentBlt(pRenderManager->hBackBufferDC,
-		destX - sprite->centerX - Camera::GetX(), destY -sprite->centerY- Camera::GetY(), sprite->width, sprite->height,
+		destX - sprite->centerX, destY -sprite->centerY, sprite->width, sprite->height,
 		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 
 }
@@ -294,7 +305,7 @@ void RenderManager::DrawSprite(SpriteType _type, SpriteIndex _index, int destX, 
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
 	TransparentBlt(pRenderManager->hBackBufferDC,
-		destX - Camera::GetX(), destY - Camera::GetY(), destW, destH,
+		destX - sprite->centerX, destY - sprite->centerY, destW, destH,
 		sprite->memDC, 0, 0, sprite->width, sprite->height, pRenderManager->colorKey);
 }
 
@@ -308,14 +319,14 @@ void RenderManager::DrawTile(SpriteType _type, SpriteIndex _index, int _tileOffs
 	Sprite* sprite = &pRenderManager->pSprite[(int)_index];
 
 	int tileX = sprite->width / dfTILE_W; // 타일 열개수
-	int tileY = sprite->height / dfTILE_H; // 타일 행개수
+	int tileY = sprite->height / dfTILE_H; // 타일 행개수 (필요가 없는듯?)
 	int row = _tileOffset / tileX; // 타일 행번호
-	int col = _tileOffset / tileY; // 타일 열번호
+	int col = _tileOffset % tileX; // 타일 열번호
 
 	TransparentBlt(pRenderManager->hBackBufferDC,
-		destX - sprite->centerX - Camera::GetX(), destY - sprite->centerY - Camera::GetY(),
+		destX - sprite->centerX, destY - sprite->centerY,
 		dfTILE_W, dfTILE_H,
-		sprite->memDC, col, row, dfTILE_W, dfTILE_H, pRenderManager->colorKey);
+		sprite->memDC, col*dfTILE_W, row*dfTILE_H, dfTILE_W, dfTILE_H, pRenderManager->colorKey);
 }
 
 void RenderManager::DrawImage(SpriteIndex _index, int destX, int destY, int len)

@@ -16,6 +16,7 @@ void Tile::Update()
 
 void Tile::Render()
 {
-	RenderManager::DrawTile(SpriteType::NORMAL, SpriteIndex::STAGE1_TILE_SET, 0, position.x, position.y);
+	Transform pos = GetPositionFromCamera();
+	RenderManager::DrawTile(SpriteType::NORMAL, tileset, offsetIndex, pos.x, pos.y);
 	//RenderManager::DrawSprite(SpriteType::NORMAL, SpriteIndex::STAGE1_TILE_SET, position.x, position.y);
 }

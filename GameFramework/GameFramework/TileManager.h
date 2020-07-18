@@ -19,17 +19,30 @@ public:
 
 	static void Render();
 private:
+	static void RenderTile();
 	static void RenderCrossLine();
 	static void RenderMousePosition();
 	static void RenderTileSet();
 	static void RenderTileSelector();
+	static void RenderSelectedTile();
 public:
 	static void ShowTileSet();
 	static void SetEditMode(bool _isEdit);
+	static RECT GetTileSetArea();
+	static bool IsMouseOnTileSet();
+	static POINT GetTileSetIndex();
+	static void SelectTileFromTileSet(POINT pt);
+
+	static void CreateTile(int indexX, int indexY, SpriteIndex tileset, int offset);
+	static void DeleteTile(int indexX, int indexY);
+	static void DeleteAllTiles();
 
 public:
+	
+	int selectedTileIndex = 0;
 	bool isEditMode = false;
 	bool isShowTileSet = false;
 	RECT tileSetArea;
+	map<Point, Tile*> tileMap;
 };
 

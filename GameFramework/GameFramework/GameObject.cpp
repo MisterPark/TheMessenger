@@ -33,5 +33,13 @@ void GameObject::SetAnimation(SpriteIndex _startIndex, SpriteIndex _endIndex)
 	anim->SetAnimation(_startIndex, _endIndex);
 }
 
+Transform GameObject::GetPositionFromCamera()
+{
+	Transform pos = position;
+	pos.x -= Camera::GetX();
+	pos.y -= Camera::GetY();
+	return pos;
+}
+
 
 

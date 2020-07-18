@@ -138,9 +138,6 @@
     <ClInclude Include="PlayerIdleState.h">
       <Filter>State</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMoveState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SelectBox.h">
       <Filter>GameObject\UI</Filter>
     </ClInclude>
@@ -158,6 +155,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>MyLib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +239,6 @@
     <ClCompile Include="PlayerIdleState.cpp">
       <Filter>State</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMoveState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Label.cpp">
       <Filter>GameObject\UI</Filter>
     </ClCompile>
@@ -256,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveState.cpp">
+      <Filter>State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
