@@ -275,3 +275,15 @@ void TileManager::DeleteAllTiles()
 		iter = pTileManager->tileMap.erase(iter);
 	}
 }
+
+void TileManager::Save()
+{
+}
+
+void TileManager::Load()
+{
+}
+
+void TileManager::LoadToGameScene()
+{
+}

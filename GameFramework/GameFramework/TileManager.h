@@ -37,6 +37,10 @@ public:
 	static void DeleteTile(int indexX, int indexY);
 	static void DeleteAllTiles();
 
+	static void Save();
+	static void Load();
+	static void LoadToGameScene();
+
 public:
 	
 	int selectedTileIndex = 0;
