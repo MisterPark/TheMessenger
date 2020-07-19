@@ -11,7 +11,7 @@ Animation::~Animation()
 
 void Animation::Update()
 {
-	frameCount++;
+	frameCount += TimeManager::DeltaTime();
 	if (frameDelay <= frameCount)
 	{
 		frameCount = 0;
@@ -55,10 +55,10 @@ void Animation::SetAnimation(SpriteIndex _start, SpriteIndex _end)
 	}
 }
 
-void Animation::SetFrameDelay(int _framePerSprite)
+void Animation::SetFrameDelay(float _second)
 {
 	frameCount = 0;
-	frameDelay = _framePerSprite;
+	frameDelay = _second;
 }
 
 void Animation::SetLoop(bool _isLoop)

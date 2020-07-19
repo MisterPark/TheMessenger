@@ -51,6 +51,30 @@ void TileManager::RenderTile()
 		Tile* tile = iter.second;
 		Transform pos = tile->GetPositionFromCamera();
 		RenderManager::DrawTile(SpriteType::NORMAL, tile->tileset, tile->offsetIndex, pos.x, pos.y);
+
+		RECT rt = { pos.x + 1,pos.y + 1,pos.x + dfTILE_W - 1,pos.y + dfTILE_H - 1 };
+
+		if (tile->option & dfTILE_OPTION_COLLISION_TOP)
+		{
+			RenderManager::DrawLine(rt.left, rt.top, rt.right, rt.top, RGB(255, 0, 0));
+		}
+		if (tile->option & dfTILE_OPTION_COLLISION_BOTTOM)
+		{
+			RenderManager::DrawLine(rt.left, rt.bottom, rt.right, rt.bottom, RGB(255, 0, 0));
+		}
+		if (tile->option & dfTILE_OPTION_COLLISION_LEFT)
+		{
+			RenderManager::DrawLine(rt.left, rt.top, rt.left, rt.bottom, RGB(255, 0, 0));
+		}
+		if (tile->option & dfTILE_OPTION_COLLISION_RIGHT)
+		{
+			RenderManager::DrawLine(rt.right, rt.top, rt.right, rt.bottom, RGB(255, 0, 0));
+		}
+		if (tile->option & dfTILE_OPTION_STICK)
+		{
+
+		}
+
 	}
 }
 
@@ -253,6 +277,27 @@ void TileManager::CreateTile(int indexX, int indexY, SpriteIndex tileset, int of
 	pTileManager->tileMap.insert(make_pair(Point(indexX, indexY), tile));
 }
 
+void TileManager::CreateTile(int indexX, int indexY, SpriteIndex tileset, int offset, DWORD option, Point movePoint)
+{
+	auto target = pTileManager->tileMap.find(Point(indexX, indexY));
+
+	if (target != pTileManager->tileMap.end())
+	{
+		return;
+	}
+
+	Tile* tile = new Tile;
+	tile->position.x = indexX * dfTILE_W;
+	tile->position.y = indexY * dfTILE_H;
+	tile->tileset = tileset;
+	tile->offsetIndex = offset;
+	tile->option = option;
+	tile->ePoint = movePoint;
+	tile->sPoint = { indexX,indexY };
+
+	pTileManager->tileMap.insert(make_pair(Point(indexX, indexY), tile));
+}
+
 void TileManager::DeleteTile(int indexX, int indexY)
 {
 	auto target = pTileManager->tileMap.find(Point(indexX, indexY));
@@ -276,14 +321,114 @@ void TileManager::DeleteAllTiles()
 	}
 }
 
+Tile* TileManager::FindTile(int indexX, int indexY)
+{
+	auto iter = pTileManager->tileMap.find(Point(indexX, indexY));
+	if (iter != pTileManager->tileMap.end())
+	{
+		return iter->second;
+	}
+	return nullptr;
+}
+
 void TileManager::Save()
 {
+	FileManager::MakeDirectory("SaveData");
+	FileManager::SetDirectory("SaveData/TileData.dat");
+	FileManager::OpenFile("wb");
+
+	// 헤더
+	int tileCount = pTileManager->tileMap.size();
+	FileManager::WriteFile(&tileCount, sizeof(int), 1);
+
+	// 데이터
+	for (auto iter : pTileManager->tileMap)
+	{
+		Point index = iter.first;
+		Tile* tile = iter.second;
+
+		FileManager::WriteFile(&index.x, sizeof(int), 1);
+		FileManager::WriteFile(&index.y, sizeof(int), 1);
+		FileManager::WriteFile(&tile->tileset, sizeof(SpriteIndex), 1);
+		FileManager::WriteFile(&tile->offsetIndex, sizeof(int), 1);
+		FileManager::WriteFile(&tile->option, sizeof(DWORD), 1);
+		FileManager::WriteFile(&tile->ePoint, sizeof(Point), 1);
+	}
+
+	FileManager::CloseFile();
 }
 
 void TileManager::Load()
 {
+	DeleteAllTiles();
+
+	FileManager::MakeDirectory("SaveData");
+	FileManager::SetDirectory("SaveData/TileData.dat");
+	FileManager::OpenFile("rb");
+
+	// 헤더
+	int tileCount;
+	FileManager::ReadFile(&tileCount, sizeof(int), 1);
+
+	// 데이터
+	for (int i = 0; i < tileCount; i++)
+	{
+		Point index;
+		SpriteIndex tileSet;
+		int offsetIndex;
+		DWORD option;
+		Point movePoint;
+
+		FileManager::ReadFile(&index.x, sizeof(int), 1);
+		FileManager::ReadFile(&index.y, sizeof(int), 1);
+		FileManager::ReadFile(&tileSet, sizeof(SpriteIndex), 1);
+		FileManager::ReadFile(&offsetIndex, sizeof(int), 1);
+		FileManager::ReadFile(&option, sizeof(DWORD), 1);
+		FileManager::ReadFile(&movePoint, sizeof(Point), 1);
+
+		CreateTile(index.x, index.y, tileSet, offsetIndex, option, movePoint);
+	}
+
+	FileManager::CloseFile();
 }
 
 void TileManager::LoadToGameScene()
 {
+	ObjectManager::DestroyAll(ObjectType::TILE);
+
+	FileManager::MakeDirectory("SaveData");
+	FileManager::SetDirectory("SaveData/TileData.dat");
+	FileManager::OpenFile("rb");
+
+	// 헤더
+	int tileCount;
+	FileManager::ReadFile(&tileCount, sizeof(int), 1);
+
+	// 데이터
+	for (int i = 0; i < tileCount; i++)
+	{
+		Point index;
+		SpriteIndex tileSet;
+		int offsetIndex;
+		DWORD option;
+		Point movePoint;
+
+		FileManager::ReadFile(&index.x, sizeof(int), 1);
+		FileManager::ReadFile(&index.y, sizeof(int), 1);
+		FileManager::ReadFile(&tileSet, sizeof(SpriteIndex), 1);
+		FileManager::ReadFile(&offsetIndex, sizeof(int), 1);
+		FileManager::ReadFile(&option, sizeof(DWORD), 1);
+		FileManager::ReadFile(&movePoint, sizeof(Point), 1);
+
+		Tile* tile = (Tile*)ObjectManager::CreateObject(ObjectType::TILE);
+		tile->position.x = index.x * dfTILE_W;
+		tile->position.y = index.y * dfTILE_H;
+		tile->tileset = tileSet;
+		tile->offsetIndex = offsetIndex;
+		tile->option = option;
+		tile->ePoint = movePoint;
+		tile->sPoint = { index.x,index.y };
+	}
+
+	FileManager::CloseFile();
 }

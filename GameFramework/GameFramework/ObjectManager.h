@@ -22,6 +22,10 @@ public:
 	static void LateUpdate();
 	static void Render();
 
+	static bool IsVisibleCollider();
+	static void SetVisibleCollider(bool _isVisible);
 
+private:
 	list<GameObject*>objectTable[MaxOfEnum<ObjectType>()];
+	bool isVisibleCollider = false;
 };

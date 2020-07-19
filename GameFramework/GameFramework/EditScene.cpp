@@ -4,6 +4,7 @@
 #include "BackGround.h"
 #include "SkyBox.h"
 #include "Label.h"
+#include "Player.h"
 
 void EditScene::OnLoaded()
 {
@@ -13,7 +14,8 @@ void EditScene::OnLoaded()
 	BackGround::SetAnimation(SpriteIndex::BLACKSCREEN);
 	SkyBox::SetAnimation(SpriteIndex::NINJA_BG_1, SpriteIndex::NINJA_BG_1);
 
-	ObjectManager::CreateObject(ObjectType::PLAYER);
+	Player* p = (Player*)ObjectManager::CreateObject(ObjectType::PLAYER);
+	p->useGravity = false;
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);
 
 }
@@ -44,7 +46,7 @@ void EditScene::Update()
 
 	}
 
-	if (InputManager::GetKeyDown('O'))
+	if (InputManager::GetKeyDown('O')) // 알파벳 오
 	{
 		TileManager::ShowTileSet();
 	}
@@ -95,5 +97,113 @@ void EditScene::Update()
 
 		TileManager::DeleteTile(pt.x, pt.y);
 	}
+	if (InputManager::GetKeyDown('S'))
+	{
+		TileManager::Save();
+	}
+	if (InputManager::GetKeyDown('L'))
+	{
+		TileManager::Load();
+	}
 	
+	if (InputManager::GetKeyDown('1'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_COLLISION_TOP;
+		}
+	}
+	if (InputManager::GetKeyDown('2'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_COLLISION_BOTTOM;
+		}
+	}
+	if (InputManager::GetKeyDown('3'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_COLLISION_LEFT;
+		}
+	}
+	if (InputManager::GetKeyDown('4'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_COLLISION_RIGHT;
+		}
+	}
+	if (InputManager::GetKeyDown('5'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_STICK;
+		}
+	}
+	if (InputManager::GetKeyDown('6'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_JUMP_DOWN;
+		}
+	}
+	if (InputManager::GetKeyDown('7'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_FALL_DOWN;
+		}
+	}
+	if (InputManager::GetKeyDown('8'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_DAMAGE;
+		}
+	}
+	if (InputManager::GetKeyDown('9'))
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_MOVE;
+		}
+	}
+	if (InputManager::GetKeyDown('0')) // 숫자 영
+	{
+		POINT pt;
+		InputManager::GetTileIndex(&pt);
+		Tile* tile = TileManager::FindTile(pt.x, pt.y);
+		if (tile != nullptr)
+		{
+			tile->option |= dfTILE_OPTION_DEATH;
+		}
+	}
 }

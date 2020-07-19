@@ -10,6 +10,7 @@ void Character::Render()
 {
 }
 
+
 bool Character::IsCollided(const GameObject* _target)
 {
 	const Character* target = dynamic_cast<const Character*>(_target);
@@ -50,42 +51,72 @@ void Character::SetColliderSize(LONG left, LONG top, LONG right, LONG bottom)
 	simpleCollider.bottom = bottom;
 }
 
-void Character::PushOut(Character* target, float _force)
+void Character::PushOut(Character* target,DWORD option)
 {
-	float dx = fabs(target->position.x - position.x);
-	float dy = fabs(target->position.y - position.y);
-
-	
 	RECT targetRect = target->simpleCollider + target->position;
 	RECT myRect = simpleCollider + position;
 
-	if (target->position.x < myRect.left) return;
-	if (target->position.x > myRect.right) return;
+	RECT area;
+	if (IntersectRect(&area, &targetRect, &myRect) == false )return;
+	int dx = area.right - area.left;
+	int dy = area.bottom - area.top;
 
-
-	LONG distance = targetRect.bottom - myRect.top;
-	if (distance > 0 && distance <30)
+	if (dx > dy)
 	{
-		target->position.y -= targetRect.bottom - myRect.top;
-		target->gravityCount = 0;
-		target->jumpFlag = true;
+		if (targetRect.top < myRect.top)
+		{
+			if (option & dfTILE_OPTION_COLLISION_TOP)
+			{
+				int distance = targetRect.bottom - myRect.top;
+
+				if (distance > 0)
+				{
+					target->position.y -= distance;
+					target->gravityCount = 0;
+					target->jumpFlag = true;
+					target->isFalldown = false;
+				}
+			}
+		}
+		else if (targetRect.bottom > myRect.bottom)
+		{
+			if (option & dfTILE_OPTION_COLLISION_BOTTOM)
+			{
+				int distance = myRect.bottom - targetRect.top;
+
+				if (distance > 0)
+				{
+					target->position.y += distance;
+					target->jumpCount = 0;
+				}
+			}
+		}
 	}
-	//else if (targetRect.right >= myRect.left)
-	//{
+	else
+	{
+		if (targetRect.left < myRect.left)
+		{
+			if (option & dfTILE_OPTION_COLLISION_LEFT)
+			{
+				int distance = targetRect.right - myRect.left;
 
-	//}
-	//else if (targetRect.top <= myRect.bottom)
-	//{
+				if (distance > 0)
+				{
+					target->position.x -= distance + 1;
+				}
+			}
+		}
+		else if (targetRect.right > myRect.right)
+		{
+			if (option & dfTILE_OPTION_COLLISION_RIGHT)
+			{
+				int distance = myRect.right - targetRect.left;
 
-	//}
-	//else if (targetRect.left <= myRect.right)
-	//{
-
-	//}
-	
-	
-
+				if (distance > 0)
+				{
+					target->position.x += distance + 1;
+				}
+			}
+		}
+	}
 }
-
-
-

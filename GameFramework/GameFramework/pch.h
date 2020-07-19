@@ -22,6 +22,7 @@
 #include <vector>
 #include <list>
 #include <type_traits>
+#include <direct.h>
 
 using namespace std;
 
@@ -39,6 +40,7 @@ using namespace std;
 #include "CollisionManager.h"
 #include "Camera.h"
 #include "TileManager.h"
+#include "FileManager.h"
 
 extern HWND g_hwnd;
 

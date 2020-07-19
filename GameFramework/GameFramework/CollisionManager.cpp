@@ -59,9 +59,15 @@ void CollisionManager::UpdateGravity()
 		if (target == nullptr) continue;
 		if (target->useGravity == false) continue;
 
-		target->gravityCount += 2;
+		target->gravityCount += 1;
 		float gravityPower = target->gravityCount * dfGRAVITY * TimeManager::DeltaTime();
+		gravityPower = min(gravityPower, 15.f);
 		target->position.y += gravityPower;
+		if (target->gravityCount > 3 && target->jumpCount == 0)
+		{
+			target->jumpFlag = false;
+			target->isFalldown = true;
+		}
 	}
 }
 

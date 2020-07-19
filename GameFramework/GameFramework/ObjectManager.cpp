@@ -187,3 +187,13 @@ void ObjectManager::Render()
 	// 디버그용
 	TimeManager::RenderFPS();
 }
+
+bool ObjectManager::IsVisibleCollider()
+{
+	return pObjectManager->isVisibleCollider;
+}
+
+void ObjectManager::SetVisibleCollider(bool _isVisible)
+{
+	pObjectManager->isVisibleCollider = _isVisible;
+}

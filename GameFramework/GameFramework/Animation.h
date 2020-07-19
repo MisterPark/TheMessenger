@@ -13,7 +13,7 @@ public:
 
 	void SetAnimation(SpriteIndex _index);
 	void SetAnimation(SpriteIndex _start, SpriteIndex _end);
-	void SetFrameDelay(int _framePerSprite);
+	void SetFrameDelay(float _second);
 	void SetLoop(bool _isLoop);
 
 
@@ -21,8 +21,8 @@ private:
 	SpriteIndex startIndex = SpriteIndex::NONE;
 	SpriteIndex endIndex = SpriteIndex::NONE;
 	SpriteIndex curIndex = SpriteIndex::NONE;
-	int frameDelay = 0;
-	int frameCount = 0;
+	float frameDelay = 0;
+	float frameCount = 0;
 	bool isLoop = false;
 };
 

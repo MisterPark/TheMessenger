@@ -162,6 +162,9 @@
     <ClInclude Include="Point.h">
       <Filter>MyLib</Filter>
     </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameFramework.cpp">
@@ -259,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="PlayerMoveState.cpp">
       <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

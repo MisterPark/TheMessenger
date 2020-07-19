@@ -41,7 +41,6 @@ public:
 
 public:
 	Transform position{ 0.f, 0.f };
-	Transform offset{ 0.f,0.f };
 	int width = 0;
 	int height = 0;
 	

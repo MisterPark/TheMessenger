@@ -8,7 +8,7 @@ void IntroScene::OnLoaded()
 {
 	BackGround::SetStretch(true);
 	BackGround::SetAnimation(SpriteIndex::INTRO, SpriteIndex::CUT_SCENE7);
-	BackGround::GetInstance()->anim->SetFrameDelay(100);
+	BackGround::GetInstance()->anim->SetFrameDelay(1);
 	BackGround::GetInstance()->anim->SetLoop(false);
 	SkyBox::SetAnimation(SpriteIndex::NONE, SpriteIndex::NONE);
 }

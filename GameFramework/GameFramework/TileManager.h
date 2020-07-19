@@ -34,8 +34,10 @@ public:
 	static void SelectTileFromTileSet(POINT pt);
 
 	static void CreateTile(int indexX, int indexY, SpriteIndex tileset, int offset);
+	static void CreateTile(int indexX, int indexY, SpriteIndex tileset, int offset, DWORD option, Point movePoint);
 	static void DeleteTile(int indexX, int indexY);
 	static void DeleteAllTiles();
+	static Tile* FindTile(int indexX, int indexY);
 
 	static void Save();
 	static void Load();

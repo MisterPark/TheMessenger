@@ -20,6 +20,8 @@ void PlayScene::OnLoaded()
 	
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);
 	ObjectManager::CreateObject(ObjectType::PLAYER);
+
+	TileManager::LoadToGameScene();
 }
 
 void PlayScene::OnUnloaded()
@@ -44,5 +46,17 @@ void PlayScene::Update()
 			MainGame::FullScreen();
 		}
 
+	}
+	if (InputManager::GetKeyDown('R'))
+	{
+		if (ObjectManager::IsVisibleCollider())
+		{
+			ObjectManager::SetVisibleCollider(false);
+		}
+		else
+		{
+			ObjectManager::SetVisibleCollider(true);
+		}
+		
 	}
 }

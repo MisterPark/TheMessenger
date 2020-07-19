@@ -9,10 +9,12 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
+
 	bool IsCollided(const GameObject* _target);
 	void SetColliderSize(LONG left, LONG top, LONG right, LONG bottom);
 
-	void PushOut(Character* target, float _force);
+	// 충돌 옵션임
+	void PushOut(Character* target, DWORD option);
 
 public:
 	float speed = 0.f;
@@ -20,6 +22,7 @@ public:
 	vector<RECT> colliders; // 실제 충돌영역
 	// 중력
 	bool useGravity = false;
+	bool isFalldown = false;
 	int gravityCount = 0;
 	int jumpCount = 0;
 };
