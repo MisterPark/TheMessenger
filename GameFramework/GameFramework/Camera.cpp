@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Camera.h"
+#include "GameObject.h"
 
 Camera* pCamera = nullptr;
 
@@ -49,13 +50,18 @@ void Camera::Update()
 		SetPosition(0, 0);
 	}
 
-
+	FollowTarget();
 }
 
 void Camera::SetPosition(int _x, int _y)
 {
 	pCamera->position.x = _x;
 	pCamera->position.y = _y;
+}
+
+void Camera::SetTarget(GameObject* _target)
+{
+	pCamera->target = _target;
 }
 
 int Camera::GetX()
@@ -66,4 +72,11 @@ int Camera::GetX()
 int Camera::GetY()
 {
 	return pCamera->position.y;
+}
+
+void Camera::FollowTarget()
+{
+	if (pCamera->target == nullptr)return;
+
+	pCamera->position.x = pCamera->target->position.x - (RenderManager::GetWidth() / 2);
 }

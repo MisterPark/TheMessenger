@@ -30,7 +30,7 @@ void Tile::Render()
 
 	if (ObjectManager::IsVisibleCollider())
 	{
-		RenderManager::DrawSimpleCollider(position + simpleCollider, RGB(0, 255, 0));
+		RenderManager::DrawSimpleCollider(pos + simpleCollider, RGB(0, 255, 0));
 	}
 	
 }
