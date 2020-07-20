@@ -11,10 +11,12 @@ Player::Player()
 	useGravity = true;
 
 	simpleCollider = idleCollider;
-
+	direction = Direction::RIGHT;
 	// 애니메이션
 	anim2 = new Animation;
+	anim->SetAnimation(SpriteIndex::PLAYER_IDLE_R);
 	anim->SetFrameDelay(0.1f);
+	anim2->SetFrameDelay(0.1f);
 	anim->SetLoop(true);
 
 	// 상태
@@ -28,7 +30,7 @@ Player::~Player()
 
 void Player::Update()
 {
-	PreprocessCommand();
+	command = Command::NONE;
 
 	if (InputManager::GetKey(VK_UP))
 	{
@@ -66,6 +68,7 @@ void Player::Update()
 	anim2->Update();
 	UpdateCollisionArea();
 	JumpUpdate();
+	AttackUpdate();
 }
 
 void Player::Render()
@@ -81,22 +84,10 @@ void Player::Render()
 	
 }
 
-void Player::PreprocessCommand()
-{
-	//if (jumpFlag == false)
-	//{
-	//	command = Command::JUMP;
-	//}
-	//else
-	//{
-	//	command = Command::NONE;
-	//}
-	command = Command::NONE;
-}
 
 void Player::ProcessCommand()
 {
-	if (command != Command::JUMP && isFalldown)
+	if ((command != Command::JUMP || command != Command::ATTACK) && isFalldown && attackFlag)
 	{
 		if (direction == Direction::LEFT)
 		{
@@ -112,45 +103,105 @@ void Player::ProcessCommand()
 	switch (command)
 	{
 	case Command::NONE:
+		if (!attackFlag) break;
 		if (!jumpFlag) break;
-		if (isFalldown) break;
 		anim->SetLoop(true);
-		if (direction == Direction::LEFT)
+		if (isFalldown)
 		{
-			anim->SetAnimation(SpriteIndex::PLAYER_IDLE_L);
+			if (direction == Direction::LEFT)
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_JUMP_L6);
+			}
+			else
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_JUMP_R6);
+			}
 		}
 		else
 		{
-			anim->SetAnimation(SpriteIndex::PLAYER_IDLE_R);
+			if (direction == Direction::LEFT)
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_IDLE_L);
+			}
+			else
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_IDLE_R);
+			}
+			
 		}
 		anim2->SetAnimation(SpriteIndex::NONE);
 		break;
 	case Command::MOVE_LEFT:
 		if (!jumpFlag) break;
-		if (isFalldown) break;
 		anim->SetLoop(true);
-		anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_L1, SpriteIndex::PLAYER_RUN_LEG_L4);
-		anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_L);
+		if (isFalldown)
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_JUMP_L6);
+			anim2->SetAnimation(SpriteIndex::NONE);
+		}
+		else
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_L1, SpriteIndex::PLAYER_RUN_LEG_L4);
+			if (attackFlag == false)
+			{
+				anim2->SetAnimation(SpriteIndex::PLAYER_RUN_ATTACK_L1, SpriteIndex::PLAYER_RUN_ATTACK_L4);
+			}
+			else
+			{
+				anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_L);
+			}
+		}
+		
+			
 		break;
 	case Command::MOVE_RIGHT:
 		if (!jumpFlag) break;
-		if (isFalldown) break;
 		anim->SetLoop(true);
-		anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_R1, SpriteIndex::PLAYER_RUN_LEG_R4);
-		anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_R);
+		if (isFalldown)
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_JUMP_R6);
+			anim2->SetAnimation(SpriteIndex::NONE);
+		}
+		else
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_RUN_LEG_R1, SpriteIndex::PLAYER_RUN_LEG_R4);
+			if (attackFlag == false)
+			{
+				anim2->SetAnimation(SpriteIndex::PLAYER_RUN_ATTACK_R1, SpriteIndex::PLAYER_RUN_ATTACK_R4);
+			}
+			else
+			{
+				anim2->SetAnimation(SpriteIndex::PLAYER_RUN_BODY_R);
+			}
+		}
 		break;
 	case Command::SIT_DOWN:
 		if (!jumpFlag) break;
 		if (isFalldown) break;
-		anim->SetLoop(true);
-		if (direction == Direction::LEFT)
+		anim->SetLoop(false);
+		if (attackFlag == false)
 		{
-			anim->SetAnimation(SpriteIndex::PLAYER_SITDOWN_L);
+			if (direction == Direction::LEFT)
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_SIT_ATTACK_L1,SpriteIndex::PLAYER_SIT_ATTACK_L4);
+			}
+			else
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_SIT_ATTACK_R1,SpriteIndex::PLAYER_SIT_ATTACK_R4);
+			}
 		}
 		else
 		{
-			anim->SetAnimation(SpriteIndex::PLAYER_SITDOWN_R);
+			if (direction == Direction::LEFT)
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_SITDOWN_L);
+			}
+			else
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_SITDOWN_R);
+			}
 		}
+		
 		anim2->SetAnimation(SpriteIndex::NONE);
 		break;
 	case Command::JUMP:
@@ -165,6 +216,59 @@ void Player::ProcessCommand()
 			anim->SetAnimation(SpriteIndex::PLAYER_JUMP_R1, SpriteIndex::PLAYER_JUMP_R6);
 		}
 		anim2->SetAnimation(SpriteIndex::NONE);
+		break;
+	case Command::ATTACK:
+		anim->SetLoop(false);
+		if (!jumpFlag) // 체공중에 공격
+		{
+			if (direction == Direction::LEFT)
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_JUMP_ATTACK_L1, SpriteIndex::PLAYER_JUMP_ATTACK_L4);
+			}
+			else
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_JUMP_ATTACK_R1, SpriteIndex::PLAYER_JUMP_ATTACK_R4);
+			}
+			anim2->SetAnimation(SpriteIndex::NONE);
+		}
+		else if (IsSitdown()) // 앉았을때 공격
+		{
+			if (direction == Direction::LEFT)
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_SIT_ATTACK_L1, SpriteIndex::PLAYER_SIT_ATTACK_L4);
+			}
+			else
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_SIT_ATTACK_R1, SpriteIndex::PLAYER_SIT_ATTACK_R4);
+			}
+			anim2->SetAnimation(SpriteIndex::NONE);
+		}
+		else if(IsMoving()) // 달리기중 공격
+		{
+			if (direction == Direction::LEFT)
+			{
+				anim2->SetAnimation(SpriteIndex::PLAYER_RUN_ATTACK_L1,SpriteIndex::PLAYER_RUN_ATTACK_L4);
+			}
+			else
+			{
+				anim2->SetAnimation(SpriteIndex::PLAYER_RUN_ATTACK_R1, SpriteIndex::PLAYER_RUN_ATTACK_R4);
+			}
+			
+		}
+		else // 그냥 공격
+		{
+			if (direction == Direction::LEFT)
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_ATTACK1_L1, SpriteIndex::PLAYER_ATTACK1_L4);
+			}
+			else
+			{
+				anim->SetAnimation(SpriteIndex::PLAYER_ATTACK1_R1, SpriteIndex::PLAYER_ATTACK1_R4);
+			}
+			anim2->SetAnimation(SpriteIndex::NONE);
+		}
+
+		
 		break;
 	default:
 		break;
@@ -204,6 +308,19 @@ void Player::JumpUpdate()
 	jumpCount--;
 }
 
+void Player::AttackUpdate()
+{
+	if (attackFlag) return;
+
+	attackTick += TimeManager::DeltaTime();
+
+	if (attackTick >= attackDelay)
+	{
+		attackTick = 0.f;
+		attackFlag = true;
+	}
+}
+
 void Player::Jump()
 {
 	if (jumpFlag)
@@ -216,4 +333,23 @@ void Player::Jump()
 
 void Player::Attack()
 {
+	if (attackFlag)
+	{
+		attackFlag = false;
+		command = Command::ATTACK;
+		attackTick = 0.f;
+	}
+}
+
+bool Player::IsSitdown()
+{
+	return (anim->GetCurrentSpriteIndex() == SpriteIndex::PLAYER_SITDOWN_L || anim->GetCurrentSpriteIndex() == SpriteIndex::PLAYER_SITDOWN_R);
+}
+
+bool Player::IsMoving()
+{
+	SpriteIndex cur = anim->GetCurrentSpriteIndex();
+	if (cur < SpriteIndex::PLAYER_RUN_LEG_R1) return false;
+	if (cur > SpriteIndex::PLAYER_RUN_LEG_L4) return false;
+	return true;
 }

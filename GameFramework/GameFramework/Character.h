@@ -23,6 +23,9 @@ public:
 	// ม฿ทย
 	bool useGravity = false;
 	bool isFalldown = false;
-	int gravityCount = 0;
+	float gravityCount = 0;
 	int jumpCount = 0;
+	bool attackFlag = true;
+	float attackDelay = 0.25f;
+	float attackTick = 0.f;
 };

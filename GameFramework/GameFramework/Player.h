@@ -11,6 +11,7 @@ enum class Command
 	MOVE_RIGHT,
 	SIT_DOWN,
 	JUMP,
+	ATTACK,
 };
 
 class Player : public Character
@@ -22,13 +23,16 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	void PreprocessCommand();
 	void ProcessCommand();
 	void UpdateCollisionArea();
 	void JumpUpdate();
+	void AttackUpdate();
 
 	void Jump();
 	void Attack();
+
+	bool IsSitdown();
+	bool IsMoving();
 
 	Animation* anim2 = nullptr;
 

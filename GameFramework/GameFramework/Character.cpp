@@ -23,24 +23,8 @@ bool Character::IsCollided(const GameObject* _target)
 
 	if (!IntersectRect(&outBox, &myBox, &targetBox)) return false;
 
-	for (const RECT& collider : colliders)
-	{
-		auto relativedCollider = collider + position;
 
-		for (const RECT& targetCollider : target->colliders)
-		{
-			auto relativedTargetCollider = targetCollider + target->position;
-
-			if (IntersectRect(&outBox, &relativedCollider, &relativedTargetCollider))
-			{
-				return true;
-			}
-		}
-	}
-	
-
-
-	return false;
+	return true;
 }
 
 void Character::SetColliderSize(LONG left, LONG top, LONG right, LONG bottom)
