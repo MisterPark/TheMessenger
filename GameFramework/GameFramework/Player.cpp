@@ -33,7 +33,21 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (KnockBack()) return;
+	if (KnockBack())
+	{
+		if (knockbackDirection == Direction::LEFT)
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_ATTACKED_L);
+		}
+		else
+		{
+			anim->SetAnimation(SpriteIndex::PLAYER_ATTACKED_R);
+		}
+		anim2->SetAnimation(SpriteIndex::NONE);
+		anim->Update();
+		anim2->Update();
+		return;
+	}
 	command = Command::NONE;
 
 	if (InputManager::GetKey(VK_UP))
