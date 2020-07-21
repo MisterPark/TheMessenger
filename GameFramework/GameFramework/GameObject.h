@@ -12,7 +12,10 @@ enum class ObjectType
 	TILE,
 	MONSTER,
 	GREEN_KAPPA,
-
+	BLUE_BALL,
+	BLUE_KAPPA,
+	RUN_KAPPA,
+	SCURUBU,
 	PLAYER,
 	EFFECT,
 
@@ -45,6 +48,7 @@ public:
 	Transform GetPositionFromCamera();
 
 	void FollowTarget();
+	void FaceTarget();
 	void TakeDamage(int _damage);
 	bool KnockBack();
 

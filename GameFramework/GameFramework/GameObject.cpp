@@ -53,6 +53,22 @@ void GameObject::FollowTarget()
 	// 수정해야함(몬스터 따라가기)
 }
 
+void GameObject::FaceTarget()
+{
+	if (target == nullptr) return;
+
+	int dist = target->position.x - position.x;
+	
+	if (dist <= 0)
+	{
+		direction = Direction::LEFT;
+	}
+	else
+	{
+		direction = Direction::RIGHT;
+	}
+}
+
 void GameObject::TakeDamage(int _damage)
 {
 	hp -= _damage;

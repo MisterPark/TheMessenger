@@ -48,6 +48,7 @@ void Player::Update()
 		anim2->Update();
 		return;
 	}
+
 	command = Command::NONE;
 
 	if (InputManager::GetKey(VK_UP))

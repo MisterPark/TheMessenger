@@ -13,6 +13,10 @@
 #include "Monster.h"
 #include "Effect.h"
 #include "GreenKappa.h"
+#include "BlueKappa.h"
+#include "RunKappa.h"
+#include "Scurubu.h"
+#include "BlueBall.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -51,6 +55,18 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 		break;
 	case ObjectType::GREEN_KAPPA:
 		pObj = new GreenKappa;
+		break;
+	case ObjectType::BLUE_BALL:
+		pObj = new BlueBall;
+		break;
+	case ObjectType::BLUE_KAPPA:
+		pObj = new BlueKappa;
+		break;
+	case ObjectType::RUN_KAPPA:
+		pObj = new RunKappa;
+		break;
+	case ObjectType::SCURUBU:
+		pObj = new Scurubu;
 		break;
 	case ObjectType::PLAYER:
 		pObj = new Player();

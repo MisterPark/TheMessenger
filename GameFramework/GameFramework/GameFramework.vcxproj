@@ -149,6 +149,8 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BlueBall.h" />
+    <ClInclude Include="BlueKappa.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -180,7 +182,9 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RunKappa.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scurubu.h" />
     <ClInclude Include="SelectBox.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="targetver.h" />
@@ -194,6 +198,8 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BlueBall.cpp" />
+    <ClCompile Include="BlueKappa.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -225,7 +231,9 @@
     <ClCompile Include="PlayerMoveState.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="RunKappa.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scurubu.cpp" />
     <ClCompile Include="SelectBox.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Tile.cpp" />

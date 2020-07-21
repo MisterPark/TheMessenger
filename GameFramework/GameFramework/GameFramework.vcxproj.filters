@@ -177,6 +177,18 @@
     <ClInclude Include="GreenKappa.h">
       <Filter>GameObject\Character\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="Scurubu.h">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="RunKappa.h">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueKappa.h">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueBall.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameFramework.cpp">
@@ -286,6 +298,18 @@
     </ClCompile>
     <ClCompile Include="GreenKappa.cpp">
       <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Scurubu.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="RunKappa.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueKappa.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueBall.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

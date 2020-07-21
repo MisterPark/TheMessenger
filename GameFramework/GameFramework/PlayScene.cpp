@@ -34,7 +34,18 @@ void PlayScene::OnLoaded()
 	m->SetSpawnPosition(300, 250);
 	m->SetBackAndForth(400, 150);
 
-	
+	m = (Monster*)ObjectManager::CreateObject(ObjectType::SCURUBU);
+	m->SetSpawnPosition(400, 250);
+
+	m = (Monster*)ObjectManager::CreateObject(ObjectType::RUN_KAPPA);
+	m->SetSpawnPosition(500, 250);
+
+	m = (Monster*)ObjectManager::CreateObject(ObjectType::BLUE_KAPPA);
+	m->SetSpawnPosition(450, 250);
+	m->SetTarget(p);
+
+	m = (Monster*)ObjectManager::CreateObject(ObjectType::BLUE_BALL);
+	m->SetSpawnPosition(450, 220);
 }
 
 void PlayScene::OnUnloaded()

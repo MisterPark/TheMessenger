@@ -27,6 +27,23 @@ void Monster::SetBackAndForth(int x, int y)
 	backAndForthPos.y = y;
 }
 
+bool Monster::IsTargetClose()
+{
+	if (target == nullptr) return false;
+	
+	float dist = fabs(target->position.x - position.x);
+
+	if (dist > attackRange) return false;
+
+	return true;
+}
+
+void Monster::MoveLeft()
+{
+	position.x -= speed * TimeManager::DeltaTime();
+	direction = Direction::LEFT;
+}
+
 void Monster::BackAndForth()
 {
 	int distance = 0;

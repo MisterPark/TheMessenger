@@ -57,6 +57,8 @@ void MainGame::Initialize()
 	TileManager::GetInstance();
 	FileManager::GetInstance();
 
+	RenderManager::LoadSprite(SpriteIndex::STAGE1_TILE_SET, "Sprites\\Stage1\\NinjaVillageTileset_8.bmp", 0, 0);
+
 	RenderManager::LoadSprite(SpriteIndex::INTRO, "Sprites\\CutScene\\Intro.bmp", 0, 0);
 	RenderManager::LoadSprite(SpriteIndex::CUT_SCENE1, "Sprites\\CutScene\\CutScene1.bmp", 0, 0);
 	RenderManager::LoadSprite(SpriteIndex::CUT_SCENE2, "Sprites\\CutScene\\CutScene2.bmp", 0, 0);
@@ -153,6 +155,61 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_R3, "Sprites\\Monster\\GreenKappaR_02.bmp", 16, 64);
 	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_R4, "Sprites\\Monster\\GreenKappaR_01.bmp", 16, 64);
 
+	RenderManager::LoadSprite(SpriteIndex::SCURUBU_L1, "Sprites\\Monster\\Scurubu_01.bmp", 11, 22);
+	RenderManager::LoadSprite(SpriteIndex::SCURUBU_L2, "Sprites\\Monster\\Scurubu_02.bmp", 11, 22);
+	RenderManager::LoadSprite(SpriteIndex::SCURUBU_L3, "Sprites\\Monster\\Scurubu_03.bmp", 11, 22);
+	RenderManager::LoadSprite(SpriteIndex::SCURUBU_L4, "Sprites\\Monster\\Scurubu_04.bmp", 11, 22);
+
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L1, "Sprites\\Monster\\RangedKappaL_01.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L2, "Sprites\\Monster\\RangedKappaL_02.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L3, "Sprites\\Monster\\RangedKappaL_03.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L4, "Sprites\\Monster\\RangedKappaL_04.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L5, "Sprites\\Monster\\RangedKappaL_05.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L6, "Sprites\\Monster\\RangedKappaL_06.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L7, "Sprites\\Monster\\RangedKappaL_07.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L8, "Sprites\\Monster\\RangedKappaL_08.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R1, "Sprites\\Monster\\RangedKappaR_04.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R2, "Sprites\\Monster\\RangedKappaR_03.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R3, "Sprites\\Monster\\RangedKappaR_02.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R4, "Sprites\\Monster\\RangedKappaR_01.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R5, "Sprites\\Monster\\RangedKappaR_08.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R6, "Sprites\\Monster\\RangedKappaR_07.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R7, "Sprites\\Monster\\RangedKappaR_06.bmp", 20, 40);
+	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_R8, "Sprites\\Monster\\RangedKappaR_05.bmp", 20, 40);
+
+	RenderManager::LoadSprite(SpriteIndex::RUN_KAPPA_L1, "Sprites\\Monster\\RunKappaL_01.bmp", 24, 48);
+	RenderManager::LoadSprite(SpriteIndex::RUN_KAPPA_L2, "Sprites\\Monster\\RunKappaL_02.bmp", 24, 48);
+	RenderManager::LoadSprite(SpriteIndex::RUN_KAPPA_L3, "Sprites\\Monster\\RunKappaL_03.bmp", 24, 48);
+	RenderManager::LoadSprite(SpriteIndex::RUN_KAPPA_L4, "Sprites\\Monster\\RunKappaL_04.bmp", 24, 48);
+	RenderManager::LoadSprite(SpriteIndex::RUN_KAPPA_L5, "Sprites\\Monster\\RunKappaL_05.bmp", 24, 48);
+
+	RenderManager::LoadSprite(SpriteIndex::BLUE_BALL, "Sprites\\Monster\\BlueBall.bmp", 10, 10);
+
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L1, "Sprites\\Monster\\BlueKappaL_01.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L2, "Sprites\\Monster\\BlueKappaL_02.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L3, "Sprites\\Monster\\BlueKappaL_03.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L4, "Sprites\\Monster\\BlueKappaL_04.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L5, "Sprites\\Monster\\BlueKappaL_05.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L6, "Sprites\\Monster\\BlueKappaL_06.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L7, "Sprites\\Monster\\BlueKappaL_07.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L8, "Sprites\\Monster\\BlueKappaL_08.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L9, "Sprites\\Monster\\BlueKappaL_09.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L10, "Sprites\\Monster\\BlueKappaL_10.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L11, "Sprites\\Monster\\BlueKappaL_11.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_L12, "Sprites\\Monster\\BlueKappaL_12.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R1, "Sprites\\Monster\\BlueKappaR_04.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R2, "Sprites\\Monster\\BlueKappaR_03.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R3, "Sprites\\Monster\\BlueKappaR_02.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R4, "Sprites\\Monster\\BlueKappaR_01.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R5, "Sprites\\Monster\\BlueKappaR_08.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R6, "Sprites\\Monster\\BlueKappaR_07.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R7, "Sprites\\Monster\\BlueKappaR_06.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R8, "Sprites\\Monster\\BlueKappaR_05.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R9, "Sprites\\Monster\\BlueKappaR_09.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R10, "Sprites\\Monster\\BlueKappaR_10.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R11, "Sprites\\Monster\\BlueKappaR_11.bmp", 20, 64);
+	RenderManager::LoadSprite(SpriteIndex::BLUE_KAPPA_R12, "Sprites\\Monster\\BlueKappaR_12.bmp", 20, 64);
+
 	RenderManager::LoadSprite(SpriteIndex::EFFECT01_L1, "Sprites\\Effect\\Effect01_L_01.bmp", 16, 8);
 	RenderManager::LoadSprite(SpriteIndex::EFFECT01_L2, "Sprites\\Effect\\Effect01_L_02.bmp", 16, 8);
 	RenderManager::LoadSprite(SpriteIndex::EFFECT01_L3, "Sprites\\Effect\\Effect01_L_03.bmp", 16, 8);
@@ -162,7 +219,7 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R3, "Sprites\\Effect\\Effect01_R_03.bmp", 16, 8);
 	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R4, "Sprites\\Effect\\Effect01_R_04.bmp", 16, 8);
 
-	RenderManager::LoadSprite(SpriteIndex::STAGE1_TILE_SET, "Sprites\\Stage1\\NinjaVillageTileset_8.bmp", 0, 0);
+	
 
 	SceneManager::LoadScene<IntroScene>();
 }
@@ -182,7 +239,7 @@ void MainGame::Release()
 
 void MainGame::Run()
 {
-
+	
 	InputManager::Update();
 	if (pMainGame->isPause == false)
 	{
