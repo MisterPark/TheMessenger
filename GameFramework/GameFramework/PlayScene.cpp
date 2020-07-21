@@ -5,6 +5,7 @@
 #include "IntroScene.h"
 #include "TitleScene.h"
 #include "GameObject.h"
+#include "Monster.h"
 
 PlayScene::PlayScene()
 {
@@ -27,6 +28,12 @@ void PlayScene::OnLoaded()
 	Camera::SetTarget(p);
 	// 타일
 	TileManager::LoadToGameScene();
+
+	// 몬스터
+	Monster* m = (Monster*)ObjectManager::CreateObject(ObjectType::GREEN_KAPPA);
+	m->SetSpawnPosition(300, 250);
+	m->SetBackAndForth(400, 150);
+
 	
 }
 

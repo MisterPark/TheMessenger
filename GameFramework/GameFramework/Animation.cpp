@@ -24,6 +24,8 @@ void Animation::Update()
 				curIndex = startIndex;
 				return;
 			}
+
+			isEndFrame = true;
 			return;
 		}
 
@@ -64,4 +66,9 @@ void Animation::SetFrameDelay(float _second)
 void Animation::SetLoop(bool _isLoop)
 {
 	isLoop = _isLoop;
+}
+
+bool Animation::IsEndFrame()
+{
+	return isEndFrame;
 }

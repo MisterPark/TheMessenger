@@ -143,6 +143,24 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::PLAYER_SIT_ATTACK_L2, "Sprites\\Player\\player_sitdown_attack_L2.bmp", 29, 60);
 	RenderManager::LoadSprite(SpriteIndex::PLAYER_SIT_ATTACK_L3, "Sprites\\Player\\player_sitdown_attack_L3.bmp", 29, 60);
 	RenderManager::LoadSprite(SpriteIndex::PLAYER_SIT_ATTACK_L4, "Sprites\\Player\\player_sitdown_attack_L4.bmp", 29, 60);
+	
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_L1, "Sprites\\Monster\\GreenKappaL_01.bmp", 16, 64);
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_L2, "Sprites\\Monster\\GreenKappaL_02.bmp", 16, 64);
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_L3, "Sprites\\Monster\\GreenKappaL_03.bmp", 16, 64);
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_L4, "Sprites\\Monster\\GreenKappaL_04.bmp", 16, 64);
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_R1, "Sprites\\Monster\\GreenKappaR_04.bmp", 16, 64);
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_R2, "Sprites\\Monster\\GreenKappaR_03.bmp", 16, 64);
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_R3, "Sprites\\Monster\\GreenKappaR_02.bmp", 16, 64);
+	RenderManager::LoadSprite(SpriteIndex::GREEN_KAPPA_R4, "Sprites\\Monster\\GreenKappaR_01.bmp", 16, 64);
+
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_L1, "Sprites\\Effect\\Effect01_L_01.bmp", 16, 8);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_L2, "Sprites\\Effect\\Effect01_L_02.bmp", 16, 8);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_L3, "Sprites\\Effect\\Effect01_L_03.bmp", 16, 8);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_L4, "Sprites\\Effect\\Effect01_L_04.bmp", 16, 8);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R1, "Sprites\\Effect\\Effect01_R_01.bmp", 16, 8);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R2, "Sprites\\Effect\\Effect01_R_02.bmp", 16, 8);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R3, "Sprites\\Effect\\Effect01_R_03.bmp", 16, 8);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R4, "Sprites\\Effect\\Effect01_R_04.bmp", 16, 8);
 
 	RenderManager::LoadSprite(SpriteIndex::STAGE1_TILE_SET, "Sprites\\Stage1\\NinjaVillageTileset_8.bmp", 0, 0);
 

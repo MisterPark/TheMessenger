@@ -43,6 +43,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{53bfafa3-0a39-449a-977b-6236d5ea9328}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Character\Monster">
+      <UniqueIdentifier>{133f6ddc-1316-4806-b355-6c7aa7b7f60e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -165,11 +168,14 @@
     <ClInclude Include="FileManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>GameObject\Character</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenKappa.h">
+      <Filter>GameObject\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -272,11 +278,14 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>GameObject\Character</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>GameObject\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKappa.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

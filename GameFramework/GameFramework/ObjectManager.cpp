@@ -10,6 +10,9 @@
 #include "HUD_Bar.h"
 #include "Label.h"
 #include "Tile.h"
+#include "Monster.h"
+#include "Effect.h"
+#include "GreenKappa.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -40,8 +43,20 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	GameObject* pObj = nullptr;
 	switch (_type)
 	{
+	case ObjectType::TILE:
+		pObj = new Tile;
+		break;
+	case ObjectType::MONSTER:
+		pObj = new Monster;
+		break;
+	case ObjectType::GREEN_KAPPA:
+		pObj = new GreenKappa;
+		break;
 	case ObjectType::PLAYER:
 		pObj = new Player();
+		break;
+	case ObjectType::EFFECT:
+		pObj = new Effect;
 		break;
 	case ObjectType::UI:
 		pObj = new UI();
@@ -55,9 +70,7 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	case ObjectType::HUD_BAR:
 		pObj = new HUD_Bar();
 		break;
-	case ObjectType::TILE:
-		pObj = new Tile;
-		break;
+	
 	case ObjectType::LABEL:
 		pObj = new Label;
 		break;

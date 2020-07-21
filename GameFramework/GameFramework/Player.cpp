@@ -2,10 +2,13 @@
 #include "Player.h"
 #include "PlayerIdleState.h"
 #include "PlayerMoveState.h"
+#include "Effect.h"
+#include "Monster.h"
 
 Player::Player()
 {
 	// Á¤º¸
+	hp = 1000;
 	position = { 330,250 };
 	speed = 200.f;
 	useGravity = true;
@@ -30,6 +33,7 @@ Player::~Player()
 
 void Player::Update()
 {
+	if (KnockBack()) return;
 	command = Command::NONE;
 
 	if (InputManager::GetKey(VK_UP))
@@ -82,6 +86,16 @@ void Player::Render()
 		RenderManager::DrawSimpleCollider(pos + simpleCollider, RGB(0, 255, 0));
 	}
 	
+}
+
+void Player::OnCollision(GameObject* _other)
+{
+	if (dynamic_cast<Monster*>(_other))
+	{
+		TakeDamage(1);
+		isAttacked = true;
+		knockbackDirection = _other->direction;
+	}
 }
 
 
@@ -338,6 +352,43 @@ void Player::Attack()
 		attackFlag = false;
 		command = Command::ATTACK;
 		attackTick = 0.f;
+		if (direction == Direction::LEFT)
+		{
+			if (IsMoving())
+			{
+				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
+				e->anim->SetAnimation(SpriteIndex::EFFECT01_L4, SpriteIndex::EFFECT01_L4);
+				e->SetPosition(position.x - 35, position.y - 30);
+				e->direction = direction;
+			}
+			else
+			{
+				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
+				e->anim->SetAnimation(SpriteIndex::EFFECT01_L1, SpriteIndex::EFFECT01_L3);
+				e->SetPosition(position.x - 30, position.y - 30);
+				e->direction = direction;
+			}
+			
+
+		}
+		else if (direction == Direction::RIGHT)
+		{
+			if (IsMoving())
+			{
+				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
+				e->anim->SetAnimation(SpriteIndex::EFFECT01_R4, SpriteIndex::EFFECT01_R4);
+				e->SetPosition(position.x + 35, position.y - 30);
+				e->direction = direction;
+			}
+			else
+			{
+				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
+				e->anim->SetAnimation(SpriteIndex::EFFECT01_R1, SpriteIndex::EFFECT01_R3);
+				e->SetPosition(position.x + 30, position.y - 30);
+				e->direction = direction;
+			}
+			
+		}
 	}
 }
 

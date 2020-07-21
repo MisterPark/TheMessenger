@@ -160,6 +160,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GreenKappa.h" />
     <ClInclude Include="HUD_Bar.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IntroScene.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GreenKappa.cpp" />
     <ClCompile Include="HUD_Bar.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />

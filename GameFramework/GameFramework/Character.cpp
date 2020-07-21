@@ -45,7 +45,7 @@ void Character::PushOut(Character* target,DWORD option)
 	int dx = area.right - area.left;
 	int dy = area.bottom - area.top;
 
-	if (dx > dy)
+	if (dx >= dy)
 	{
 		if (targetRect.top < myRect.top)
 		{

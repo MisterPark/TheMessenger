@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Tile.h"
 #include "Player.h"
+#include "Monster.h"
 
 Tile::Tile()
 {
@@ -37,10 +38,15 @@ void Tile::Render()
 
 void Tile::OnCollision(GameObject* _other)
 {
-	Player* player = dynamic_cast<Player*>(_other);
-	if (player == nullptr) return;
-
-	PushOut(player, option);
+	if (dynamic_cast<Player*>(_other))
+	{
+		PushOut((Character*)_other, option);
+	}
+	else if (dynamic_cast<Monster*>(_other))
+	{
+		PushOut((Character*)_other, option);
+	}
+	
 	
 
 }

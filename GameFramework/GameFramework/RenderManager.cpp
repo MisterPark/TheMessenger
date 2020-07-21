@@ -88,6 +88,19 @@ bool RenderManager::GetSpriteSize(SpriteIndex _index, int* _outW, int* _outH)
 	return true;
 }
 
+bool RenderManager::GetSpriteCenter(SpriteIndex _index, int* _outX, int* _outY)
+{
+	int index = (int)_index;
+	if (index >= (int)SpriteIndex::END || index < 0) return false;
+	if (_outX == nullptr)return false;
+	if (_outY == nullptr)return false;
+
+	*_outX = pRenderManager->pSprite[index].centerX;
+	*_outY = pRenderManager->pSprite[index].centerY;
+
+	return true;
+}
+
 int RenderManager::GetWidth()
 {
 	return pRenderManager->width;

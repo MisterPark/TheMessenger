@@ -93,6 +93,26 @@ enum class SpriteIndex
 	PLAYER_SIT_ATTACK_L3,
 	PLAYER_SIT_ATTACK_L4,
 
+	// 몬스터
+	GREEN_KAPPA_L1,
+	GREEN_KAPPA_L2,
+	GREEN_KAPPA_L3,
+	GREEN_KAPPA_L4,
+	GREEN_KAPPA_R1,
+	GREEN_KAPPA_R2,
+	GREEN_KAPPA_R3,
+	GREEN_KAPPA_R4,
+	// 이펙트
+	EFFECT01_L1,
+	EFFECT01_L2,
+	EFFECT01_L3,
+	EFFECT01_L4,
+	EFFECT01_R1,
+	EFFECT01_R2,
+	EFFECT01_R3,
+	EFFECT01_R4,
+
+	// 타일셋
 	STAGE1_TILE_SET,
 
 	END
@@ -140,6 +160,7 @@ public:
 	static void Clear();
 
 	static bool GetSpriteSize(SpriteIndex _index, int* _outW, int* _outH);
+	static bool GetSpriteCenter(SpriteIndex _index, int* _outX, int* _outY);
 	static int GetWidth();
 	static int GetHeight();
 	static void SetBufferSize(int _w, int _h);

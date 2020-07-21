@@ -10,7 +10,11 @@ enum class ObjectType
 	// 렌더링 순서 중요
 	NONE,
 	TILE,
+	MONSTER,
+	GREEN_KAPPA,
+
 	PLAYER,
+	EFFECT,
 
 	UI,
 	LOGO,
@@ -35,23 +39,43 @@ public:
 	virtual void Die();
 
 	void SetPosition(float _x, float _y);
+	void SetTarget(GameObject* _target);
 	void SetAnimation(SpriteIndex _index);
 	void SetAnimation(SpriteIndex _startIndex, SpriteIndex _endIndex);
 	Transform GetPositionFromCamera();
 
+	void FollowTarget();
+	void TakeDamage(int _damage);
+	bool KnockBack();
+
 public:
+	// 위치 방향
 	Transform position{ 0.f, 0.f };
+	Transform localPosition{ 0.f,0.f };
+	Direction direction = Direction::RIGHT;
 	int width = 0;
 	int height = 0;
 	
 	ObjectType type = ObjectType::NONE;
-	Direction direction = Direction::RIGHT;
+	int hp = 5;
 	int uid = 0;
 	bool isEnable = true;
 	bool isVisible = true;
 	bool jumpFlag = false;
 	bool isDead = false;
+	bool isAlliance = true;
+	//  공격받았을 시 넉백 관련
+	Direction knockbackDirection = Direction::RIGHT;
+	float knockbackDelay = 0.5f;
+	float knockbackTick = 0.f;
+	bool isAttacked = false;
+	bool isImmortal = false;
 
 	//스프라이트 관련
 	Animation* anim = nullptr;
+
+	// 타겟팅
+	GameObject* target = nullptr;
+
+
 };
