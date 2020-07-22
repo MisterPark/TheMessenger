@@ -1,19 +1,13 @@
 #pragma once
-#include "SceneManager.h"
-
-class GameObject;
-
-class PlayScene : public IScene
+#include "IScene.h"
+class Stage2 :
+	public IScene
 {
-public:
-	PlayScene();
-	~PlayScene();
-
+	// IScene을(를) 통해 상속됨
 	virtual void OnLoaded() override;
 	virtual void OnUnloaded() override;
 	virtual void Update() override;
 
-	
 	GameObject* player = nullptr;
 };
 

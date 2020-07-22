@@ -73,7 +73,7 @@ void EditScene::Update()
 				InputManager::GetTileIndex(&pt);
 				int offset = TileManager::GetInstance()->selectedTileIndex;
 
-				TileManager::CreateTile(pt.x, pt.y, SpriteIndex::STAGE1_TILE_SET, offset);
+				TileManager::CreateTile(pt.x, pt.y, offset);
 			}
 			
 		}
@@ -84,7 +84,7 @@ void EditScene::Update()
 			InputManager::GetTileIndex(&pt);
 			int offset = TileManager::GetInstance()->selectedTileIndex;
 
-			TileManager::CreateTile(pt.x, pt.y, SpriteIndex::STAGE1_TILE_SET, offset);
+			TileManager::CreateTile(pt.x, pt.y, offset);
 		}
 		
 	}
@@ -99,11 +99,11 @@ void EditScene::Update()
 	}
 	if (InputManager::GetKeyDown('S'))
 	{
-		TileManager::Save();
+		TileManager::Save("Stage2.dat");
 	}
 	if (InputManager::GetKeyDown('L'))
 	{
-		TileManager::Load();
+		TileManager::Load("Stage2.dat");
 	}
 	
 	if (InputManager::GetKeyDown('1'))
@@ -205,5 +205,13 @@ void EditScene::Update()
 		{
 			tile->option |= dfTILE_OPTION_DEATH;
 		}
+	}
+	if (InputManager::GetKeyDown(VK_F2))
+	{
+		TileManager::SetTileSet(SpriteIndex::STAGE1_TILE_SET);
+	}
+	if (InputManager::GetKeyDown(VK_F3))
+	{
+		TileManager::SetTileSet(SpriteIndex::STAGE2_TILE_SET);
 	}
 }

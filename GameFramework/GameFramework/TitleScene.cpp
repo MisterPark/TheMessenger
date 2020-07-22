@@ -6,6 +6,7 @@
 #include "BackGround.h"
 #include "SkyBox.h"
 #include "SelectBox.h"
+#include "Stage2.h"
 
 TitleScene::TitleScene()
 {
@@ -59,7 +60,7 @@ void TitleScene::Update()
 
 void TitleScene::Start()
 {
-	SceneManager::LoadScene<PlayScene>();
+	SceneManager::LoadScene<Stage2>();
 }
 
 void TitleScene::Option()

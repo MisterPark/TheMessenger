@@ -58,6 +58,7 @@ void MainGame::Initialize()
 	FileManager::GetInstance();
 
 	RenderManager::LoadSprite(SpriteIndex::STAGE1_TILE_SET, "Sprites\\Stage1\\NinjaVillageTileset_8.bmp", 0, 0);
+	RenderManager::LoadSprite(SpriteIndex::STAGE2_TILE_SET, "Sprites\\Stage2\\AutumnHillsTileset_8.bmp", 0, 0);
 
 	RenderManager::LoadSprite(SpriteIndex::INTRO, "Sprites\\CutScene\\Intro.bmp", 0, 0);
 	RenderManager::LoadSprite(SpriteIndex::CUT_SCENE1, "Sprites\\CutScene\\CutScene1.bmp", 0, 0);
@@ -76,6 +77,9 @@ void MainGame::Initialize()
 
 	RenderManager::LoadSprite(SpriteIndex::BLACKSCREEN, "Sprites\\BlackScreen.bmp", 0, 0);
 	RenderManager::LoadSprite(SpriteIndex::NINJA_BG_1, "Sprites\\Stage1\\NinjaVillage_Skybox_8.bmp", 0, 0);
+	RenderManager::LoadSprite(SpriteIndex::STAGE2_BG1, "Sprites\\Stage2\\AutumnHills_RoomBackground01A_8.bmp", 0, 0);
+	RenderManager::LoadSprite(SpriteIndex::STAGE2_BG2, "Sprites\\Stage2\\AutumnHills_RoomBackground01B_8.bmp", 0, 0);
+
 
 	RenderManager::LoadSprite(SpriteIndex::PLAYER_IDLE_R, "Sprites\\Player\\player_idle_R.bmp", 29, 60);
 	RenderManager::LoadSprite(SpriteIndex::PLAYER_IDLE_L, "Sprites\\Player\\player_idle_L.bmp", 29, 60);

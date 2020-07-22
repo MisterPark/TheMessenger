@@ -6,6 +6,7 @@ enum class SpriteIndex
 	NONE,
 	// 타일셋
 	STAGE1_TILE_SET,
+	STAGE2_TILE_SET,
 
 	// 인트로씬
 	INTRO,
@@ -25,6 +26,9 @@ enum class SpriteIndex
 	// 스테이지1
 	BLACKSCREEN,
 	NINJA_BG_1,
+	// 스테이지2
+	STAGE2_BG1,
+	STAGE2_BG2,
 
 	// 플레이어
 	PLAYER_IDLE_R,

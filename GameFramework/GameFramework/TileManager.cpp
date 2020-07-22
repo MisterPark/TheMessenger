@@ -139,7 +139,7 @@ void TileManager::RenderTileSet()
 
 	int tileSetWidth;
 	int tileSetHeight;
-	RenderManager::GetSpriteSize(SpriteIndex::STAGE1_TILE_SET, &tileSetWidth, &tileSetHeight);
+	RenderManager::GetSpriteSize(pTileManager->curTileSet, &tileSetWidth, &tileSetHeight);
 	int tileSetX = dfEDIT_WIDTH - tileSetWidth;
 	int tileSetY = dfEDIT_HEIGHT - tileSetHeight;
 
@@ -148,7 +148,7 @@ void TileManager::RenderTileSet()
 	pTileManager->tileSetArea.right = tileSetX + tileSetWidth;
 	pTileManager->tileSetArea.bottom = tileSetY + tileSetHeight;
 	RenderManager::DrawRect(pTileManager->tileSetArea, RGB(255, 0, 255));
-	RenderManager::DrawSprite(SpriteType::NORMAL, SpriteIndex::STAGE1_TILE_SET, tileSetX, tileSetY);
+	RenderManager::DrawSprite(SpriteType::NORMAL, pTileManager->curTileSet, tileSetX, tileSetY);
 
 }
 
@@ -198,7 +198,7 @@ void TileManager::RenderTileSelector()
 
 void TileManager::RenderSelectedTile()
 {
-	RenderManager::DrawTile(SpriteType::NORMAL, SpriteIndex::STAGE1_TILE_SET, pTileManager->selectedTileIndex, 600, 0);
+	RenderManager::DrawTile(SpriteType::NORMAL, pTileManager->curTileSet, pTileManager->selectedTileIndex, 600, 0);
 }
 
 void TileManager::ShowTileSet()
@@ -253,13 +253,18 @@ POINT TileManager::GetTileSetIndex()
 void TileManager::SelectTileFromTileSet(POINT pt)
 {
 	int w, h;
-	RenderManager::GetSpriteSize(SpriteIndex::STAGE1_TILE_SET, &w, &h);
+	RenderManager::GetSpriteSize(pTileManager->curTileSet, &w, &h);
 	int colCount = w / dfTILE_W;
 
 	pTileManager->selectedTileIndex = colCount * pt.y + pt.x;
 }
 
-void TileManager::CreateTile(int indexX, int indexY, SpriteIndex tileset, int offset)
+void TileManager::SetTileSet(SpriteIndex _tileset)
+{
+	pTileManager->curTileSet = _tileset;
+}
+
+void TileManager::CreateTile(int indexX, int indexY, int offset)
 {
 	auto target = pTileManager->tileMap.find(Point(indexX, indexY));
 
@@ -271,13 +276,13 @@ void TileManager::CreateTile(int indexX, int indexY, SpriteIndex tileset, int of
 	Tile* tile = new Tile;
 	tile->position.x = indexX * dfTILE_W;
 	tile->position.y = indexY * dfTILE_H;
-	tile->tileset = tileset;
+	tile->tileset = pTileManager->curTileSet;
 	tile->offsetIndex = offset;
 
 	pTileManager->tileMap.insert(make_pair(Point(indexX, indexY), tile));
 }
 
-void TileManager::CreateTile(int indexX, int indexY, SpriteIndex tileset, int offset, DWORD option, Point movePoint)
+void TileManager::CreateTile(int indexX, int indexY,SpriteIndex tileSet, int offset, DWORD option, Point movePoint)
 {
 	auto target = pTileManager->tileMap.find(Point(indexX, indexY));
 
@@ -289,7 +294,7 @@ void TileManager::CreateTile(int indexX, int indexY, SpriteIndex tileset, int of
 	Tile* tile = new Tile;
 	tile->position.x = indexX * dfTILE_W;
 	tile->position.y = indexY * dfTILE_H;
-	tile->tileset = tileset;
+	tile->tileset = tileSet;
 	tile->offsetIndex = offset;
 	tile->option = option;
 	tile->ePoint = movePoint;
@@ -331,10 +336,16 @@ Tile* TileManager::FindTile(int indexX, int indexY)
 	return nullptr;
 }
 
-void TileManager::Save()
+void TileManager::Save(const char* _fileName)
 {
 	FileManager::MakeDirectory("SaveData");
-	FileManager::SetDirectory("SaveData/TileData.dat");
+	
+	char fullName[128] = { 0, };
+	strcat_s(fullName, "SaveData");
+	strcat_s(fullName, "/");
+	strcat_s(fullName, _fileName);
+
+	FileManager::SetDirectory(fullName);
 	FileManager::OpenFile("wb");
 
 	// 헤더
@@ -358,12 +369,17 @@ void TileManager::Save()
 	FileManager::CloseFile();
 }
 
-void TileManager::Load()
+void TileManager::Load(const char* _fileName)
 {
 	DeleteAllTiles();
 
+	char fullName[128] = { 0, };
+	strcat_s(fullName, "SaveData");
+	strcat_s(fullName, "/");
+	strcat_s(fullName, _fileName);
+
 	FileManager::MakeDirectory("SaveData");
-	FileManager::SetDirectory("SaveData/TileData.dat");
+	FileManager::SetDirectory(fullName);
 	FileManager::OpenFile("rb");
 
 	// 헤더
@@ -392,12 +408,17 @@ void TileManager::Load()
 	FileManager::CloseFile();
 }
 
-void TileManager::LoadToGameScene()
+void TileManager::LoadToGameScene(const char* _fileName)
 {
 	ObjectManager::DestroyAll(ObjectType::TILE);
 
+	char fullName[128] = { 0, };
+	strcat_s(fullName, "SaveData");
+	strcat_s(fullName, "/");
+	strcat_s(fullName, _fileName);
+
 	FileManager::MakeDirectory("SaveData");
-	FileManager::SetDirectory("SaveData/TileData.dat");
+	FileManager::SetDirectory(fullName);
 	FileManager::OpenFile("rb");
 
 	// 헤더
