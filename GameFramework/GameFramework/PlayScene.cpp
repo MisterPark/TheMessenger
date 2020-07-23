@@ -27,7 +27,7 @@ void PlayScene::OnLoaded()
 	// 카메라
 	Camera::SetTarget(player);
 	// 타일
-	TileManager::LoadToGameScene("Stage2.dat");
+	TileManager::LoadToGameScene("TileData.dat");
 
 	// 몬스터
 	

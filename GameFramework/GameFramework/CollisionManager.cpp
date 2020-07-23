@@ -83,9 +83,21 @@ void CollisionManager::RegisterObject(GameObject* _pObj)
 
 void CollisionManager::DisregisterObject(GameObject* _pObj)
 {
-	if (FindObject(_pObj))
+	//if (FindObject(_pObj))
+	//{
+	//	//pCollisionManager->objectList.remove(_pObj);
+	//}
+	if (_pObj == nullptr) return;
+
+	auto iter = pCollisionManager->objectList.begin();
+	auto end = pCollisionManager->objectList.end();
+
+	for (; iter != end; ++iter)
 	{
-		pCollisionManager->objectList.remove(_pObj);
+		if ((*iter) != _pObj) continue;
+
+		pCollisionManager->objectList.erase(iter);
+		return;
 	}
 }
 

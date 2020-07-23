@@ -19,6 +19,6 @@ public:
 
 	static bool IsCollided(GameObject* target, GameObject* other);
 	
-	list<GameObject*> objectList;
+	vector<GameObject*> objectList;
 };
 

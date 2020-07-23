@@ -266,6 +266,8 @@ void TileManager::SetTileSet(SpriteIndex _tileset)
 
 void TileManager::CreateTile(int indexX, int indexY, int offset)
 {
+	if (indexX < 0 || indexY < 0) return;
+	 
 	auto target = pTileManager->tileMap.find(Point(indexX, indexY));
 
 	if (target != pTileManager->tileMap.end())
