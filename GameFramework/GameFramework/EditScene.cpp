@@ -99,11 +99,11 @@ void EditScene::Update()
 	}
 	if (InputManager::GetKeyDown('S'))
 	{
-		TileManager::Save("Stage2.dat");
+		TileManager::Save("Stage2_1.dat");
 	}
 	if (InputManager::GetKeyDown('L'))
 	{
-		TileManager::Load("Stage2.dat");
+		TileManager::Load("Stage2_1.dat");
 	}
 	
 	if (InputManager::GetKeyDown('1'))

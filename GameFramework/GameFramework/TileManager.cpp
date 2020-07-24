@@ -455,3 +455,46 @@ void TileManager::LoadToGameScene(const char* _fileName)
 
 	FileManager::CloseFile();
 }
+
+void TileManager::LoadToGameSceneBack(const char * _fileName)
+{
+	ObjectManager::DestroyAll(ObjectType::BACK_TILE);
+
+	char fullName[128] = { 0, };
+	strcat_s(fullName, "SaveData");
+	strcat_s(fullName, "/");
+	strcat_s(fullName, _fileName);
+
+	FileManager::MakeDirectory("SaveData");
+	FileManager::SetDirectory(fullName);
+	FileManager::OpenFile("rb");
+
+	// 헤더
+	int tileCount;
+	FileManager::ReadFile(&tileCount, sizeof(int), 1);
+
+	// 데이터
+	for (int i = 0; i < tileCount; i++)
+	{
+		Point index;
+		SpriteIndex tileSet;
+		int offsetIndex;
+		DWORD option;
+		Point movePoint;
+
+		FileManager::ReadFile(&index.x, sizeof(int), 1);
+		FileManager::ReadFile(&index.y, sizeof(int), 1);
+		FileManager::ReadFile(&tileSet, sizeof(SpriteIndex), 1);
+		FileManager::ReadFile(&offsetIndex, sizeof(int), 1);
+		FileManager::ReadFile(&option, sizeof(DWORD), 1);
+		FileManager::ReadFile(&movePoint, sizeof(Point), 1);
+
+		BackTile* tile = (BackTile*)ObjectManager::CreateObject(ObjectType::BACK_TILE);
+		tile->position.x = index.x * dfTILE_W;
+		tile->position.y = index.y * dfTILE_H;
+		tile->tileset = tileSet;
+		tile->offsetIndex = offsetIndex;
+	}
+
+	FileManager::CloseFile();
+}

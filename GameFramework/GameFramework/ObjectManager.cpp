@@ -5,10 +5,12 @@
 #include "UI.h"
 #include "BackGround.h"
 #include "SkyBox.h"
+#include "SkyBox2.h"
 #include "Logo.h"
 #include "SelectBox.h"
 #include "HUD_Bar.h"
 #include "Label.h"
+#include "BackTile.h"
 #include "Tile.h"
 #include "Monster.h"
 #include "Effect.h"
@@ -25,12 +27,14 @@ ObjectManager::ObjectManager()
 {
 	BackGround::GetInstance();
 	SkyBox::GetInstance();
+	SkyBox2::GetInstance();
 }
 
 ObjectManager::~ObjectManager()
 {
 	BackGround::Release();
 	SkyBox::Release();
+	SkyBox2::Release();
 }
 
 ObjectManager * ObjectManager::GetInstance()
@@ -47,6 +51,9 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	GameObject* pObj = nullptr;
 	switch (_type)
 	{
+	case ObjectType::BACK_TILE:
+		pObj = new BackTile;
+		break;
 	case ObjectType::TILE:
 		pObj = new Tile;
 		break;
@@ -150,6 +157,7 @@ void ObjectManager::Update()
 {
 	BackGround::GetInstance()->Update();
 	SkyBox::GetInstance()->Update();
+	SkyBox2::GetInstance()->Update();
 
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)
@@ -202,6 +210,7 @@ void ObjectManager::Render()
 {
 	BackGround::GetInstance()->Render();
 	SkyBox::GetInstance()->Render();
+	SkyBox2::GetInstance()->Render();
 
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)

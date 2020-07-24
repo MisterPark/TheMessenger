@@ -5,7 +5,7 @@
 
 GreenKappa::GreenKappa()
 {
-	hp = 10003;
+	hp = 3;
 	speed = 10.f;
 	useGravity = true;
 	isAlliance = false;

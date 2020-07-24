@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BackTile.h" />
     <ClInclude Include="BlueBall.h" />
     <ClInclude Include="BlueKappa.h" />
     <ClInclude Include="Camera.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Scurubu.h" />
     <ClInclude Include="SelectBox.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SkyBox2.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
@@ -199,6 +201,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BackTile.cpp" />
     <ClCompile Include="BlueBall.cpp" />
     <ClCompile Include="BlueKappa.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -237,6 +240,7 @@
     <ClCompile Include="Scurubu.cpp" />
     <ClCompile Include="SelectBox.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SkyBox2.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />

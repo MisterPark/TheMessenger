@@ -186,11 +186,17 @@
     <ClInclude Include="BlueKappa.h">
       <Filter>GameObject\Character\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="BlueBall.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Stage2.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox2.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BackTile.h">
+      <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueBall.h">
+      <Filter>GameObject\Character\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,11 +317,17 @@
     <ClCompile Include="BlueKappa.cpp">
       <Filter>GameObject\Character\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="BlueBall.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Stage2.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox2.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BackTile.cpp">
+      <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueBall.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

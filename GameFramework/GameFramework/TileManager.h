@@ -1,5 +1,6 @@
 #pragma once
 #include "Tile.h"
+#include "BackTile.h"
 
 #define dfEDIT_WIDTH 1280
 #define dfEDIT_HEIGHT 720
@@ -43,6 +44,7 @@ public:
 	static void Save(const char* _fileName);
 	static void Load(const char* _fileName);
 	static void LoadToGameScene(const char* _fileName);
+	static void LoadToGameSceneBack(const char* _fileName);
 
 public:
 	

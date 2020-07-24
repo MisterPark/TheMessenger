@@ -9,6 +9,7 @@ enum class ObjectType
 {
 	// 렌더링 순서 중요
 	NONE,
+	BACK_TILE,
 	TILE,
 	MONSTER,
 	GREEN_KAPPA,
