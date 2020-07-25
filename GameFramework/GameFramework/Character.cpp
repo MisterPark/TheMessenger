@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Character.h"
+#include "Player.h"
 
 void Character::Update()
 {
@@ -60,6 +61,12 @@ void Character::PushOut(Character* target,DWORD option)
 					target->jumpFlag = true;
 					target->isFalldown = false;
 				}
+
+				Player* p = dynamic_cast<Player*>(target);
+				if (p != nullptr)
+				{
+					p->stickFlag = false;
+				}
 			}
 		}
 		else if (targetRect.bottom > myRect.bottom)
@@ -86,7 +93,7 @@ void Character::PushOut(Character* target,DWORD option)
 
 				if (distance > 0)
 				{
-					target->position.x -= distance + 1;
+					target->position.x -= distance;
 				}
 			}
 		}

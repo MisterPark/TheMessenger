@@ -9,7 +9,7 @@ Player::Player()
 {
 	// 정보
 	hp = 1000;
-	position = { 330,250 };
+	position = { 30,250 };
 	speed = 200.f;
 	useGravity = true;
 
@@ -34,6 +34,8 @@ Player::~Player()
 void Player::Update()
 {
 	isSitdown = false;
+	useGravity = true;
+	command = Command::NONE;
 
 	if (KnockBack())
 	{
@@ -45,48 +47,104 @@ void Player::Update()
 		{
 			anim->SetAnimation(SpriteIndex::PLAYER_ATTACKED_R);
 		}
+
+
 		anim2->SetAnimation(SpriteIndex::NONE);
 		anim->Update();
 		anim2->Update();
 		return;
 	}
 
-	command = Command::NONE;
+	if (stickFlag)
+	{
+		jumpFlag = true;
+		useGravity = false;
+		gravityCount = 0;
+		if (InputManager::GetKey(VK_UP))
+		{
+			if (stickMaxY < (simpleCollider.top + position.y))
+			{
+				position.y -= 50.f * TimeManager::DeltaTime();
+				command = Command::MOVE_UP;
+			}
+			else
+			{
+				stickFlag = false;
+				Jump();
+				anim->SetLoop(false);
+				if (direction == Direction::LEFT)
+				{
+					anim->SetAnimation(SpriteIndex::PLAYER_JUMP_L1, SpriteIndex::PLAYER_JUMP_L6);
+				}
+				else
+				{
+					anim->SetAnimation(SpriteIndex::PLAYER_JUMP_R1, SpriteIndex::PLAYER_JUMP_R6);
+				}
+				anim2->SetAnimation(SpriteIndex::NONE);
+			}
+			
+		}
+		else if (InputManager::GetKey(VK_DOWN))
+		{
+			position.y += 100.f * TimeManager::DeltaTime();
+			command = Command::MOVE_DOWN;
+		}
 
-	if (InputManager::GetKey(VK_UP))
-	{
+
+		if (InputManager::GetKeyDown('C'))
+		{
+			// 이구간 좀 변경해야할 듯 ( 점프 애니메이션도 재생 안하고) 점프하면 조금 위로 올라가야함
+			if (stickDirection == Direction::LEFT)
+			{
+				position.x -= 10;
+			}
+			else
+			{
+				position.x += 10;
+			}
+			gravityCount = 0;
+			//Jump();
+			stickFlag = false;
+		}
+		
+		StickAnimationProcess();
+		anim2->SetAnimation(SpriteIndex::NONE);
+		anim->Update();
+		anim2->Update();
+		return;
 	}
-	
-	if (InputManager::GetKey(VK_RIGHT))
+	else
 	{
-		position.x += speed * TimeManager::DeltaTime();
-		direction = Direction::RIGHT;
-		command = Command::MOVE_RIGHT;
-	}
-	else if (InputManager::GetKey(VK_LEFT))
-	{
-		position.x -= speed * TimeManager::DeltaTime();
-		direction = Direction::LEFT;
-		command = Command::MOVE_LEFT;
-	}
-	else if (InputManager::GetKey(VK_DOWN))
-	{
-		command = Command::SIT_DOWN;
-		isSitdown = true;
+		if (InputManager::GetKey(VK_RIGHT))
+		{
+			position.x += speed * TimeManager::DeltaTime();
+			direction = Direction::RIGHT;
+			command = Command::MOVE_RIGHT;
+		}
+		else if (InputManager::GetKey(VK_LEFT))
+		{
+			position.x -= speed * TimeManager::DeltaTime();
+			direction = Direction::LEFT;
+			command = Command::MOVE_LEFT;
+		}
+		else if (InputManager::GetKey(VK_DOWN))
+		{
+			command = Command::SIT_DOWN;
+			isSitdown = true;
+		}
+
+		if (InputManager::GetKeyDown('Z'))
+		{
+			Attack();
+		}
+		if (InputManager::GetKeyDown('C'))
+		{
+			Jump();
+		}
 	}
 
-	if (InputManager::GetKeyDown('Z'))
-	{
-		Attack();
-	}
-	if (InputManager::GetKeyDown('C'))
-	{
-		Jump();
-	}
-	
 
-
-	ProcessCommand();
+	AnimationProcess();
 	
 	anim->Update();
 	anim2->Update();
@@ -116,10 +174,108 @@ void Player::OnCollision(GameObject* _other)
 		isAttacked = true;
 		knockbackDirection = _other->direction;
 	}
+
+	if (_other->type == ObjectType::TILE)
+	{
+		Tile* tile = dynamic_cast<Tile*>(_other);
+		if (tile->option & dfTILE_OPTION_STICK)
+		{
+			if (jumpFlag) return;
+
+			RECT targetRect = tile->simpleCollider + tile->position;
+			RECT myRect = simpleCollider + position;
+
+			RECT area;
+			if (IntersectRect(&area, &targetRect, &myRect) == false)return;
+			int dx = area.right - area.left;
+			int dy = area.bottom - area.top;
+
+			if (dx < dy)
+			{
+				if (targetRect.left > myRect.left)
+				{
+					if (tile->option & dfTILE_OPTION_COLLISION_LEFT)
+					{
+						stickFlag = true;
+						stickDirection = Direction::LEFT;
+						position.x = targetRect.left - 30;
+						position.y = targetRect.top + 40;
+						stickMaxY = ObjectManager::FindTopStickTileY(_other);
+					}
+				}
+				else if (targetRect.right < myRect.right)
+				{
+					if (tile->option & dfTILE_OPTION_COLLISION_RIGHT)
+					{
+						stickFlag = true;
+						stickDirection = Direction::RIGHT;
+						position.x = targetRect.right + 30;
+						position.y = targetRect.top + 40;
+						stickMaxY = ObjectManager::FindTopStickTileY(_other);
+					}
+				}
+			}
+			
+			
+		}
+	}
 }
 
 
-void Player::ProcessCommand()
+void Player::StickAnimationProcess()
+{
+	if (stickDirection == Direction::LEFT)
+	{
+		simpleCollider = stickColliderL;
+
+		switch (command)
+		{
+		case Command::NONE:
+			anim->SetAnimation(SpriteIndex::PLAYER_STICK_L1);
+			break;
+		case Command::MOVE_UP:
+			anim->SetLoop(true);
+			anim->SetAnimation(SpriteIndex::PLAYER_STICK_L3, SpriteIndex::PLAYER_STICK_L4);
+			break;
+		case Command::MOVE_DOWN:
+			anim->SetAnimation(SpriteIndex::PLAYER_STICK_L2);
+			break;
+		case Command::JUMP:
+			break;
+		case Command::ATTACK:
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		simpleCollider = stickColliderR;
+
+		switch (command)
+		{
+		case Command::NONE:
+			anim->SetAnimation(SpriteIndex::PLAYER_STICK_R1);
+			break;
+		case Command::MOVE_UP:
+			anim->SetLoop(true);
+			anim->SetAnimation(SpriteIndex::PLAYER_STICK_R3, SpriteIndex::PLAYER_STICK_R4);
+			break;
+		case Command::MOVE_DOWN:
+			anim->SetAnimation(SpriteIndex::PLAYER_STICK_R2);
+			break;
+		case Command::JUMP:
+			break;
+		case Command::ATTACK:
+			break;
+		default:
+			break;
+		}
+	}
+	
+}
+
+void Player::AnimationProcess()
 {
 	if ((command != Command::JUMP || command != Command::ATTACK) && isFalldown && attackFlag)
 	{
@@ -133,6 +289,7 @@ void Player::ProcessCommand()
 		}
 		anim2->SetAnimation(SpriteIndex::NONE);
 	}
+
 
 	switch (command)
 	{
@@ -347,9 +504,10 @@ void Player::Jump()
 {
 	if (jumpFlag)
 	{
+		stickFlag = false;
 		jumpFlag = false;
 		command = Command::JUMP;
-		jumpCount = 25;
+		jumpCount = 20;
 	}
 }
 

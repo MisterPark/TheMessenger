@@ -159,6 +159,26 @@ void ObjectManager::DestroyAll(ObjectType _type)
 	}
 }
 
+
+int ObjectManager::FindTopStickTileY(GameObject* _stickTile)
+{
+	if (_stickTile == nullptr) return 0;
+
+	int minY = 999999;
+	auto& tileList = pObjectManager->objectTable[(int)ObjectType::TILE];
+	auto iter = tileList.begin();
+	auto end = tileList.end();
+	for (; iter != end; ++iter)
+	{
+		Tile* tile = (Tile*)(*iter);
+		if ((tile->option & dfTILE_OPTION_STICK) == false) continue;
+		if (_stickTile->position.x != tile->position.x) continue;
+		minY = min(minY, tile->position.y);
+	}
+
+	return minY;
+}
+
 void ObjectManager::Release()
 {
 	delete pObjectManager;

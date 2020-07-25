@@ -72,7 +72,7 @@ void TileManager::RenderTile()
 		}
 		if (tile->option & dfTILE_OPTION_STICK)
 		{
-
+			RenderManager::DrawLine(rt.left, rt.top, rt.right, rt.bottom, RGB(255, 0, 0));
 		}
 
 	}
