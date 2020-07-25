@@ -164,6 +164,15 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::SCURUBU_L3, "Sprites\\Monster\\Scurubu_03.bmp", 11, 22);
 	RenderManager::LoadSprite(SpriteIndex::SCURUBU_L4, "Sprites\\Monster\\Scurubu_04.bmp", 11, 22);
 
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_L1, "Sprites\\Monster\\FireBallL_01.bmp", 8, 8);
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_L2, "Sprites\\Monster\\FireBallL_02.bmp", 8, 8);
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_L3, "Sprites\\Monster\\FireBallL_03.bmp", 8, 8);
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_L4, "Sprites\\Monster\\FireBallL_04.bmp", 8, 8);
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_R1, "Sprites\\Monster\\FireBallR_01.bmp", 8, 8);
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_R2, "Sprites\\Monster\\FireBallR_02.bmp", 8, 8);
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_R3, "Sprites\\Monster\\FireBallR_03.bmp", 8, 8);
+	RenderManager::LoadSprite(SpriteIndex::FIRE_BALL_R4, "Sprites\\Monster\\FireBallR_04.bmp", 8, 8);
+
 	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L1, "Sprites\\Monster\\RangedKappaL_01.bmp", 20, 40);
 	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L2, "Sprites\\Monster\\RangedKappaL_02.bmp", 20, 40);
 	RenderManager::LoadSprite(SpriteIndex::RANGED_KAPPA_L3, "Sprites\\Monster\\RangedKappaL_03.bmp", 20, 40);
@@ -223,6 +232,12 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R3, "Sprites\\Effect\\Effect01_R_03.bmp", 16, 8);
 	RenderManager::LoadSprite(SpriteIndex::EFFECT01_R4, "Sprites\\Effect\\Effect01_R_04.bmp", 16, 8);
 
+	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION1, "Sprites\\Effect\\ExplosionEffect_01.bmp", 15, 15);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION2, "Sprites\\Effect\\ExplosionEffect_02.bmp", 15, 15);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION3, "Sprites\\Effect\\ExplosionEffect_03.bmp", 15, 15);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION4, "Sprites\\Effect\\ExplosionEffect_04.bmp", 15, 15);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION5, "Sprites\\Effect\\ExplosionEffect_05.bmp", 15, 15);
+	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION6, "Sprites\\Effect\\ExplosionEffect_06.bmp", 15, 15);
 	
 
 	SceneManager::LoadScene<IntroScene>();

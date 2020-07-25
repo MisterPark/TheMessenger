@@ -60,8 +60,8 @@ void TitleScene::Update()
 
 void TitleScene::Start()
 {
-	SceneManager::LoadScene<Stage2>();
-	//SceneManager::LoadScene<PlayScene>();
+	//SceneManager::LoadScene<Stage2>();
+	SceneManager::LoadScene<PlayScene>();
 }
 
 void TitleScene::Option()

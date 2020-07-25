@@ -44,6 +44,7 @@ void Tile::OnCollision(GameObject* _other)
 	}
 	else if (dynamic_cast<Monster*>(_other))
 	{
+		if (_other->type == ObjectType::BLUE_BALL) return;
 		PushOut((Character*)_other, option);
 	}
 	

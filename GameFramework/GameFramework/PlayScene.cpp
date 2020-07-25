@@ -97,4 +97,10 @@ void PlayScene::Update()
 		m->SetSpawnPosition(450, 250);
 		m->SetTarget(player);
 	}
+	if (InputManager::GetKeyDown('5'))
+	{
+		Monster* m = (Monster*)ObjectManager::CreateObject(ObjectType::RANGED_KAPPA);
+		m->SetSpawnPosition(450, 250);
+		m->SetTarget(player);
+	}
 }

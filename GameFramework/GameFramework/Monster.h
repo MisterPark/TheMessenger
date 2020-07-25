@@ -11,6 +11,8 @@ public:
     virtual void Render() override;
     virtual void OnCollision(GameObject* _other);
 
+    virtual void Die() override;
+
     
     void SetSpawnPosition(int x, int y);
     void SetBackAndForth(int x, int y);

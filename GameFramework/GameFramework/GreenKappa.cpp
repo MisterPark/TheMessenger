@@ -46,17 +46,3 @@ void GreenKappa::Render()
 		RenderManager::DrawSimpleCollider(pos + simpleCollider, RGB(0, 255, 0));
 	}
 }
-
-void GreenKappa::OnCollision(GameObject* _other)
-{
-	if (dynamic_cast<Effect*>(_other))
-	{
-		Effect* effect = (Effect*)_other;
-		if (effect->isAlliance && effect->damageFlag)
-		{
-			TakeDamage(1);
-			isAttacked = true;
-			knockbackDirection = effect->direction;
-		}
-	}
-}

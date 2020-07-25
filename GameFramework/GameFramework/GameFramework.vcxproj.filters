@@ -46,6 +46,9 @@
     <Filter Include="GameObject\Character\Monster">
       <UniqueIdentifier>{133f6ddc-1316-4806-b355-6c7aa7b7f60e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Character\Effect">
+      <UniqueIdentifier>{40ac7086-f952-41dc-b2cc-14e5b9fb46e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -168,9 +171,6 @@
     <ClInclude Include="FileManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>GameObject\Character</Filter>
-    </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>GameObject\Character\Monster</Filter>
     </ClInclude>
@@ -197,6 +197,18 @@
     </ClInclude>
     <ClInclude Include="BlueBall.h">
       <Filter>GameObject\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedKappa.h">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>GameObject\Character\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionEffect.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -299,9 +311,6 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>GameObject\Character</Filter>
-    </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>GameObject\Character\Monster</Filter>
     </ClCompile>
@@ -328,6 +337,18 @@
     </ClCompile>
     <ClCompile Include="BlueBall.cpp">
       <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedKappa.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>GameObject\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>GameObject\Character\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionEffect.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

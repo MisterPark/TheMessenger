@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Monster.h"
+#include "Effect.h"
 
 void Monster::Update()
 {
@@ -11,6 +12,31 @@ void Monster::Render()
 
 void Monster::OnCollision(GameObject* _other)
 {
+	if (dynamic_cast<Effect*>(_other))
+	{
+		Effect* effect = (Effect*)_other;
+		if (effect->isAlliance && effect->damageFlag)
+		{
+			TakeDamage(1);
+			isAttacked = true;
+			knockbackDirection = effect->direction;
+
+			if (hp <= 0)
+			{
+				int w, h;
+				RenderManager::GetSpriteSize(anim->GetCurrentSpriteIndex(),&w, &h);
+				GameObject* effect = ObjectManager::CreateObject(ObjectType::EFFECT_EXPLOSION);
+				effect->SetPosition(position.x, position.y-(h/2));
+			}
+		}
+	}
+}
+
+void Monster::Die()
+{
+	isDead = true;
+	
+
 }
 
 void Monster::SetSpawnPosition(int x, int y)

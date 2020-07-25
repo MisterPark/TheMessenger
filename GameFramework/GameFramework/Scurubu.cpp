@@ -4,7 +4,7 @@
 
 Scurubu::Scurubu()
 {
-	hp = 10003;
+	hp = 1;
 	speed = 20.f;
 	useGravity = true;
 	isAlliance = false;
@@ -40,19 +40,5 @@ void Scurubu::Render()
 	if (ObjectManager::IsVisibleCollider())
 	{
 		RenderManager::DrawSimpleCollider(pos + simpleCollider, RGB(0, 255, 0));
-	}
-}
-
-void Scurubu::OnCollision(GameObject* _other)
-{
-	if (dynamic_cast<Effect*>(_other))
-	{
-		Effect* effect = (Effect*)_other;
-		if (effect->isAlliance && effect->damageFlag)
-		{
-			TakeDamage(1);
-			isAttacked = true;
-			knockbackDirection = effect->direction;
-		}
 	}
 }

@@ -33,6 +33,8 @@ Player::~Player()
 
 void Player::Update()
 {
+	isSitdown = false;
+
 	if (KnockBack())
 	{
 		if (knockbackDirection == Direction::LEFT)
@@ -54,10 +56,7 @@ void Player::Update()
 	if (InputManager::GetKey(VK_UP))
 	{
 	}
-	if (InputManager::GetKey(VK_DOWN))
-	{
-		command = Command::SIT_DOWN;
-	}
+	
 	if (InputManager::GetKey(VK_RIGHT))
 	{
 		position.x += speed * TimeManager::DeltaTime();
@@ -70,6 +69,12 @@ void Player::Update()
 		direction = Direction::LEFT;
 		command = Command::MOVE_LEFT;
 	}
+	else if (InputManager::GetKey(VK_DOWN))
+	{
+		command = Command::SIT_DOWN;
+		isSitdown = true;
+	}
+
 	if (InputManager::GetKeyDown('Z'))
 	{
 		Attack();
@@ -306,26 +311,14 @@ void Player::ProcessCommand()
 
 void Player::UpdateCollisionArea()
 {
-	//switch (command)
-	//{
-	//case Command::NONE:
-	//	simpleCollider = idleCollider;
-	//	break;
-	//case Command::MOVE_LEFT:
-	//	simpleCollider = idleCollider;
-	//	break;
-	//case Command::MOVE_RIGHT:
-	//	simpleCollider = idleCollider;
-	//	break;
-	//case Command::SIT_DOWN:
-	//	simpleCollider = sitCollider;
-	//	break;
-	//case Command::JUMP:
-	//	simpleCollider = jumpCollider;
-	//	break;
-	//default:
-	//	break;
-	//}
+	if (isSitdown)
+	{
+		simpleCollider = sitCollider;
+	}
+	else
+	{
+		simpleCollider = idleCollider;
+	}
 }
 
 void Player::JumpUpdate()
@@ -373,14 +366,21 @@ void Player::Attack()
 			{
 				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
 				e->anim->SetAnimation(SpriteIndex::EFFECT01_L4, SpriteIndex::EFFECT01_L4);
-				e->SetPosition(position.x - 35, position.y - 30);
+				e->SetPosition(position.x - 35, position.y - 31);
+				e->direction = direction;
+			}
+			else if (isSitdown)
+			{
+				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
+				e->anim->SetAnimation(SpriteIndex::EFFECT01_L1, SpriteIndex::EFFECT01_L3);
+				e->SetPosition(position.x - 35, position.y - 10);
 				e->direction = direction;
 			}
 			else
 			{
 				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
 				e->anim->SetAnimation(SpriteIndex::EFFECT01_L1, SpriteIndex::EFFECT01_L3);
-				e->SetPosition(position.x - 30, position.y - 30);
+				e->SetPosition(position.x - 35, position.y - 31);
 				e->direction = direction;
 			}
 			
@@ -392,14 +392,21 @@ void Player::Attack()
 			{
 				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
 				e->anim->SetAnimation(SpriteIndex::EFFECT01_R4, SpriteIndex::EFFECT01_R4);
-				e->SetPosition(position.x + 35, position.y - 30);
+				e->SetPosition(position.x + 35, position.y - 31);
+				e->direction = direction;
+			}
+			else if (isSitdown)
+			{
+				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
+				e->anim->SetAnimation(SpriteIndex::EFFECT01_R1, SpriteIndex::EFFECT01_R3);
+				e->SetPosition(position.x + 35, position.y - 10);
 				e->direction = direction;
 			}
 			else
 			{
 				Effect* e = (Effect*)ObjectManager::CreateObject(ObjectType::EFFECT);
 				e->anim->SetAnimation(SpriteIndex::EFFECT01_R1, SpriteIndex::EFFECT01_R3);
-				e->SetPosition(position.x + 30, position.y - 30);
+				e->SetPosition(position.x + 35, position.y - 31);
 				e->direction = direction;
 			}
 			

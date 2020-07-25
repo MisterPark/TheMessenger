@@ -35,6 +35,11 @@ void BlueBall::Update()
 	
 
 	jumpCount--;
+
+	if (position.y > 1000)
+	{
+		Die();
+	}
 }
 
 void BlueBall::Render()
@@ -48,6 +53,3 @@ void BlueBall::Render()
 	}
 }
 
-void BlueBall::OnCollision(GameObject* _other)
-{
-}

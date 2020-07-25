@@ -16,9 +16,12 @@ enum class ObjectType
 	BLUE_BALL,
 	BLUE_KAPPA,
 	RUN_KAPPA,
+	FIRE_BALL,
+	RANGED_KAPPA,
 	SCURUBU,
 	PLAYER,
 	EFFECT,
+	EFFECT_EXPLOSION,
 
 	UI,
 	LOGO,
@@ -69,6 +72,7 @@ public:
 	bool jumpFlag = false;
 	bool isDead = false;
 	bool isAlliance = true;
+	bool isSitdown = false;
 	//  공격받았을 시 넉백 관련
 	Direction knockbackDirection = Direction::RIGHT;
 	float knockbackDelay = 0.5f;

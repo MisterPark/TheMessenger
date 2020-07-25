@@ -4,8 +4,8 @@
 
 RunKappa::RunKappa()
 {
-	hp = 10003;
-	speed = 20.f;
+	hp = 1;
+	speed = 150.f;
 	useGravity = true;
 	isAlliance = false;
 	simpleCollider = { -24,-48,24,0 };
@@ -51,16 +51,3 @@ void RunKappa::Render()
 	}
 }
 
-void RunKappa::OnCollision(GameObject* _other)
-{
-	if (dynamic_cast<Effect*>(_other))
-	{
-		Effect* effect = (Effect*)_other;
-		if (effect->isAlliance && effect->damageFlag)
-		{
-			TakeDamage(1);
-			isAttacked = true;
-			knockbackDirection = effect->direction;
-		}
-	}
-}

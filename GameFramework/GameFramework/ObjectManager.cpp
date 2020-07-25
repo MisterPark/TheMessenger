@@ -19,6 +19,9 @@
 #include "RunKappa.h"
 #include "Scurubu.h"
 #include "BlueBall.h"
+#include "RangedKappa.h"
+#include "Fireball.h"
+#include "ExplosionEffect.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -72,6 +75,12 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	case ObjectType::RUN_KAPPA:
 		pObj = new RunKappa;
 		break;
+	case ObjectType::FIRE_BALL:
+		pObj = new Fireball;
+		break;
+	case ObjectType::RANGED_KAPPA:
+		pObj = new RangedKappa;
+		break;
 	case ObjectType::SCURUBU:
 		pObj = new Scurubu;
 		break;
@@ -80,6 +89,9 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 		break;
 	case ObjectType::EFFECT:
 		pObj = new Effect;
+		break;
+	case ObjectType::EFFECT_EXPLOSION:
+		pObj = new ExplosionEffect;
 		break;
 	case ObjectType::UI:
 		pObj = new UI();

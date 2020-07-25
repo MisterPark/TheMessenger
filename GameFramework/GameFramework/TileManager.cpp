@@ -129,7 +129,7 @@ void TileManager::RenderMousePosition()
 	idx.y = (pt.y + Camera::GetY()) / dfTILE_H;
 
 	WCHAR wstr[64];
-	wsprintf(wstr, L"X:%d Y:%d (%d,%d) CX:%d CY:%d", pt.x, pt.y, idx.y, idx.x,Camera::GetX(),Camera::GetY());
+	wsprintf(wstr, L"X:%d Y:%d (%d,%d) CX:%d CY:%d CNT:%d", pt.x, pt.y, idx.y, idx.x,Camera::GetX(),Camera::GetY(),pTileManager->tileMap.size());
 	RenderManager::DrawString(wstr, 100, 0, RGB(254, 254, 254));
 }
 

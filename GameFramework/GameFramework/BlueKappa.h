@@ -1,5 +1,13 @@
 #pragma once
 #include "Monster.h"
+
+enum BlueKappaState
+{
+    BK_IDLE,
+    BK_READY,
+    BK_SHOOT,
+};
+
 class BlueKappa :
     public Monster
 {
@@ -9,11 +17,15 @@ public:
 
     virtual void Update() override;
     virtual void Render() override;
-    virtual void OnCollision(GameObject* _other);
+
+    void AnimationProcess();
 
     void ShootTheBlueBall();
 
+
+    BlueKappaState bkState = BK_IDLE;
     bool reloadingFlag = false;
+
 };
 
 

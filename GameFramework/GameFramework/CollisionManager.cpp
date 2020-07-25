@@ -38,6 +38,7 @@ void CollisionManager::Update()
 		for (auto dest : pCollisionManager->objectList)
 		{
 			if (src == dest) continue;
+			if (src->type == dest->type)continue;
 
 			if (CollisionManager::IsCollided(src, dest))
 			{
@@ -61,7 +62,7 @@ void CollisionManager::UpdateGravity()
 
 		target->gravityCount += 0.5f;
 		float gravityPower = target->gravityCount * dfGRAVITY * TimeManager::DeltaTime();
-		gravityPower = min(gravityPower, 15.f);
+		gravityPower = min(gravityPower, 25.f);
 		target->position.y += gravityPower;
 		if (target->gravityCount >2.f && target->jumpCount == 0)
 		{
