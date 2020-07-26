@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include "Player.h"
 #include "Monster.h"
+#include "LeafMonster.h"
 
 Tile::Tile()
 {
@@ -45,6 +46,11 @@ void Tile::OnCollision(GameObject* _other)
 	else if (dynamic_cast<Monster*>(_other))
 	{
 		if (_other->type == ObjectType::BLUE_BALL) return;
+		if (_other->type == ObjectType::LEAF_RING)return;
+		if (_other->type == ObjectType::LEAF_MONSTER)
+		{
+			if (dynamic_cast<LeafMonster*>(_other)->isNotPushed) return;
+		}
 		PushOut((Character*)_other, option);
 	}
 	

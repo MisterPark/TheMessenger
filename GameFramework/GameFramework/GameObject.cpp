@@ -71,6 +71,7 @@ void GameObject::FaceTarget()
 
 void GameObject::TakeDamage(int _damage)
 {
+	if (isImmortal)return;
 	hp -= _damage;
 
 	if (hp <= 0)
@@ -81,6 +82,16 @@ void GameObject::TakeDamage(int _damage)
 
 bool GameObject::KnockBack()
 {
+	if (isImmortal)
+	{
+		immotalTick += TimeManager::DeltaTime();
+		if (immotalTick > immotalDelay)
+		{
+			immotalTick = 0.f;
+			isImmortal = false;
+		}
+	}
+
 	if (isAttacked)
 	{
 		knockbackTick += TimeManager::DeltaTime();
@@ -102,6 +113,7 @@ bool GameObject::KnockBack()
 			position.y -= 150.f * TimeManager::DeltaTime();
 		}
 
+		isImmortal = true;
 		return true;
 	}
 

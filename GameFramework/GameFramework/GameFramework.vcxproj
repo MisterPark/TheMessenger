@@ -172,6 +172,8 @@
     <ClInclude Include="IScene.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LeafMonster.h" />
+    <ClInclude Include="LeafRing.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MemoryPool.h" />
@@ -225,6 +227,8 @@
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LeafMonster.cpp" />
+    <ClCompile Include="LeafRing.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Monster.cpp" />

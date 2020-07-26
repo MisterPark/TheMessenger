@@ -20,6 +20,8 @@ enum class ObjectType
 	RANGED_KAPPA,
 	SCURUBU,
 	PLAYER,
+	LEAF_RING,
+	LEAF_MONSTER,
 	EFFECT,
 	EFFECT_EXPLOSION,
 
@@ -79,6 +81,8 @@ public:
 	float knockbackTick = 0.f;
 	bool isAttacked = false;
 	bool isImmortal = false;
+	float immotalDelay = 0.5f;
+	float immotalTick = 0.f;
 
 	//스프라이트 관련
 	Animation* anim = nullptr;

@@ -16,6 +16,7 @@ void EditScene::OnLoaded()
 
 	Player* p = (Player*)ObjectManager::CreateObject(ObjectType::PLAYER);
 	p->useGravity = false;
+	p->isEnable = false;
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);
 
 }
@@ -99,11 +100,11 @@ void EditScene::Update()
 	}
 	if (InputManager::GetKeyDown('S'))
 	{
-		TileManager::Save("TileData.dat");
+		TileManager::Save("Stage2_5.dat");
 	}
 	if (InputManager::GetKeyDown('L'))
 	{
-		TileManager::Load("TileData.dat");
+		TileManager::Load("Stage2_5.dat");
 	}
 	
 	if (InputManager::GetKeyDown('1'))

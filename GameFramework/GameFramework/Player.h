@@ -18,13 +18,19 @@ enum class Command
 
 class Player : public Character
 {
-public:
+private:
 	Player();
 	virtual ~Player();
+
+public:
+	static Player* GetInstance();
+	static void Release();
+	static void RenderPlayerInfo();
 
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void OnCollision(GameObject* _other);
+	virtual void Die() override;
 
 	void StickAnimationProcess();
 	void AnimationProcess();
@@ -50,5 +56,6 @@ public:
 	bool stickFlag = false;
 	Direction stickDirection = Direction::LEFT;
 	int stickMaxY = 0;
+	int score = 0;
 };
 

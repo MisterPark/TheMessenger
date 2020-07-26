@@ -4,6 +4,7 @@
 
 using namespace std;
 
+class Player;
 
 class ObjectManager
 {
@@ -30,4 +31,5 @@ public:
 private:
 	list<GameObject*>objectTable[MaxOfEnum<ObjectType>()];
 	bool isVisibleCollider = false;
+	Player* player = nullptr;
 };

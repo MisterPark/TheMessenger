@@ -48,11 +48,12 @@ void MainGame::Initialize()
 	TimeManager::GetInstance();
 	TimeManager::SetFrame(dfFPS);
 
+	CollisionManager::GetInstance();
 	InputManager::GetInstance();
 	ObjectManager::GetInstance();
 	RenderManager::GetInstance();
 	SceneManager::GetInstance();
-	CollisionManager::GetInstance();
+	
 	Camera::GetInstance();
 	TileManager::GetInstance();
 	FileManager::GetInstance();
@@ -256,6 +257,87 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION5, "Sprites\\Effect\\ExplosionEffect_05.bmp", 15, 15);
 	RenderManager::LoadSprite(SpriteIndex::EFFECT_EXPLOSION6, "Sprites\\Effect\\ExplosionEffect_06.bmp", 15, 15);
 	
+	RenderManager::LoadSprite(SpriteIndex::HUD_HP_01, "Sprites\\UI\\HP_HUD_01.bmp", 0, 0);
+	RenderManager::LoadSprite(SpriteIndex::HUD_HP_02, "Sprites\\UI\\HP_HUD_02.bmp", 0, 0);
+	RenderManager::LoadSprite(SpriteIndex::HUD_CRISTAL, "Sprites\\UI\\Crystal_HUD.bmp", 0, 0);
+
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_01, "Sprites\\Boss\\LeafMonsterL_01.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_02, "Sprites\\Boss\\LeafMonsterL_02.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_03, "Sprites\\Boss\\LeafMonsterL_03.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_04, "Sprites\\Boss\\LeafMonsterL_04.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_05, "Sprites\\Boss\\LeafMonsterL_05.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_06, "Sprites\\Boss\\LeafMonsterL_06.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_07, "Sprites\\Boss\\LeafMonsterL_07.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_08, "Sprites\\Boss\\LeafMonsterL_08.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_09, "Sprites\\Boss\\LeafMonsterL_09.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_10, "Sprites\\Boss\\LeafMonsterL_10.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_11, "Sprites\\Boss\\LeafMonsterL_11.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_12, "Sprites\\Boss\\LeafMonsterL_12.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_13, "Sprites\\Boss\\LeafMonsterL_13.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_14, "Sprites\\Boss\\LeafMonsterL_14.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_15, "Sprites\\Boss\\LeafMonsterL_15.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_16, "Sprites\\Boss\\LeafMonsterL_16.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_17, "Sprites\\Boss\\LeafMonsterL_17.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_18, "Sprites\\Boss\\LeafMonsterL_18.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_19, "Sprites\\Boss\\LeafMonsterL_19.bmp",60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_BORN_20, "Sprites\\Boss\\LeafMonsterL_20.bmp",60,120);
+
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_L1, "Sprites\\Boss\\LeafMonsterL_21.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_L2, "Sprites\\Boss\\LeafMonsterL_22.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_L3, "Sprites\\Boss\\LeafMonsterL_23.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_L4, "Sprites\\Boss\\LeafMonsterL_24.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_R1, "Sprites\\Boss\\LeafMonsterR_24.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_R2, "Sprites\\Boss\\LeafMonsterR_23.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_R3, "Sprites\\Boss\\LeafMonsterR_22.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_IDLE_R4, "Sprites\\Boss\\LeafMonsterR_21.bmp", 60,120);
+
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_L1, "Sprites\\Boss\\LeafMonsterL_25.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_L2, "Sprites\\Boss\\LeafMonsterL_26.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_L3, "Sprites\\Boss\\LeafMonsterL_27.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_L4, "Sprites\\Boss\\LeafMonsterL_28.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_R1, "Sprites\\Boss\\LeafMonsterR_28.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_R2, "Sprites\\Boss\\LeafMonsterR_27.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_R3, "Sprites\\Boss\\LeafMonsterR_26.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_WALK_R4, "Sprites\\Boss\\LeafMonsterR_25.bmp", 60,120);
+
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_L1, "Sprites\\Boss\\LeafMonsterL_29.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_L2, "Sprites\\Boss\\LeafMonsterL_30.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_L3, "Sprites\\Boss\\LeafMonsterL_31.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_L4, "Sprites\\Boss\\LeafMonsterL_33.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_R1, "Sprites\\Boss\\LeafMonsterR_32.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_R2, "Sprites\\Boss\\LeafMonsterR_31.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_R3, "Sprites\\Boss\\LeafMonsterR_30.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_JUMP_R4, "Sprites\\Boss\\LeafMonsterR_36.bmp", 60,120);
+
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_L1, "Sprites\\Boss\\LeafMonsterL_34.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_L2, "Sprites\\Boss\\LeafMonsterL_35.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_L3, "Sprites\\Boss\\LeafMonsterL_36.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_L4, "Sprites\\Boss\\LeafMonsterL_37.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_R1, "Sprites\\Boss\\LeafMonsterR_35.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_R2, "Sprites\\Boss\\LeafMonsterR_34.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_R3, "Sprites\\Boss\\LeafMonsterR_33.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK1_R4, "Sprites\\Boss\\LeafMonsterR_40.bmp", 60,120);
+	
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_L1, "Sprites\\Boss\\LeafMonsterL_45.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_L2, "Sprites\\Boss\\LeafMonsterL_46.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_L3, "Sprites\\Boss\\LeafMonsterL_47.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_L4, "Sprites\\Boss\\LeafMonsterL_48.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_L5, "Sprites\\Boss\\LeafMonsterL_49.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_R1, "Sprites\\Boss\\LeafMonsterR_48.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_R2, "Sprites\\Boss\\LeafMonsterR_47.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_R3, "Sprites\\Boss\\LeafMonsterR_46.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_R4, "Sprites\\Boss\\LeafMonsterR_45.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACK2_R5, "Sprites\\Boss\\LeafMonsterR_52.bmp", 60,120);
+
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACKED_L1, "Sprites\\Boss\\LeafMonsterL_38.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACKED_L2, "Sprites\\Boss\\LeafMonsterL_39.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACKED_R1, "Sprites\\Boss\\LeafMonsterR_39.bmp", 60,120);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_ATTACKED_R2, "Sprites\\Boss\\LeafMonsterR_38.bmp", 60,120);
+
+	RenderManager::LoadSprite(SpriteIndex::LEAF_RING_01, "Sprites\\Boss\\LeafMonsterZ_01.bmp",60,60);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_RING_02, "Sprites\\Boss\\LeafMonsterZ_02.bmp",60,60);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_RING_03, "Sprites\\Boss\\LeafMonsterZ_03.bmp",60,60);
+	RenderManager::LoadSprite(SpriteIndex::LEAF_RING_04, "Sprites\\Boss\\LeafMonsterZ_04.bmp",60,60);
 
 	SceneManager::LoadScene<IntroScene>();
 }

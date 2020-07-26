@@ -56,12 +56,17 @@ void TitleScene::Update()
 	{
 		EditMode();
 	}
+
+	if (InputManager::GetKeyDown('T'))
+	{
+		SceneManager::LoadScene<PlayScene>();
+	}
 }
 
 void TitleScene::Start()
 {
-	//SceneManager::LoadScene<Stage2>();
-	SceneManager::LoadScene<PlayScene>();
+	SceneManager::LoadScene<Stage2_5>();
+	//SceneManager::LoadScene<PlayScene>();
 }
 
 void TitleScene::Option()

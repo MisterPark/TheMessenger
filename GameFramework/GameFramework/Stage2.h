@@ -31,3 +31,34 @@ public:
 	GameObject* player = nullptr;
 };
 
+class Stage2_3 : public IScene
+{
+public:
+	virtual void OnLoaded() override;
+	virtual void OnUnloaded() override;
+	virtual void Update() override;
+
+	GameObject* player = nullptr;
+};
+
+
+class Stage2_4 : public IScene
+{
+public:
+	virtual void OnLoaded() override;
+	virtual void OnUnloaded() override;
+	virtual void Update() override;
+
+	GameObject* player = nullptr;
+};
+
+class Stage2_5 : public IScene
+{
+public:
+	virtual void OnLoaded() override;
+	virtual void OnUnloaded() override;
+	virtual void Update() override;
+
+	GameObject* player = nullptr;
+};
+

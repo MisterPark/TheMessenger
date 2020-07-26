@@ -92,6 +92,7 @@ void Camera::FollowTarget()
 
 
 	pCamera->position.x = pCamera->target->position.x - (RenderManager::GetWidth() / 2);
+	pCamera->position.y = pCamera->target->position.y - (RenderManager::GetHeight() / 2);
 
 	if (pCamera->position.x < pCamera->minPos.x)
 	{
@@ -100,5 +101,14 @@ void Camera::FollowTarget()
 	else if (pCamera->position.x > pCamera->maxPos.x)
 	{
 		pCamera->position.x = pCamera->maxPos.x;
+	}
+
+	if (pCamera->position.y < pCamera->minPos.y)
+	{
+		pCamera->position.y = pCamera->minPos.y;
+	}
+	else if (pCamera->position.y > pCamera->maxPos.y)
+	{
+		pCamera->position.y = pCamera->maxPos.y;
 	}
 }

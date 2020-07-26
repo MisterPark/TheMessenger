@@ -22,12 +22,16 @@
 #include "RangedKappa.h"
 #include "Fireball.h"
 #include "ExplosionEffect.h"
+#include "LeafMonster.h"
+#include "LeafRing.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
 
 ObjectManager::ObjectManager()
 {
+	player = Player::GetInstance();
+	CollisionManager::RegisterObject(player);
 	BackGround::GetInstance();
 	SkyBox::GetInstance();
 	SkyBox2::GetInstance();
@@ -35,6 +39,9 @@ ObjectManager::ObjectManager()
 
 ObjectManager::~ObjectManager()
 {
+	Player::Release();
+	player = nullptr;
+	CollisionManager::DisregisterObject(player);
 	BackGround::Release();
 	SkyBox::Release();
 	SkyBox2::Release();
@@ -85,7 +92,12 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 		pObj = new Scurubu;
 		break;
 	case ObjectType::PLAYER:
-		pObj = new Player();
+		return Player::GetInstance();
+	case ObjectType::LEAF_RING:
+		pObj = new LeafRing;
+		break;
+	case ObjectType::LEAF_MONSTER:
+		pObj = new LeafMonster;
 		break;
 	case ObjectType::EFFECT:
 		pObj = new Effect;
@@ -190,6 +202,7 @@ void ObjectManager::Update()
 	BackGround::GetInstance()->Update();
 	SkyBox::GetInstance()->Update();
 	SkyBox2::GetInstance()->Update();
+	Player::GetInstance()->Update();
 
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)
@@ -243,6 +256,7 @@ void ObjectManager::Render()
 	BackGround::GetInstance()->Render();
 	SkyBox::GetInstance()->Render();
 	SkyBox2::GetInstance()->Render();
+	Player::GetInstance()->Render();
 
 	auto& objTable = pObjectManager->objectTable;
 	for (auto& objList : objTable)
@@ -256,6 +270,7 @@ void ObjectManager::Render()
 
 	// 디버그용
 	TimeManager::RenderFPS();
+	Player::RenderPlayerInfo();
 }
 
 bool ObjectManager::IsVisibleCollider()

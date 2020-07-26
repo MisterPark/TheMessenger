@@ -31,7 +31,7 @@ void Fireball::Update()
 	lifeTick += TimeManager::DeltaTime();
 	if (lifeTick > lifeTime)
 	{
-		//Die();
+		Die();
 	}
 }
 
@@ -50,6 +50,6 @@ void Fireball::OnCollision(GameObject* _other)
 {
 	if (_other->type == ObjectType::TILE)
 	{
-		//Die();
+		Die();
 	}
 }

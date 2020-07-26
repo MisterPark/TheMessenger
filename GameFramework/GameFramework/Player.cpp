@@ -5,13 +5,17 @@
 #include "Effect.h"
 #include "Monster.h"
 
+Player* pPlayer = nullptr;
+
 Player::Player()
 {
 	// 정보
-	hp = 1000;
+	hp = 10;
 	position = { 30,250 };
 	speed = 200.f;
 	useGravity = true;
+	isVisible = false;
+	isEnable = false;
 
 	simpleCollider = idleCollider;
 	direction = Direction::RIGHT;
@@ -31,12 +35,49 @@ Player::~Player()
 	delete anim2;
 }
 
+Player* Player::GetInstance()
+{
+	if (pPlayer == nullptr)
+	{
+		pPlayer = new Player;
+	}
+	return pPlayer;
+}
+
+void Player::Release()
+{
+	delete pPlayer;
+}
+
+void Player::RenderPlayerInfo()
+{
+	WCHAR wstr[8];
+	wsprintf(wstr, L"%d", pPlayer->score);
+	//RenderManager::DrawString(wstr, 50, 0, RGB(255, 0, 0));
+	for (int i = 0; i < 10; i++)
+	{
+		if (pPlayer->hp > i)
+		{
+			RenderManager::DrawSprite(SpriteType::NORMAL, SpriteIndex::HUD_HP_01, 30 + i * 6, 5);
+		}
+		else
+		{
+			RenderManager::DrawSprite(SpriteType::NORMAL, SpriteIndex::HUD_HP_02, 30 + i * 6, 5);
+		}
+	}
+	
+	RenderManager::DrawString(wstr, 600, 5, RGB(254, 254, 254));
+	RenderManager::DrawSprite(SpriteType::NORMAL, SpriteIndex::HUD_CRISTAL, 620, 5);
+}
+
 void Player::Update()
 {
+	if (isEnable == false) return;
 	isSitdown = false;
 	useGravity = true;
 	command = Command::NONE;
 
+	
 	if (KnockBack())
 	{
 		if (knockbackDirection == Direction::LEFT)
@@ -54,6 +95,8 @@ void Player::Update()
 		anim2->Update();
 		return;
 	}
+
+	
 
 	if (stickFlag)
 	{
@@ -93,18 +136,18 @@ void Player::Update()
 
 		if (InputManager::GetKeyDown('C'))
 		{
-			// 이구간 좀 변경해야할 듯 ( 점프 애니메이션도 재생 안하고) 점프하면 조금 위로 올라가야함
-			if (stickDirection == Direction::LEFT)
+			stickFlag = false;
+			Jump();
+			anim->SetLoop(false);
+			if (direction == Direction::LEFT)
 			{
-				position.x -= 10;
+				anim->SetAnimation(SpriteIndex::PLAYER_JUMP_L1, SpriteIndex::PLAYER_JUMP_L6);
 			}
 			else
 			{
-				position.x += 10;
+				anim->SetAnimation(SpriteIndex::PLAYER_JUMP_R1, SpriteIndex::PLAYER_JUMP_R6);
 			}
-			gravityCount = 0;
-			//Jump();
-			stickFlag = false;
+			anim2->SetAnimation(SpriteIndex::NONE);
 		}
 		
 		StickAnimationProcess();
@@ -155,6 +198,8 @@ void Player::Update()
 
 void Player::Render()
 {
+	if (isVisible == false) return;
+
 	Transform pos = GetPositionFromCamera();
 	RenderManager::DrawSprite(SpriteType::NORMAL, anim->GetCurrentSpriteIndex(), pos.x, pos.y);
 	RenderManager::DrawSprite(SpriteType::NORMAL, anim2->GetCurrentSpriteIndex(), pos.x, pos.y);
@@ -219,6 +264,11 @@ void Player::OnCollision(GameObject* _other)
 			
 		}
 	}
+}
+
+void Player::Die()
+{
+	isDead = true;
 }
 
 
@@ -400,11 +450,11 @@ void Player::AnimationProcess()
 		anim->SetLoop(false);
 		if (direction == Direction::LEFT)
 		{
-			anim->SetAnimation(SpriteIndex::PLAYER_JUMP_L1, SpriteIndex::PLAYER_JUMP_L6);
+			anim->SetAnimation(SpriteIndex::PLAYER_JUMP_L1, SpriteIndex::PLAYER_JUMP_L5);
 		}
 		else
 		{
-			anim->SetAnimation(SpriteIndex::PLAYER_JUMP_R1, SpriteIndex::PLAYER_JUMP_R6);
+			anim->SetAnimation(SpriteIndex::PLAYER_JUMP_R1, SpriteIndex::PLAYER_JUMP_R5);
 		}
 		anim2->SetAnimation(SpriteIndex::NONE);
 		break;
