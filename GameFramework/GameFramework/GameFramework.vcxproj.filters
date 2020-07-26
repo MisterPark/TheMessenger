@@ -52,6 +52,9 @@
     <Filter Include="GameObject\Character\Monster\Boss">
       <UniqueIdentifier>{a6d837d8-0473-42d5-9e02-d87d7a6cc5fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Character\Item">
+      <UniqueIdentifier>{7ee858d7-d3db-4c66-b903-f774713ffb60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -216,8 +219,20 @@
     <ClInclude Include="LeafMonster.h">
       <Filter>GameObject\Character\Monster\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="MultiExplosionEffect.h">
+      <Filter>GameObject\Character\Effect</Filter>
+    </ClInclude>
     <ClInclude Include="LeafRing.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>GameObject\Character\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CrystalItem.h">
+      <Filter>GameObject\Character\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HPItem.h">
+      <Filter>GameObject\Character\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -362,8 +377,20 @@
     <ClCompile Include="LeafMonster.cpp">
       <Filter>GameObject\Character\Monster\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="MultiExplosionEffect.cpp">
+      <Filter>GameObject\Character\Effect</Filter>
+    </ClCompile>
     <ClCompile Include="LeafRing.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>GameObject\Character\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CrystalItem.cpp">
+      <Filter>GameObject\Character\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HPItem.cpp">
+      <Filter>GameObject\Character\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

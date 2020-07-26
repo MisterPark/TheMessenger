@@ -51,6 +51,7 @@ void Player::Release()
 
 void Player::RenderPlayerInfo()
 {
+	if (!pPlayer->isVisible) return;
 	WCHAR wstr[8];
 	wsprintf(wstr, L"%d", pPlayer->score);
 	//RenderManager::DrawString(wstr, 50, 0, RGB(255, 0, 0));
@@ -219,8 +220,7 @@ void Player::OnCollision(GameObject* _other)
 		isAttacked = true;
 		knockbackDirection = _other->direction;
 	}
-
-	if (_other->type == ObjectType::TILE)
+	else if (_other->type == ObjectType::TILE)
 	{
 		Tile* tile = dynamic_cast<Tile*>(_other);
 		if (tile->option & dfTILE_OPTION_STICK)
@@ -262,6 +262,22 @@ void Player::OnCollision(GameObject* _other)
 			}
 			
 			
+		}
+	}
+	else if (_other->type == ObjectType::ITEM_CRYSTAL)
+	{
+		if (!_other->isDead)
+		{
+			this->score++;
+			_other->isDead = true;
+		}
+	}
+	else if (_other->type == ObjectType::ITEM_HP)
+	{
+		if (!_other->isDead)
+		{
+			this->hp = 10;
+			_other->isDead = true;
 		}
 	}
 }

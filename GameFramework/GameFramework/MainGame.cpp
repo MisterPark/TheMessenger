@@ -339,6 +339,22 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::LEAF_RING_03, "Sprites\\Boss\\LeafMonsterZ_03.bmp",60,60);
 	RenderManager::LoadSprite(SpriteIndex::LEAF_RING_04, "Sprites\\Boss\\LeafMonsterZ_04.bmp",60,60);
 
+	RenderManager::LoadSprite(SpriteIndex::ITEM_CRYSTAL_01, "Sprites\\Item\\Crystal_01.bmp", 10, 10);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_CRYSTAL_02, "Sprites\\Item\\Crystal_02.bmp", 10, 10);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_CRYSTAL_03, "Sprites\\Item\\Crystal_03.bmp", 10, 10);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_CRYSTAL_04, "Sprites\\Item\\Crystal_04.bmp", 10, 10);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_CRYSTAL_05, "Sprites\\Item\\Crystal_05.bmp", 10, 10);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_CRYSTAL_06, "Sprites\\Item\\Crystal_06.bmp", 10, 10);
+
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_01, "Sprites\\Item\\HP_Item_01.bmp", 16, 32);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_02, "Sprites\\Item\\HP_Item_02.bmp", 16, 32);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_03, "Sprites\\Item\\HP_Item_03.bmp", 16, 32);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_04, "Sprites\\Item\\HP_Item_04.bmp", 16, 32);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_05, "Sprites\\Item\\HP_Item_05.bmp", 16, 32);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_06, "Sprites\\Item\\HP_Item_06.bmp", 16, 32);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_07, "Sprites\\Item\\HP_Item_07.bmp", 16, 32);
+	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_08, "Sprites\\Item\\HP_Item_08.bmp", 16, 32);
+
 	SceneManager::LoadScene<IntroScene>();
 }
 

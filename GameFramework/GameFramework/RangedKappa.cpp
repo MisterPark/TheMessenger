@@ -6,7 +6,7 @@ RangedKappa::RangedKappa()
 {
 	hp = 3;
 	speed = 20.f;
-	attackDelay = 2.f;
+	attackDelay = 1.f;
 	attackRange = 300;
 	useGravity = true;
 	isAlliance = false;

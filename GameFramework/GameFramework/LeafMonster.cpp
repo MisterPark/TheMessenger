@@ -216,8 +216,8 @@ void LeafMonster::OnCollision(GameObject* _other)
 				ObjectManager::DestroyAll(ObjectType::LEAF_RING);
 				int w, h;
 				RenderManager::GetSpriteSize(anim->GetCurrentSpriteIndex(), &w, &h);
-				GameObject* effect = ObjectManager::CreateObject(ObjectType::EFFECT_EXPLOSION);
-				effect->SetPosition(position.x, position.y - (h / 2));
+				GameObject* effect = ObjectManager::CreateObject(ObjectType::EFFECT_MULTI_EXPLOSION);
+				effect->SetPosition(position.x, position.y - 40);
 			}
 		}
 	}

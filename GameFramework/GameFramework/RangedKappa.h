@@ -19,7 +19,7 @@ public:
 
     bool isShoot = false;
     float waitTick = 0.f;
-    float waitDelay = 3.f;
+    float waitDelay = 2.f;
     bool fireOnceFlag = false;
 };
 

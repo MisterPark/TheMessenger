@@ -24,6 +24,9 @@
 #include "ExplosionEffect.h"
 #include "LeafMonster.h"
 #include "LeafRing.h"
+#include "MultiExplosionEffect.h"
+#include "CrystalItem.h"
+#include "HPItem.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -91,6 +94,12 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	case ObjectType::SCURUBU:
 		pObj = new Scurubu;
 		break;
+	case ObjectType::ITEM_CRYSTAL:
+		pObj = new CrystalItem;
+		break;
+	case ObjectType::ITEM_HP:
+		pObj = new HPItem;
+		break;
 	case ObjectType::PLAYER:
 		return Player::GetInstance();
 	case ObjectType::LEAF_RING:
@@ -104,6 +113,9 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 		break;
 	case ObjectType::EFFECT_EXPLOSION:
 		pObj = new ExplosionEffect;
+		break;
+	case ObjectType::EFFECT_MULTI_EXPLOSION:
+		pObj = new MultiExplosionEffect;
 		break;
 	case ObjectType::UI:
 		pObj = new UI();

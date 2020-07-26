@@ -7,6 +7,7 @@
 #include "SkyBox.h"
 #include "SelectBox.h"
 #include "Stage2.h"
+#include "Player.h"
 
 TitleScene::TitleScene()
 {
@@ -25,6 +26,10 @@ void TitleScene::OnLoaded()
 	BackGround::SetAnimation(SpriteIndex::TITLE_BG);
 	SkyBox::SetAnimation(SpriteIndex::NONE,SpriteIndex::NONE);
 	ObjectManager::CreateObject(ObjectType::LOGO);
+
+	Player::GetInstance()->isVisible = false;
+	Player::GetInstance()->isEnable = false;
+
 	pSelectBox = (SelectBox*)ObjectManager::CreateObject(ObjectType::SELECT_BOX);
 	pSelectBox->AddSelector(L"시작", Start);
 	pSelectBox->AddSelector(L"옵션", Option);
@@ -65,8 +70,7 @@ void TitleScene::Update()
 
 void TitleScene::Start()
 {
-	SceneManager::LoadScene<Stage2_5>();
-	//SceneManager::LoadScene<PlayScene>();
+	SceneManager::LoadScene<Stage2>();
 }
 
 void TitleScene::Option()
