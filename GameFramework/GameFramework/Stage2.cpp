@@ -577,7 +577,7 @@ void Stage2_5::Update()
 	if (player->hp <= 0)
 	{
 		player->hp = 10;
-		SceneManager::LoadScene<GameOverScene>();
+		SceneManager::LoadScene<Stage2_3>();
 	}
 	if (player->position.x > 640 * 1 - 20)
 	{
