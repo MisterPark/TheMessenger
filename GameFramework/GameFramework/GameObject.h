@@ -34,6 +34,7 @@ enum class ObjectType
 	HUD_BAR,
 	
 	LABEL,
+	ENDING_CREDIT,
 	END
 };
 

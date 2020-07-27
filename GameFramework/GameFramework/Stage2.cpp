@@ -18,6 +18,9 @@ void Stage2::OnLoaded()
 	SkyBox::GetInstance()->SetPosition(0, 0);
 	SkyBox::SetAnimation(SpriteIndex::STAGE2_BG1, SpriteIndex::STAGE2_BG1);
 	SkyBox2::SetAnimation(SpriteIndex::STAGE2_BG2, SpriteIndex::STAGE2_BG2);
+	// BGM
+	SoundManager::GetInstance()->StopAll();
+	SoundManager::GetInstance()->PlayBGM((WCHAR*)L"bgm.mp3");
 	// 오브젝트
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);
 	player = ObjectManager::CreateObject(ObjectType::PLAYER);
@@ -540,6 +543,9 @@ void Stage2_5::OnLoaded()
 	SkyBox::GetInstance()->SetPosition(0, 0);
 	SkyBox::SetAnimation(SpriteIndex::NONE, SpriteIndex::NONE);
 	SkyBox2::SetAnimation(SpriteIndex::NONE, SpriteIndex::NONE);
+	// BGM
+	SoundManager::GetInstance()->StopAll();
+	SoundManager::GetInstance()->PlayBGM((WCHAR*)L"bossBGM.mp3");
 	// 오브젝트
 	ObjectManager::CreateObject(ObjectType::HUD_BAR);
 	player = ObjectManager::CreateObject(ObjectType::PLAYER);

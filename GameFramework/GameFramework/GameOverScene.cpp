@@ -15,8 +15,13 @@ void GameOverScene::OnLoaded()
 	BackGround::SetAnimation(SpriteIndex::GAMEOVER1,SpriteIndex::GAMEOVER2);
 	SkyBox::SetAnimation(SpriteIndex::NONE, SpriteIndex::NONE);
 
+	SoundManager::GetInstance()->StopAll();
+
 	Player::GetInstance()->isVisible = false;
 	Player::GetInstance()->isEnable = false;
+
+	ObjectManager::CreateObject(ObjectType::ENDING_CREDIT);
+	
 }
 
 void GameOverScene::OnUnloaded()

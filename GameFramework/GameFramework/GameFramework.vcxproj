@@ -72,6 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\gg949\Documents\TheMessenger\GameFramework\GameFramework\fMode;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\gg949\Documents\TheMessenger\GameFramework\GameFramework\fMode;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -159,10 +161,18 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="EditScene.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EndingCredit.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExplosionEffect.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Fireball.h" />
+    <ClInclude Include="fmod.h" />
+    <ClInclude Include="fmod.hpp" />
+    <ClInclude Include="fmod_codec.h" />
+    <ClInclude Include="fmod_dsp.h" />
+    <ClInclude Include="fmod_errors.h" />
+    <ClInclude Include="fmod_memoryinfo.h" />
+    <ClInclude Include="fmod_output.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
@@ -198,6 +208,7 @@
     <ClInclude Include="SelectBox.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SkyBox2.h" />
+    <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
@@ -219,6 +230,7 @@
     <ClCompile Include="CrystalItem.cpp" />
     <ClCompile Include="EditScene.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EndingCredit.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="FileManager.cpp" />
@@ -259,6 +271,7 @@
     <ClCompile Include="SelectBox.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SkyBox2.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />
@@ -272,6 +285,13 @@
   <ItemGroup>
     <Image Include="GameFramework.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fmodex.dll" />
+    <None Include="fmodexL.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="fmodex_vc.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

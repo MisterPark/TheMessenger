@@ -8,6 +8,7 @@
 #include "SelectBox.h"
 #include "Stage2.h"
 #include "Player.h"
+#include "GameOverScene.h"
 
 TitleScene::TitleScene()
 {

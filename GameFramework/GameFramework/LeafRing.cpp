@@ -4,7 +4,7 @@
 LeafRing::LeafRing()
 {
 	hp = 10003;
-	speed = 150.f;
+	speed = 300.f;
 	useGravity = false;
 	isAlliance = false;
 	simpleCollider = { -30, -20, 30, 20 };

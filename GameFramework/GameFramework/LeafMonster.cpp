@@ -213,6 +213,7 @@ void LeafMonster::OnCollision(GameObject* _other)
 
 			if (hp <= 0)
 			{
+				SoundManager::GetInstance()->StopAll();
 				ObjectManager::DestroyAll(ObjectType::LEAF_RING);
 				int w, h;
 				RenderManager::GetSpriteSize(anim->GetCurrentSpriteIndex(), &w, &h);

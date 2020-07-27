@@ -23,6 +23,7 @@
 #include <list>
 #include <type_traits>
 #include <direct.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -45,5 +46,13 @@ using namespace std;
 extern HWND g_hwnd;
 
 #include "framework.h"
+
+#include <io.h>
+
+#pragma comment(lib, "fmodex_vc.lib")
+#include "fmod.h"
+#include "SoundMgr.h"
+
+
 
 #endif //PCH_H

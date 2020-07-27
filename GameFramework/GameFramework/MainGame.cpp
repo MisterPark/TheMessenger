@@ -58,6 +58,8 @@ void MainGame::Initialize()
 	TileManager::GetInstance();
 	FileManager::GetInstance();
 
+	SoundManager::GetInstance()->Initialize();
+
 	RenderManager::LoadSprite(SpriteIndex::STAGE1_TILE_SET, "Sprites\\Stage1\\NinjaVillageTileset_8.bmp", 0, 0);
 	RenderManager::LoadSprite(SpriteIndex::STAGE2_TILE_SET, "Sprites\\Stage2\\AutumnHillsTileset_8.bmp", 0, 0);
 
@@ -355,6 +357,8 @@ void MainGame::Initialize()
 	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_07, "Sprites\\Item\\HP_Item_07.bmp", 16, 32);
 	RenderManager::LoadSprite(SpriteIndex::ITEM_HP_08, "Sprites\\Item\\HP_Item_08.bmp", 16, 32);
 
+	
+
 	SceneManager::LoadScene<IntroScene>();
 }
 
@@ -369,6 +373,8 @@ void MainGame::Release()
 	Camera::Release();
 	TileManager::Release();
 	FileManager::Release();
+
+	SoundManager::DestroyInstance();
 }
 
 void MainGame::Run()

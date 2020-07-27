@@ -45,7 +45,7 @@ void Monster::SetSpawnPosition(int x, int y)
 	spawnPos.y = y;
 	position.x = x;
 	position.y = y;
-	backAndForthPos.x = x+100;
+	backAndForthPos.x = x+50;
 	backAndForthPos.y = y;
 }
 

@@ -27,6 +27,7 @@
 #include "MultiExplosionEffect.h"
 #include "CrystalItem.h"
 #include "HPItem.h"
+#include "EndingCredit.h"
 
 ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
@@ -132,6 +133,9 @@ GameObject * ObjectManager::CreateObject(ObjectType _type)
 	
 	case ObjectType::LABEL:
 		pObj = new Label;
+		break;
+	case ObjectType::ENDING_CREDIT:
+		pObj = new EndingCredit;
 		break;
 	default:
 		return nullptr;

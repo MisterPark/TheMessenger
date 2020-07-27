@@ -78,6 +78,10 @@ void Player::Update()
 	useGravity = true;
 	command = Command::NONE;
 
+	if (InputManager::GetKeyDown('H'))
+	{
+		hp++;
+	}
 	
 	if (KnockBack())
 	{
